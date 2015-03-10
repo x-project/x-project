@@ -1,15 +1,30 @@
 <link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="../x-header/x-header.html">
+<link rel="import" href="../x-footer/x-footer.html">
 <link rel="import" href="x-login-form.html">
 <polymer-element name="page-login">
   <template>
-    <div>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .page {
+        margin-top: 50px;
+      }
+    </style>
+
+    <x-header></x-header>
+    <div class="page container">
+      <h1>Login</h1>
       <a is="x-link" href="/">Back</a>
+      <x-login-form></x-login-form>
+      <div>
+        <a is="x-link" href="/models">go to models</a>
+      </div>
     </div>
-    <h1>Login</h1>
-    <x-login-form></x-login-form>
-    <div>
-      <a is="x-link" href="/models">go to models</a>
-    </div>
+    <x-footer></x-footer>
+
   </template>
   <script>
     Polymer('page-login', {

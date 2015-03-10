@@ -1,19 +1,26 @@
 <link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="../x-header/x-header.html">
+<link rel="import" href="../x-footer/x-footer.html">
 <link rel="import" href="../x-post/x-post.html">
 <polymer-element name="page-post" attributes="Id">
   <template>
     <style>
-      div{
-        padding-top: 30px;
+      :host {
+        display: block;
+      }
+
+      .page {
+        margin-top: 50px;
       }
     </style>
 
     <core-ajax auto url="/api/posts/{{ Id }}" handleAs="json" on-core-response="{{ on_response }}"></core-ajax>
+
     <x-header></x-header>
-    <div>
+    <div class="page container">
       <x-post id="post"></x-post>
+      <a href="/blog">Back</a>
     </div>
-    <a href="/blog">Back</a>
     <x-footer></x-footer>
 
   </template>

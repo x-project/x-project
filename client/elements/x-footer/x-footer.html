@@ -9,14 +9,16 @@
     </style>
 
     <div id="footer" class="container">
-      Made by {{ developer }} in {{ country }}
+      <div class="text-right">
+        Made by <span>{{ maker }}</span> in <span>{{ country }}</span>
+      </div>
     </div>
 
   </template>
   <script>
     Polymer ('x-footer', {
 
-      developer: 'X-TEAM',
+      maker: 'CVDLAB',
 
       country: 'Italy',
 

@@ -41,10 +41,6 @@
       </template>
     </ol>
 
-    <div>
-      <a is="x-link" href="/models">Back</a>
-    </div>
-    <button id="logout" on-click="{{ log_out }}">Logout</button>
   </template>
   <script>
     Polymer('x-instance-list', {
@@ -71,12 +67,6 @@
 
       on_insert: function() {
         page("/item/"+this.modelSingularized+"");
-      },
-
-      log_out: function (){
-        User.logout(app.accessToken, function (err) {
-          console.log(err || 'Logged out');
-        });
       }
 
     });

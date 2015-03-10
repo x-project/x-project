@@ -4,11 +4,10 @@ app.logged;
 
 var open = function (page_name, must_logged) {
   return function (context) {
-    console.log(app.logged);
-    if (must_logged && !app.logged) {
-      page('/login');
-      return;
-    }
+    // if (must_logged && !app.logged) {
+    //   page('/login');
+    //   return;
+    // }
     var params = context.params;
     var property;
     var element = document.createElement(page_name);
@@ -46,7 +45,7 @@ var start = function () {
   page('/', open('page-home', false));
   page('/login', open('page-login', false));
   page('/models', open('page-schema-list', true));
-  page('/models/Users', open('page-users-list', true));
+  page('/models/users', open('page-user-list', true));
   page('/models/:model', open('page-instance-list', true));
   page('/create-user', open('page-user-edit', true));
   page('/item/:model/:Id', open('page-instance-edit', true));
