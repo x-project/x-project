@@ -1,0 +1,36 @@
+{
+  "name": "project",
+  "plural": "projects",
+  "base": "PersistedModel",
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "$type": "string"
+    },
+    "author": {
+      "type": "string",
+      "required": true,
+      "$type": "enum",
+      "options": [
+        "Marco",
+        "Francesco",
+        "Elmo"
+      ]
+    },
+    "deadline": {
+      "type": "date",
+      "required": true,
+      "$type": "date"
+    },
+    "comment": {
+      "type": "string",
+      "required": true,
+      "$type": "textarea"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

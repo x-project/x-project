@@ -1,0 +1,75 @@
+<link rel="import" href="../../components/core-ajax/core-ajax.html">
+<polymer-element name="x-instance-list-item" attributes="model item properties">
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+      #name {
+        text-transform: capitalize;
+      }
+    </style>
+
+    <ul>
+      <template repeat="{{ property in properties }}">
+        <li>
+          <strong id="name">{{ property }}</strong>
+          <span id="content">{{ item[property] }}</span>
+        </li>
+      </template>
+      <li>
+        <button id="edit" on-click="{{ edit_on_click }}">Edit</button>
+      </li>
+      <li>
+        <button id="delete" on-click="{{ delete_on_click }}">Delete</button>
+      </li>
+    </ul>
+
+    <core-ajax id="get_schema" auto url="/explorer/resources/{{ model }}" handleAs="json" on-core-response="{{ on_get_schema }}"></core-ajax>
+
+    <core-ajax id="delete_entry" auto="false" method="DELETE" contentType="application/json" url="/api/{{ model }}/{{ delete_id }}">
+
+  </template>
+  <script>
+    Polymer('x-instance-list-item', {
+
+      modelSingularized: "",
+
+      on_get_schema: function(event, res) {
+        var data = res.response;
+        for(property in data.models) {
+          this.modelSingularized = property;
+        }
+      },
+
+      edit_on_click: function() {
+        var item_id = this.getId();
+        console.log(this.modelSingularized);
+        page("/item/"+this.modelSingularized+"/"+item_id+"");
+      },
+
+      getId: function() {
+        var item_id;
+        for(el in this.item) {
+          if(el === 'id')
+            item_id = this.item[el];
+        }
+        return item_id;
+      },
+
+      delete_on_click: function (event, response) {
+        var x;
+        if (confirm('Are you sure?') == true) {
+          x = this.deleteConfirmed();
+        }
+      },
+
+      deleteConfirmed: function() {
+        this.delete_id = this.getId();
+        this.$.delete_entry.go();
+        location.reload();
+      }
+
+    });
+  </script>
+</polymer-element>

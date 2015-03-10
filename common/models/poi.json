@@ -1,0 +1,36 @@
+{
+  "name": "poi",
+  "plural": "pois",
+  "base": "PersistedModel",
+  "properties": {
+    "name": {
+      "type": "string",
+      "$type": "string",
+      "required": true
+    },
+    "lat": {
+      "type": "number",
+      "$type": "number",
+      "required": true
+    },
+    "lng": {
+      "type": "number",
+      "$type": "number",
+      "required": true
+    },
+    "alt": {
+      "type": "number",
+      "$type": "number",
+      "required": true
+    },
+    "desc": {
+      "type": "string",
+      "$type": "textarea",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

@@ -1,0 +1,49 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="../x-header/x-header.html">
+<link rel="import" href="../x-footer/x-footer.html">
+<polymer-element name="page-home">
+  <template>
+    <style>
+      #welcome {
+        padding-top: 50px;
+      }
+
+      #logo.center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      #brand {
+        text-align: center;
+      }
+
+      #admin {
+        background-color: transparent;
+        font-size: 20px;
+        margin-right: 20px;
+
+      }
+
+      #blog {
+        background-color: transparent;
+        font-size: 20px;
+        margin-right: 20px;
+      }
+    </style>
+
+    <x-header></x-header>
+    <div id="welcome" class="container">
+      <h1 id="brand">WELCOME TO X-PROJECT</h1>
+      <div>
+        <img class="center" id="logo" src="../../images/x-logo.jpg">
+      </div>
+    </div>
+    <x-footer></x-footer>
+
+  </template>
+  <script>
+    Polymer('page-home', {
+
+    });
+  </script>
+</polymer-element>

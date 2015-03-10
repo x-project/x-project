@@ -1,0 +1,17 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="../x-instance-edit/x-instance-edit.html">
+<polymer-element name="page-instance-edit" attributes="model Id">
+  <template>
+
+    <x-instance-edit model="{{ model }}" Id="{{ Id }}"></x-instance-edit>
+
+  </template>
+  <script>
+    Polymer('page-instance-edit', {
+
+      model: '',
+      Id: ''
+
+    });
+  </script>
+</polymer-element>

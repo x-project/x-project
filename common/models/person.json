@@ -1,0 +1,39 @@
+{
+  "name": "Person",
+  "plural": "People",
+  "properties": {
+    "fullname": {
+      "type": "string",
+      "required": true,
+      "$type": "string"
+    },
+    "age": {
+      "type": "number",
+      "required": true,
+      "$type": "number"
+    },
+    "gender": {
+      "type": "string",
+      "required": true,
+      "$type": "enum",
+      "options": [
+        "Male",
+        "Female"
+      ]
+    },
+    "dob": {
+      "type": "date",
+      "required": true,
+      "$type": "date"
+    },
+    "email": {
+      "type": "string",
+      "required": true,
+      "$type": "email"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

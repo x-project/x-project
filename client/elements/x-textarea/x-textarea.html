@@ -1,0 +1,19 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<polymer-element name="x-textarea">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <span>{{ name }}</span>
+    <textarea value="{{ value }}" placeholder="{{ name }}"></textarea>
+
+  </template>
+  <script>
+    Polymer('x-textarea', {
+
+    });
+  </script>
+</polymer-element>

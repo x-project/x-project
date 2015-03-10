@@ -1,0 +1,21 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<polymer-element name="x-money">
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    
+    <div>
+      <span>{{ name }}</span>
+      $<input type="number" min="0" max="9999" size="4" value="{{ value }}" />
+    </div>
+
+  </template>
+  <script>
+    Polymer('x-money', {
+
+    });
+  </script>
+</polymer-element>

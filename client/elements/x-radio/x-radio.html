@@ -1,0 +1,54 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<polymer-element name="x-radio">
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <span>{{ name }}</span>
+    <div id="input">
+      <template repeat="{{ option in schema.options }}">
+        <label>
+          {{ option }}
+          <input type="radio" name="{{ name }}" value="{{ option }}" />
+        </label>
+      </template>
+    </div>
+
+  </template>
+  <script>
+    Polymer('x-radio', {
+
+      get value() {
+        var input = this.$.input;
+        var selected = input.querySelector('input:checked');
+        if (!selected) {
+          return;
+        }
+        var value = selected.getAttribute('value');
+        return value;
+      },
+
+      set value (value) {
+        var input = this.$.input;
+        if (!value) {
+          var selected = input.querySelector('input:checked');
+          if (selected) {
+            selected.removeAttribute('checked');
+            selected.checked = false;
+          }
+          return;
+        }
+
+        var selected = input.querySelector('input[value="' + value + '"]');
+        if (!selected) {
+          return;
+        }
+        selected.setAttribute('checked', 'checked');
+      }
+
+    });
+  </script>
+</polymer-element>

@@ -1,0 +1,20 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<polymer-element name="x-email" >
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+
+    </style>
+
+    <span>{{ name }}</span>
+    <input type="email" placeholder="{{ name }}" value="{{ value }}">
+
+  </template>
+  <script>
+    Polymer('x-email', {
+
+    });
+  </script>
+</polymer-element>

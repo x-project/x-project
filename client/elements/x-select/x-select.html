@@ -1,0 +1,53 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<polymer-element name="x-select">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div id="input">
+      <span>{{ name }}</span>
+      <select>
+        <template repeat="{{ option in schema.options }}">
+          <option value="{{ option }}" checked="true">{{ option }} </option>
+        </template>
+      </select>
+    </div>
+
+  </template>
+  <script>
+    Polymer('x-select', {
+
+      get value() {
+        var input = this.$.input;
+        var selected = input.querySelector('option:checked');
+
+        if (!selected) {
+          return;
+        }
+        var value = selected.getAttribute('value');
+        return value;
+      },
+
+      set value (value) {
+        var input = this.$.input;
+        if (!value) {
+          var selected = input.querySelector('option:checked');
+          if (selected) {
+            selected.removeAttribute('selected');
+            selected.selected = false;
+          }
+          return;
+        }
+        var selected = input.querySelector('option[value="' + value + '"]');
+        if (!selected) {
+          return;
+        }
+        selected.setAttribute('selected', 'selected');
+      }
+
+    });
+  </script>
+</polymer-element>

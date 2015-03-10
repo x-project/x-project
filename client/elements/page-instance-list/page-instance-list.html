@@ -1,0 +1,16 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="../x-instance-list/x-instance-list.html">
+<polymer-element name="page-instance-list" attributes="model">
+  <template>
+
+    <x-instance-list id="list" model="{{ model }}"></x-instance-list>
+
+  </template>
+  <script>
+    Polymer('page-instance-list', {
+
+      model: ''
+
+    });
+  </script>
+</polymer-element>

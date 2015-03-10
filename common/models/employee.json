@@ -1,0 +1,48 @@
+{
+  "name": "employee",
+  "plural": "employees",
+  "base": "PersistedModel",
+  "properties": {
+    "fullname": {
+      "type": "string",
+      "required": true,
+      "$type": "string"
+    },
+    "identificator": {
+      "type": "number",
+      "required": true,
+      "$type": "number"
+    },
+    "level": {
+      "type": "number",
+      "required": true,
+      "$type": "select",
+      "options": [
+        "10",
+        "20",
+        "30"
+      ]
+    },
+    "wage": {
+      "type": "number",
+      "required": true,
+      "$type": "select",
+      "options": [
+        "2",
+        "4",
+        "6",
+        "8",
+        "10"
+      ]
+    },
+    "area": {
+      "type": "string",
+      "required": true,
+      "$type": "textarea"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

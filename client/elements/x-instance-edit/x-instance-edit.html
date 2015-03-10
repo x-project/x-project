@@ -1,0 +1,173 @@
+<link rel="import" href="../../components/core-ajax/core-ajax.html">
+<link rel="import" href="../x-input/x-input.html">
+<link rel="import" href="../x-select/x-select.html">
+<link rel="import" href="../x-textarea/x-textarea.html">
+<link rel="import" href="../x-date/x-date.html">
+<link rel="import" href="../x-radio/x-radio.html">
+<link rel="import" href="../x-number/x-number.html">
+<link rel="import" href="../x-checkbox/x-checkbox.html">
+<link rel="import" href="../x-email/x-email.html">
+<link rel="import" href="../x-url/x-url.html">
+<link rel="import" href="../x-money/x-money.html">
+<link rel="import" href="../x-password/x-password.html">
+<link rel="import" href="../../components/x-link/x-link.html">
+<polymer-element name="x-instance-edit" attributes="model Id">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      h1 {
+        text-transform: capitalize;
+      }
+    </style>
+
+    <div>
+      <a is="x-link" href="/models/{{ endpoint }}">Back</a>
+    </div>
+
+    <h1>{{ endpoint }}</h1>
+    <h2>{{ edit ? "Update" : "Insert new" }}</h2>
+
+    <div id="form"></div>
+
+    <div>
+      <template if="{{ edit }}">
+        <button id="update" on-click="{{ update }}">Update</button>
+      </template>
+      <template if="{{ !edit }}">
+        <button id="save" on-click="{{ save }}">Save</button>
+      </template>
+    </div>
+
+    <core-ajax id="get_schema" auto url="/models/{{ model }}.json" handleAs="json" on-core-response="{{ on_get_schema }}"></core-ajax>
+
+    <core-ajax id="get_instance" url="/api/{{ endpoint }}/{{ Id }}" handleAs="json" on-core-response="{{ on_get_instance }}"></core-ajax>
+
+    <core-ajax id="post_data" auto="false" method="POST" contentType="application/json" url="/api/{{ endpoint }}" on-core-response="{{ on_post_data }}"></core-ajax>
+
+    <core-ajax id="put_data" auto="false" method="PUT" contentType="application/json" url="/api/{{ endpoint }}/{{ Id }}" on-core-response="{{ on_put_data }}"></core-ajax>
+
+    <div>
+      <a is="x-link" href="/models/{{ endpoint }}">Back</a>
+    </div>
+  </template>
+  <script>
+    Polymer('x-instance-edit', {
+
+      model: "",
+      edit: false,
+      Id: "",
+      form: {},
+
+      on_get_schema: function(event, res) {
+        var data = res.response;
+        this.endpoint = data.plural || data.name + 's';
+        this.endpoint.replace('/', '');
+        this.create_form(data);
+        if (this.Id !== "") {
+          this.$.get_instance.go();
+          this.edit = true;
+        }
+      },
+
+      create_form: function (schema) {
+        var name;
+        var type;
+        var property;
+        for (name in schema.properties) {
+          property = schema.properties[name];
+          this.create_form_element(name, property);
+        }
+      },
+
+      create_form_element: function (name, property) {
+        var type = property.$type;
+        var element_type = this.typeTag[type] || 'x-input';
+        var element = document.createElement(element_type);
+        element.name = name;
+        element.schema = property;
+        this.$.form.appendChild(element);
+        this.form[name] = element;
+      },
+
+      save: function (event, response){
+        var values = this.values;
+        var body = JSON.stringify(values);
+        var save = this.$.post_data;
+        save.body = body;
+        save.go();
+      },
+
+      update: function(event, response) {
+        var values = this.values;
+        var body = JSON.stringify(values);
+        var update = this.$.put_data;
+        update.body = body;
+        update.go();
+      },
+
+      on_post_data: function(event, response){
+        alert("Elemento aggiunto o forse no");
+        this.clear();
+      },
+
+       on_put_data: function(event, response){
+        alert("Elemento aggiornato o forse no");
+
+      },
+
+      on_get_instance: function(event, res) {
+        var instance = res.response;
+        this.populate_form(instance);
+      },
+
+      populate_form: function(data) {
+        this.values = data;
+      },
+
+      typeTag: {
+        'string': "x-input",
+        'select': "x-select",
+        'date': "x-date",
+        'enum': "x-radio",
+        'number': "x-number",
+        'email': "x-email",
+        'textarea': "x-textarea",
+        'url': "x-url",
+        'boolean': "x-checkbox",
+        'money': "x-money",
+        'password': "x-password"
+      },
+
+      clear: function () {
+        for (name in this.form) {
+          this.form[name].value = '';
+        }
+      },
+
+      set values (values) {
+        for (name in this.form) {
+          if (values[name]) {
+            this.form[name].value = values[name];
+          }
+        }
+      },
+
+      get values () {
+        var values = {};
+        var name;
+        var value;
+        var element;
+        for (name in this.form) {
+          element = this.form[name];
+          value = element.value;
+          values[name] = value;
+        }
+        return values;
+      }
+
+    });
+  </script>
+</polymer-element>

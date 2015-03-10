@@ -1,0 +1,31 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="../x-post/x-post.html">
+<polymer-element name="page-post" attributes="Id">
+  <template>
+    <style>
+      div{
+        padding-top: 30px;
+      }
+    </style>
+
+    <core-ajax auto url="/api/posts/{{ Id }}" handleAs="json" on-core-response="{{ on_response }}"></core-ajax>
+    <x-header></x-header>
+    <div>
+      <x-post id="post"></x-post>
+    </div>
+    <a href="/blog">Back</a>
+    <x-footer></x-footer>
+
+  </template>
+  <script>
+    Polymer('page-post', {
+
+      Id: '',
+
+      on_response: function(event, res) {
+        this.$.post.data = res.response;
+      }
+
+    });
+  </script>
+</polymer-element>

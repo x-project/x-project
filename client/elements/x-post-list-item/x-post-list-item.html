@@ -1,0 +1,46 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<polymer-element name="x-post-list-item" attributes="item properties">
+  <template>
+    <style>
+      h1 {
+        text-transform: capitalize;
+      }
+
+      #muted {
+        font-variant: small-caps;
+      }
+
+      #preview {
+        margin-bottom: 10px;
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #efefef;
+      }
+
+      #read_more {
+        margin-bottom: 10px;
+      }
+    </style>
+
+    <div id="preview">
+      <h2>{{ item.title }}</h2>
+      <p id="muted">posted by <strong>{{ item.author }}</strong> on <strong>{{ item.posted | datetime }}</strong></p>
+      <p>{{ item.description }}</p>
+      <div>
+        <a is="x-link" id="read_more" href="/post/{{ item.id }}">Read More</a>
+      </div>
+    </div>
+
+    </template>
+
+  <script>
+    Polymer('x-post-list-item', {
+
+      datetime: function (value) {
+        var dateFormat = (moment(value).format('LL'));
+        return dateFormat;
+      }
+
+    });
+  </script>
+</polymer-element>

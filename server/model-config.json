@@ -1,0 +1,47 @@
+{
+  "_meta": {
+    "sources": [
+      "../common/models",
+      "./models"
+    ]
+  },
+  "User": {
+    "dataSource": "mongo"
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Person": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "employee": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "project": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "post": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "poi": {
+    "dataSource": "mongo",
+    "public": true
+  }
+}

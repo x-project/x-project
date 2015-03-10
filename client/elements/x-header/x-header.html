@@ -1,0 +1,100 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="../../components/x-link/x-link.html">
+<polymer-element name="x-header">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      #navbar {
+        position: fixed;
+        background-color: #efefef;
+        border: none;
+        border-radius: 0px;
+        width: 97%;
+        z-index: 1;
+      }
+
+      .navbar-default .navbar-brand {
+        color: #333;
+        text-transform: uppercase;
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 0.50px;
+      }
+
+      .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+        color: #333;
+      }
+
+      .navbar-default .navbar-collapse {
+        padding-right: 50px;
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+      }
+
+      .navbar-default .navbar-nav>li>a {
+        color: #333;
+        font-weight: 600;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+        color: #777;
+        background-color: transparent;
+      }
+
+      .navbar-default .navbar-nav>li>a:active {
+        text-decoration: underline;
+      }
+
+    </style>
+
+    <div id="navbar" class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button id="button" on-click="{{ on_click_button }}" type="button" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <a is="x-link" class="navbar-brand" href="/">X-PROJECT</a>
+        </div>
+        <div id="collapse" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <template repeat="{{ link in links }}">
+              <li class="link">
+                <a is="x-link" href="{{ link.url }}">{{ link.label }}</a>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </template>
+  <script>
+    Polymer('x-header', {
+
+      on_click_button: function (event) {
+        this.$.collapse.classList.toggle('in');
+      },
+      
+      links: [
+        {
+          "label": "Blog",
+          "url": "/blog"
+        },
+        {
+          "label": "Admin",
+          "url": "/login"
+        }
+      ]
+
+    });
+  </script>
+</polymer-element>

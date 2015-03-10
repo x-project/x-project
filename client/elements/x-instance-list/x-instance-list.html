@@ -1,0 +1,86 @@
+<link rel="import" href="../../components/core-ajax/core-ajax.html">
+<link rel="import" href="../../components/x-link/x-link.html">
+<link rel="import" href="../x-instance-list-item/x-instance-list-item.html">
+<polymer-element name="x-instance-list" attributes="model">
+  <template>
+    <style>
+
+      #name {
+        text-transform: capitalize;
+      }
+
+      li {
+        margin-bottom: 10px;
+      }
+      #label {
+        font-weight: bold;
+      }
+      #value {
+        font-family: monospace;
+        font-size: 15px;
+      }
+    </style>
+
+    <content select="h1"></content>
+
+    <core-ajax id="get_schema" auto url="/explorer/resources/{{ model }}" handleAs="json" on-core-response="{{ on_get_schema }}"></core-ajax>
+
+    <core-ajax auto url="/api/{{ model }}" handleAs="json" on-core-response="{{ on_response }}"></core-ajax>
+
+    <a is="x-link" href="/models">Back</a>
+    <h1 id="name">{{ model }}</h1>
+    <div>
+      <button on-click="{{ on_insert }}">Insert New</button>
+    </div>
+
+    <ol id="form">
+      <template repeat="{{ item in data }}">
+        <li>
+          <x-instance-list-item model="{{ model }}" item= "{{ item }}" properties="{{ properties }}"></x-instance-list-item>
+        </li>
+      </template>
+    </ol>
+
+    <div>
+      <a is="x-link" href="/models">Back</a>
+    </div>
+    <button id="logout" on-click="{{ log_out }}">Logout</button>
+  </template>
+  <script>
+    Polymer('x-instance-list', {
+
+      ready: function () {
+        this.properties = [];
+      },
+
+      modelSingularized: "",
+
+      on_get_schema: function(event, res) {
+        var data = res.response;
+        for(property in data.models) {
+          this.modelSingularized = property;
+        }
+      },
+
+      on_response: function(event, res) {
+        this.data = res.response;
+        for(name in this.data[0]) {
+          this.properties.push(name);
+        }
+      },
+
+      on_insert: function() {
+        page("/item/"+this.modelSingularized+"");
+      },
+
+      log_out: function (){
+        User.logout(app.accessToken, function (err) {
+          console.log(err || 'Logged out');
+        });
+      }
+
+    });
+  </script>
+</polymer-element>
+
+

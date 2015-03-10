@@ -1,0 +1,39 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<polymer-element name="x-date">
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <span>{{ name }}</span>
+    <input id="input" type="date" value="">
+
+  </template>
+  <script>
+    Polymer('x-date', {
+
+      get value() {
+        var input = this.$.input;
+        var data = input.value;
+        data = JSON.stringify(data);
+        return data;
+
+      },
+
+      set value (value) {
+
+        var input = this.$.input;
+        if(!value) {
+          input.value = "";
+        }
+        var dateMod = value.split("T");
+        dateMod = dateMod[0];
+        input.setAttribute('value', dateMod);
+
+
+      }
+    });
+  </script>
+</polymer-element>

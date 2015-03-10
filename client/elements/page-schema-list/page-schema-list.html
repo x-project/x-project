@@ -1,0 +1,25 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="x-schema-list.html">
+<polymer-element name="page-schema-list">
+  <template>
+
+    <core-ajax id="logout" method="POST" handleAs="json" contentType="application/json" url="/api/Users/logout" on-core-response="{{ on_success }}" on-core-error="{{ on_error }}"></core-ajax>
+    <a is="x-link" href="/login">Back</a>
+    <h1>Models</h1>
+    <x-schema-list></x-schema-list>
+    <div>
+    <a is="x-link" href="/create-user"> Create new user</a>
+    </div>
+    <a is="x-link" href="/login">Back</a>
+
+  </template>
+  <script>
+    Polymer('page-schema-list', {
+  
+      on_success: function() {
+
+      }
+  
+    });
+  </script>
+</polymer-element>
