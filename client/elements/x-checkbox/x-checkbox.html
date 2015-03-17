@@ -7,14 +7,16 @@
       }
     </style>
 
-    <div id="check_input">
-      <span>{{ name }}</span>
-      <template repeat="{{ option in schema.options }}">
-        <label>
-          {{ option }}
-          <input type="checkbox" name="{{ name }}" value="{{ option }}" />
-        </label>
-      </template>
+    <div id="check_input" class="form-group">
+      <label>{{ label }}</label>
+      <div>
+        <template repeat="{{ option in schema.options }}">
+          <span>
+            <input type="checkbox" name="{{ name }}" value="{{ option }}" />
+            {{ option }}
+          </span>
+        </template>
+      </div>
     </div>
 
   </template>

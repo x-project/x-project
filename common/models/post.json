@@ -1,6 +1,6 @@
 {
-  "name": "post",
-  "plural": "posts",
+  "name": "Post",
+  "plural": "Posts",
   "base": "PersistedModel",
   "properties": {
     "title": {
@@ -10,7 +10,6 @@
     },
     "posted": {
       "type": "date",
-      "required": true,
       "$type": "date"
     },
     "author": {

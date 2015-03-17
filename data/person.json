@@ -1,0 +1,20 @@
+[
+  {
+    "fullname": "Person A",
+    "age": 30,
+    "gender": "Male",
+    "email": "a@email.com"
+  },
+    {
+    "fullname": "Person B",
+    "age": 31,
+    "gender": "Female",
+    "email": "b@email.com"
+  },
+  {
+    "fullname": "Person C",
+    "age": 32,
+    "gender": "Male",
+    "email": "c@email.com"
+  }
+]

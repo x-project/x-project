@@ -1,15 +1,12 @@
 <link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="../../components/x-link/x-link.html">
 <link rel="import" href="../x-header/x-header.html">
 <link rel="import" href="../x-footer/x-footer.html">
-<polymer-element name="page-user-list" attributes="model">
+<polymer-element name="page-users" attributes="model">
   <template>
     <style>
       :host {
         display: block;
-      }
-
-      .page {
-        margin-top: 50px;
       }
     </style>
 
@@ -18,7 +15,7 @@
 
     <x-header></x-header>
     <div class="page container">
-      <a is="x-link" href="/models">back</a>
+      <a is="x-link" href="/collections">back</a>
       <h2>Users</h2>      
       <ul>
         <template repeat="{{ user in users }}">
@@ -27,13 +24,12 @@
           </li>
         </template>
       </ul>
-      <a is="x-link" href="/models">back</a>
     </div>
     <x-footer></x-footer>
 
   </template>
   <script>
-    Polymer('page-user-list', {
+    Polymer('page-users', {
 
       ready: function () {
         this.access_token = app.accessToken;

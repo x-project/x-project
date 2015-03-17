@@ -7,13 +7,15 @@
       }
     </style>
 
-    <div id="input">
-      <span>{{ name }}</span>
-      <select>
-        <template repeat="{{ option in schema.options }}">
-          <option value="{{ option }}" checked="true">{{ option }} </option>
-        </template>
-      </select>
+    <div id="input" class="form-group">
+      <label>{{ label }}</label>
+      <div>
+        <select>
+          <template repeat="{{ option in schema.options }}">
+            <option value="{{ option }}" checked="true">{{ option }} </option>
+          </template>
+        </select>
+      </div>
     </div>
 
   </template>

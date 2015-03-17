@@ -1,6 +1,6 @@
 {
-  "name": "poi",
-  "plural": "pois",
+  "name": "Poi",
+  "plural": "Pois",
   "base": "PersistedModel",
   "properties": {
     "name": {

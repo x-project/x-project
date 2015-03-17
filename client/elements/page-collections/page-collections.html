@@ -2,16 +2,12 @@
 <link rel="import" href="../../components/x-link/x-link.html">
 <link rel="import" href="../x-header/x-header.html">
 <link rel="import" href="../x-footer/x-footer.html">
-<link rel="import" href="x-schema-list.html">
-<polymer-element name="page-schema-list">
+<link rel="import" href="part-collections-list.html">
+<polymer-element name="page-collections">
   <template>
     <style>
       :host {
         display: block;
-      }
-
-      .page {
-        margin-top: 50px;
       }
     </style>
 
@@ -20,16 +16,15 @@
     
     <x-header></x-header>
     <div class="page container">
-      <a is="x-link" href="/login">Back</a>
-      <h1>Models</h1>
-      <x-schema-list></x-schema-list>
-      <a is="x-link" href="/login">Back</a>
+      <a is="x-link" href="/admin/login">Back</a>
+      <h1>Collections</h1>
+      <part-collections-list></part-collections-list>
     </div>
     <x-footer></x-footer>
 
   </template>
   <script>
-    Polymer('page-schema-list', {
+    Polymer('page-collections', {
   
       on_response: function() {
 

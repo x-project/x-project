@@ -9,12 +9,10 @@
     },
     "age": {
       "type": "number",
-      "required": true,
       "$type": "number"
     },
     "gender": {
       "type": "string",
-      "required": true,
       "$type": "enum",
       "options": [
         "Male",
@@ -23,12 +21,10 @@
     },
     "dob": {
       "type": "date",
-      "required": true,
       "$type": "date"
     },
     "email": {
       "type": "string",
-      "required": true,
       "$type": "email"
     }
   },

@@ -7,14 +7,16 @@
       }
     </style>
 
-    <span>{{ name }}</span>
-    <div id="input">
-      <template repeat="{{ option in schema.options }}">
-        <label>
-          {{ option }}
-          <input type="radio" name="{{ name }}" value="{{ option }}" />
-        </label>
-      </template>
+    <div id="input" class="form-group">
+      <label>{{ label }}</label>
+      <div>
+        <template repeat="{{ option in schema.options }}">
+          <span>
+            <input type="radio" name="{{ name }}" value="{{ option }}" />
+            {{ option }}
+          </span>
+        </template>
+      </div>
     </div>
 
   </template>

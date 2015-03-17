@@ -1,0 +1,47 @@
+<link rel="import" href="../../components/core-ajax/core-ajax.html">
+<link rel="import" href="../../components/x-link/x-link.html">
+<link rel="import" href="part-collection-item.html">
+<polymer-element name="part-collection-items">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <core-ajax id="ajax" url="/api{{ schema.resourcePath }}" handleAs="json" 
+      on-core-response="{{ on_response }}" on-core-error="{{ on_error }}"></core-ajax>
+
+    <div class="form-group">
+      <a class="btn btn-success" href="/admin/collections{{ schema.resourcePath }}/create">insert new</a>
+    </div>
+    <ol>
+      <template repeat="{{ item in items }}">
+        <li>
+          <part-collection-item item="{{ item }}" schema="{{ schema }}"></part-collection-item>
+        </li>
+      </template>
+    </ol>
+
+  </template>
+  <script>
+    Polymer('part-collection-items', {
+
+      schema: {},
+
+      schemaChanged: function () {
+        this.$.ajax.go();
+      },
+
+      on_response: function(event) {
+        var response = event.detail.response;
+        this.items = response;
+      },
+
+      on_error: function (event) {
+
+      }
+
+    });
+  </script>
+</polymer-element>

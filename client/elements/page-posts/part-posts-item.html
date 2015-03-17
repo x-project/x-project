@@ -1,24 +1,10 @@
 <link rel="import" href="../../components/polymer/polymer.html">
-<polymer-element name="x-post-list-item" attributes="item properties">
+<link rel="import" href="../../components/x-link/x-link.html">
+<polymer-element name="part-posts-item" attributes="item properties">
   <template>
     <style>
-      h1 {
-        text-transform: capitalize;
-      }
-
-      #muted {
-        font-variant: small-caps;
-      }
-
-      #preview {
-        margin-bottom: 10px;
-        margin-top: 10px;
-        padding: 10px;
-        background-color: #efefef;
-      }
-
-      #read_more {
-        margin-bottom: 10px;
+      :host {
+        display: block;
       }
     </style>
 
@@ -31,14 +17,13 @@
       </div>
     </div>
 
-    </template>
-
+  </template>
   <script>
-    Polymer('x-post-list-item', {
+    Polymer('part-posts-item', {
 
       datetime: function (value) {
-        var dateFormat = (moment(value).format('LL'));
-        return dateFormat;
+        var date = (moment(value).format('LL'));
+        return date;
       }
 
     });

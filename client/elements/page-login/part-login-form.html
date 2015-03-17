@@ -2,7 +2,7 @@
 <link rel="import" href="../../components/x-link/x-link.html">
 <link rel="import" href="../x-input/x-input.html">
 <link rel="import" href="../x-password/x-password.html">
-<polymer-element name="x-login-form" >
+<polymer-element name="part-login-form" >
 	<template>
     <style>
       :host {
@@ -10,30 +10,28 @@
       }
     </style>
 
-    <core-ajax id="login" method="POST" handleAs="json" contentType="application/json" _url="/login" url="/api/Users/login" on-core-response="{{ on_success }}" on-core-error="{{ on_error }}"></core-ajax>
+    <core-ajax id="ajax" method="POST" handleAs="json" contentType="application/json" url="/api/Users/login"
+      on-core-response="{{ on_success }}" on-core-error="{{ on_error }}"></core-ajax>
 
     <form id="form" on-submit="{{ on_submit }}">
-      Email
-      <x-input id="input"></x-input>
-      Password
-      <x-password id="password"></x-password>
-      <input type="submit" on-click="{{ on_submit }}" value="login" />
+      <x-input id="email" label="email" placeholder="insert email"></x-input>        
+      <x-password id="password" label="password" placeholder="insert password"></x-password>        
+      <input type="submit" class="btn btn-success" on-click="{{ on_submit }}" value="login" />
     </form>
 
   </template>
   <script>
-    var auth = false;
-    Polymer('x-login-form', {
+    Polymer('part-login-form', {
 
       ready: function () {
-        this.$.input.value = 'a@b.com';
+        this.$.email.value = 'a@b.com';
         this.$.password.value = '123';
       },
 
       on_submit: function (event) {
         event.preventDefault();
         var credentials = {};
-        var input = this.$.input.value;
+        var input = this.$.email.value;
         var pw = this.$.password.value;
         var ttl = "120960000";
         credentials.email =  input;
@@ -45,14 +43,14 @@
         login.go();
       },
 
-      on_success: function(event, detail, target) {
-        var response = detail.xhr.response;
+      on_success: function(event) {
+        var response = event.detail.response;
         var body = JSON.parse(response);
         this.fire('logged', body.id);
-        page("/models");
+        page("/collections");
       },
 
-      on_error: function (event, detail, target) {
+      on_error: function (event) {
         this.fire('logged', false);
         alert("username or password not valid");
       }

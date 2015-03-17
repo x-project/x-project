@@ -10,3 +10,8 @@ body {
   min-height: 250px;
   transition: none;
 }
+
+html /deep/ .page {
+  margin-top: 50px;
+  padding-top: 20px; 
+}
