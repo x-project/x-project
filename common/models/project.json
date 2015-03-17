@@ -1,6 +1,6 @@
 {
-  "name": "project",
-  "plural": "projects",
+  "name": "Project",
+  "plural": "Projects",
   "base": "PersistedModel",
   "properties": {
     "name": {
@@ -12,15 +12,10 @@
       "type": "string",
       "required": true,
       "$type": "enum",
-      "options": [
-        "Marco",
-        "Francesco",
-        "Elmo"
-      ]
+      "options": ["A", "B", "C"]
     },
     "deadline": {
       "type": "date",
-      "required": true,
       "$type": "date"
     },
     "comment": {

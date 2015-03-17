@@ -7,8 +7,10 @@
       }
     </style>
 
-    <span>{{ name }}</span>
-    <input id="input" type="date" value="">
+    <div class="form-group">      
+      <label>{{ label }}</label>
+      <input id="input" class="form-control" type="date" placeholder="{{ placeholder }}">
+    </div>
 
   </template>
   <script>
@@ -19,7 +21,6 @@
         var data = input.value;
         data = JSON.stringify(data);
         return data;
-
       },
 
       set value (value) {

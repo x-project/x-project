@@ -8,8 +8,10 @@
 
     </style>
 
-    <span>{{ name }}</span>
-    <input type="email" placeholder="{{ name }}" value="{{ value }}">
+    <div class="form-group">
+      <label>{{ label }}</label>
+      <input type="email" class="form-control" placeholder="{{ name }}" value="{{ value }}">
+    </div>
 
   </template>
   <script>

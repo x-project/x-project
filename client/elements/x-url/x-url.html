@@ -7,8 +7,10 @@
       }
     </style>
 
-    <span>{{ name }}</span>
-    <input type="url" placeholder="{{ name }}" value="{{ value }}">
+    <div class="form-group">      
+      <label>{{ label }}</label>
+      <input type="url" class="form-control" placeholder="{{ placeholder }}" value="{{ value }}">
+    </div>
 
   </template>
   <script>

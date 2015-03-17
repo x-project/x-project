@@ -1,6 +1,6 @@
 {
-  "name": "employee",
-  "plural": "employees",
+  "name": "Employee",
+  "plural": "Employees",
   "base": "PersistedModel",
   "properties": {
     "fullname": {
