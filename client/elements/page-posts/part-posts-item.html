@@ -1,0 +1,31 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="../../components/x-link/x-link.html">
+<polymer-element name="part-posts-item" attributes="item properties">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div id="preview">
+      <h2>{{ item.title }}</h2>
+      <p id="muted">posted by <strong>{{ item.author }}</strong> on <strong>{{ item.posted | datetime }}</strong></p>
+      <p>{{ item.description }}</p>
+      <div>
+        <a is="x-link" id="read_more" href="/post/{{ item.id }}">Read More</a>
+      </div>
+    </div>
+
+  </template>
+  <script>
+    Polymer('part-posts-item', {
+
+      datetime: function (value) {
+        var date = (moment(value).format('LL'));
+        return date;
+      }
+
+    });
+  </script>
+</polymer-element>

@@ -1,0 +1,37 @@
+<link rel="import" href="../../components/core-ajax/core-ajax.html">
+<link rel="import" href="../../components/x-link/x-link.html">
+<polymer-element name="part-collections-list">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <core-ajax id="ajax" url="/explorer/resources" handleAs="json" on-core-response="{{ on_response }}"></core-ajax>
+    
+    <ul>
+      <template repeat="{{ collection in collections }}">
+        <li>
+          <a is="x-link" href="/admin/collections{{ collection.path }}">{{ collection.path }}</a>
+        </li>
+      </template>
+    </ul>
+
+  </template>
+  <script>
+    Polymer('part-collections-list', {
+
+      ready: function () {
+        this.$.ajax.go();
+      },
+
+      on_response: function (event) {
+        var response = event.detail.response;
+        var apis = response.apis;
+        this.collections = apis;
+      }
+
+    });
+  </script>
+</polymer-element>

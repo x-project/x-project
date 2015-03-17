@@ -1,0 +1,60 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="../../components/x-link/x-link.html">
+<link rel="import" href="../x-input/x-input.html">
+<link rel="import" href="../x-password/x-password.html">
+<polymer-element name="part-login-form" >
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <core-ajax id="ajax" method="POST" handleAs="json" contentType="application/json" url="/api/Users/login"
+      on-core-response="{{ on_success }}" on-core-error="{{ on_error }}"></core-ajax>
+
+    <form id="form" on-submit="{{ on_submit }}">
+      <x-input id="email" label="email" placeholder="insert email"></x-input>        
+      <x-password id="password" label="password" placeholder="insert password"></x-password>        
+      <input type="submit" class="btn btn-success" on-click="{{ on_submit }}" value="login" />
+    </form>
+
+  </template>
+  <script>
+    Polymer('part-login-form', {
+
+      ready: function () {
+        this.$.email.value = 'a@b.com';
+        this.$.password.value = '123';
+      },
+
+      on_submit: function (event) {
+        event.preventDefault();
+        var credentials = {};
+        var input = this.$.email.value;
+        var pw = this.$.password.value;
+        var ttl = "120960000";
+        credentials.email =  input;
+        credentials.password = pw;
+        credentials.ttl = ttl;
+        var body = JSON.stringify(credentials);
+        var login = this.$.login;
+        login.body = body;
+        login.go();
+      },
+
+      on_success: function(event) {
+        var response = event.detail.response;
+        var body = JSON.parse(response);
+        this.fire('logged', body.id);
+        page("/collections");
+      },
+
+      on_error: function (event) {
+        this.fire('logged', false);
+        alert("username or password not valid");
+      }
+
+    });
+  </script>
+</polymer-element>

@@ -1,0 +1,23 @@
+<link rel="import" href="../x-post-list-item/x-post-list-item.html">
+<polymer-element name="x-post-list" attributes="data">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div id="blog">
+      <template repeat="{{ item in data }}">
+        <x-post-list-item item="{{ item }}"></x-post-list-item>
+      </template>
+    </div>
+
+    </template>
+
+  <script>
+    Polymer('x-post-list', {
+
+    });
+  </script>
+</polymer-element>

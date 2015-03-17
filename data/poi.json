@@ -1,0 +1,23 @@
+[
+  {
+    "name": "POI A",
+    "lat": 41,
+    "lng": 42,
+    "alt": 10,
+    "desc": "desc A"
+  },
+  {
+    "name": "POI B",
+    "lat": 31,
+    "lng": 52,
+    "alt": 5,
+    "desc": "desc B"
+  },
+  {
+    "name": "POI C",
+    "lat": 51,
+    "lng": 22,
+    "alt": 7,
+    "desc": "desc C"
+  }
+]

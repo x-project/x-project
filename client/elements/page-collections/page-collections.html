@@ -1,0 +1,39 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="../../components/x-link/x-link.html">
+<link rel="import" href="../x-header/x-header.html">
+<link rel="import" href="../x-footer/x-footer.html">
+<link rel="import" href="part-collections-list.html">
+<polymer-element name="page-collections">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <core-ajax id="ajax" method="POST" handleAs="json" contentType="application/json" url="/api/Users/logout" 
+      on-core-response="{{ on_response }}" on-core-error="{{ on_error }}"></core-ajax>
+    
+    <x-header></x-header>
+    <div class="page container">
+      <a is="x-link" href="/admin/login">Back</a>
+      <h1>Collections</h1>
+      <part-collections-list></part-collections-list>
+    </div>
+    <x-footer></x-footer>
+
+  </template>
+  <script>
+    Polymer('page-collections', {
+  
+      on_response: function() {
+
+      },
+
+      on_error: function () {
+
+      }
+  
+    });
+  </script>
+</polymer-element>
