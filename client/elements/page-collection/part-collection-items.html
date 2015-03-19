@@ -16,10 +16,13 @@
       <a class="btn btn-success" href="/admin/collections/{{ schema.plural }}/create">insert new</a>
     </div>
     <ol>
-      <template repeat="{{ item in items }}">
-        <li>
-          <part-collection-item item="{{ item }}" schema="{{ schema }}"></part-collection-item>
-        </li>
+      <template repeat="{{ item, index in items }}">
+        <template if="{{ item }}">
+          <li>
+            <part-collection-item item="{{ item }}" index="{{ index }}" schema="{{ schema }}"
+              on-delete="{{ on_delete_item }}"></part-collection-item>
+          </li>
+        </template>
       </template>
     </ol>
 
@@ -40,6 +43,11 @@
 
       on_error: function (event) {
 
+      },
+
+      on_delete_item: function (event) {
+        var index = event.detail.index;
+        this.items.splice(index, 1);
       }
 
     });
