@@ -1,3 +1,5 @@
+// (function () {
+
 var app = document.getElementById('app');
 
 var open = function (page_name) {
@@ -42,7 +44,7 @@ var start = function () {
   
   page('/admin/collections/:collection/:model_id/edit', open('page-model-edit'));
 
-  page('/blog', open('page-blog'));
+  page('/blog', open('page-posts'));
   
   page('/blog/posts/:post_id', open('page-post'));
   
@@ -52,3 +54,5 @@ var start = function () {
 };
 
 start();
+
+// })();

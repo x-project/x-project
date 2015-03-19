@@ -18,11 +18,8 @@
       }
     </style>
 
-    <core-ajax id="get_api" method="GET" url="/explorer/resources/{{ collection }}" handleAs="json" 
-      on-core-response="{{ on_get_api }}" on-core-error="{{ on_error_get_api }}"></core-ajax>
-
-    <core-ajax id="get_schema" method="GET" url="/models/{{ model }}.json" handleAs="json" 
-      on-core-response="{{ on_get_schema }}" on-core-error="{{ on_error_get_schema }}"></core-ajax>
+    <x-schema id="get_schema" collection="{{ collection }}"
+      on-x-response="{{ on_get_schema }}" on-x-error="{{ on_error_get_schema }}"></x-schema>
 
     <core-ajax id="get_model" method="GET" url="/api/{{ collection }}/{{ model_id }}" handleAs="json" 
       on-core-response="{{ on_get_model }}" on-core-error="{{ on_error_get_model }}"></core-ajax>
@@ -62,20 +59,12 @@
       },
 
       ready: function () {
-        this.$.get_api.go();
-      },
-
-      on_get_api: function (event) {
-        var api = event.detail.response;
-        var model = Object.keys(api.models)[0];
-        this.model = model;
         this.$.get_schema.go();
       },
 
-      on_get_schema: function(event) {
-        var schema = event.detail.response;
-        this.endpoint = schema.plural || schema.name + 's';
-        this.endpoint.replace('/', '');
+      on_get_schema: function (event) {
+        var schema = event.detail.schema;
+        this.schema = schema;
         this.create_form(schema);
         this.$.get_model.go();
         this.edit = true;
@@ -113,24 +102,17 @@
       },
 
       create_form: function (schema) {
-        var name;
-        var type;
-        var property;
-        var properties = schema.properties;
-        for (name in properties) {
-          property = properties[name];
-          this.create_form_element(name, property);
-        }
+        schema.properties.forEach(this.create_form_element, this);
       },
 
-      create_form_element: function (name, property) {
+      create_form_element: function (property) {
         var type = property.$type;
         var element_type = this.types[type] || 'x-input';
         var element = document.createElement(element_type);
-        element.label = name;
+        element.label = property.name;
         element.schema = property;
         this.$.form.appendChild(element);
-        this.form[name] = element;
+        this.form[property.name] = element;
       },
 
       save: function (event, response){

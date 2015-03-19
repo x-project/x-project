@@ -13,7 +13,7 @@ app.use(loopback.static(path.resolve(__dirname, '../client')));
 app.use(loopback.static(path.resolve(__dirname, '../common')));
 
 app.use(loopback.json());
-app.use(loopback.urlencoded());
+app.use(loopback.urlencoded({ extended: true }));
 
 app.index_file_path = path.resolve(__dirname, '../client/index.html');
 app.get('*', function (req, res) { res.sendFile(app.index_file_path); });

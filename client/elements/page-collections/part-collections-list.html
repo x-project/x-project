@@ -11,9 +11,9 @@
     <core-ajax id="ajax" url="/explorer/resources" handleAs="json" on-core-response="{{ on_response }}"></core-ajax>
     
     <ul>
-      <template repeat="{{ collection in collections }}">
+      <template repeat="{{ endpoint in endpoints }}">
         <li>
-          <a is="x-link" href="/admin/collections{{ collection.path }}">{{ collection.path }}</a>
+          <a is="x-link" href="/admin/collections{{ endpoint.path }}">{{ endpoint.path }}</a>
         </li>
       </template>
     </ul>
@@ -27,9 +27,9 @@
       },
 
       on_response: function (event) {
-        var response = event.detail.response;
-        var apis = response.apis;
-        this.collections = apis;
+        var endpoints = event.detail.response.apis;
+        endpoints.shift();
+        this.endpoints = endpoints;
       }
 
     });

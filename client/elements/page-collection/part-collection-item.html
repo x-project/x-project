@@ -1,5 +1,5 @@
 <link rel="import" href="../../components/core-ajax/core-ajax.html">
-<polymer-element name="part-collection-item" attributes="item, schema">
+<polymer-element name="part-collection-item" attributes="item schema">
 	<template>
     <style>
       :host {
@@ -8,7 +8,7 @@
     </style>
 
     <core-ajax id="ajax" method="DELETE" contentType="application/json" 
-      url="/api{{ schema.resourcePath }}/{{ item.id }}"></core-ajax>
+      url="/api/{{ schema.plural }}/{{ item.id }}"></core-ajax>
 
     <div>
       <ul class="list-unstyled">
@@ -22,18 +22,13 @@
       </ul>
     </div>
     <div class="form-group">
-      <a id="edit" class="btn btn-xs btn-warning" href="/admin/collections{{ schema.resourcePath }}/{{ item.id }}/edit">edit</a>
+      <a id="edit" class="btn btn-xs btn-warning" href="/admin/collections/{{ schema.plural }}/{{ item.id }}/edit">edit</a>
       <button id="delete" class="btn btn-xs btn-danger" on-click="{{ on_click_delete }}">delete</button>
     </div>
 
   </template>
   <script>
     Polymer('part-collection-item', {
-
-      ready: function () {
-        var name = Object.keys(this.schema.models);
-        this.details = this.schema.models[name];
-      },
 
       on_click_delete: function (event) {
         var test = confirm('Are you sure?');

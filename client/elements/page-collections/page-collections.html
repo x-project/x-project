@@ -10,9 +10,6 @@
         display: block;
       }
     </style>
-
-    <core-ajax id="ajax" method="POST" handleAs="json" contentType="application/json" url="/api/Users/logout" 
-      on-core-response="{{ on_response }}" on-core-error="{{ on_error }}"></core-ajax>
     
     <x-header></x-header>
     <div class="page container">
@@ -25,14 +22,6 @@
   </template>
   <script>
     Polymer('page-collections', {
-  
-      on_response: function() {
-
-      },
-
-      on_error: function () {
-
-      }
   
     });
   </script>

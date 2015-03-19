@@ -1,4 +1,5 @@
 var db = {};
+db.User = require('../../data/user.json');
 db.Employee = require('../../data/employee.json');
 db.Person = require('../../data/person.json');
 db.Poi = require('../../data/poi.json');

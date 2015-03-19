@@ -9,11 +9,11 @@
       }
     </style>
 
-    <core-ajax id="ajax" url="/api{{ schema.resourcePath }}" handleAs="json" 
+    <core-ajax id="ajax" url="/api/{{ schema.plural }}" handleAs="json" 
       on-core-response="{{ on_response }}" on-core-error="{{ on_error }}"></core-ajax>
 
     <div class="form-group">
-      <a class="btn btn-success" href="/admin/collections{{ schema.resourcePath }}/create">insert new</a>
+      <a class="btn btn-success" href="/admin/collections/{{ schema.plural }}/create">insert new</a>
     </div>
     <ol>
       <template repeat="{{ item in items }}">

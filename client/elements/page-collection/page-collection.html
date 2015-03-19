@@ -1,6 +1,7 @@
 <link rel="import" href="../../components/polymer/polymer.html">
 <link rel="import" href="../x-header/x-header.html">
 <link rel="import" href="../x-footer/x-footer.html">
+<link rel="import" href="../x-schema/x-schema.html">
 <link rel="import" href="part-collection-items.html">
 <polymer-element name="page-collection" attributes="collection">
   <template>
@@ -10,13 +11,13 @@
       }
     </style>
 
-    <core-ajax id="ajax" url="/explorer/resources/{{ collection }}" handleAs="json" 
-      on-core-response="{{ on_response }}" on-core-error="{{ on_error }}"></core-ajax>
+    <x-schema id="get_schema" collection="{{ collection }}"
+      on-x-response="{{ on_response }}" on-x-error="{{ on_error }}"></x-schema>
 
     <x-header></x-header>
     <div class="page container">
       <a is="x-link" href="/admin/collections">Back to collections</a>
-      <h2>{{ schema.resourcePath }}</h2>
+      <h2>{{ schema.plural }}</h2>
       <part-collection-items id="items"></part-collection-items>
     </div>
     <x-footer></x-footer>
@@ -26,34 +27,18 @@
     Polymer('page-collection', {
 
       collectionChanged: function () {
-        this.$.ajax.go();
-      },
-
-      update_schema: function (schema) {
-        var model = Object.keys(schema.models)[0];
-        var details = schema.models[model];
-        var name;
-        var property;
-        var properties = [];
-        for (name in details.properties) {
-          property = {};
-          property.name = name;
-          property.type = details.properties[name].type;
-          property.required = details.required.indexOf(name) !== -1;
-          properties.push(property);
-        }
-        schema.properties = properties;
+        this.$.get_schema.go();
       },
 
       on_response: function (event) {
-        var schema = event.detail.response;
-        this.update_schema(schema);
+        var schema = event.detail.schema;
         this.schema = schema;
         this.$.items.schema = schema;
       },
 
       on_error: function (event) {
-
+        var error = event.detail.error;
+        console.log(error);
       }
 
     });
