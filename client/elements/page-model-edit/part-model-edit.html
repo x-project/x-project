@@ -24,16 +24,19 @@
     <core-ajax id="get_model" method="GET" url="/api/{{ collection }}/{{ model_id }}" handleAs="json" 
       on-core-response="{{ on_get_model }}" on-core-error="{{ on_error_get_model }}"></core-ajax>
 
-    <core-ajax id="post_data" method="POST" url="/api/{{ collection }}" contentType="application/json" 
+    <core-ajax id="post_data" method="POST" url="/api/{{ collection }}" 
+      handleAs="json" contentType="application/json" 
       on-core-response="{{ on_post_data }}" on-core-error="{{ on_error_post_data }}"></core-ajax>
 
-    <core-ajax id="put_data" method="PUT" url="/api/{{ collection }}/{{ model_id }}" contentType="application/json" 
+    <core-ajax id="put_data" method="PUT" url="/api/{{ collection }}/{{ model_id }}" 
+      handleAs="json" contentType="application/json" 
       on-core-response="{{ on_put_data }}" on-core-error="{{ on_error_put_data }}"></core-ajax>
 
     <form role="form" id="form"></form>
 
     <div class="form-group">
-      <input id="update" type="button" class="btn btn-success" on-click="{{ save }}" value="{{ edit ? 'Update' : 'Save' }}">
+      <input id="submit" type="button" class="btn btn-success" on-click="{{ save }}" 
+        value="{{ model_id ? 'Update' : 'Save' }}">
     </div>
 
   </template>
@@ -66,8 +69,10 @@
         var schema = event.detail.schema;
         this.schema = schema;
         this.create_form(schema);
-        this.$.get_model.go();
-        this.edit = true;
+        if (this.model_id) {
+          this.$.get_model.go();
+          this.edit = true;
+        }
       },
 
       on_error_get_schema: function (event) {
@@ -76,7 +81,6 @@
 
       on_get_model: function (event) {
         var instance = event.detail.response;
-        console.log(instance)
         this.values = instance;
       },
 
@@ -84,21 +88,24 @@
 
       },
 
-      on_post_data: function(event, response){
-        alert("Elemento aggiunto o forse no");
-        this.clear();
+      on_post_data: function (event) {
+        var response = event.detail.response;
+        this.$.submit.removeAttribute('disabled');
+        this.model_id = response.id;
       },
 
       on_error_post_data: function (event) {
-
+        this.$.submit.removeAttribute('disabled');
       },
 
-      on_put_data: function(event, response){
-        alert("Elemento aggiornato o forse no");
+      on_put_data: function (event) {
+        var response = event.detail.response;
+        console.log(response);
+        this.$.submit.removeAttribute('disabled');
       },
 
       on_error_put_data: function (event) {
-
+        this.$.submit.removeAttribute('disabled');
       },
 
       create_form: function (schema) {
@@ -118,17 +125,10 @@
       save: function (event, response){
         var values = this.values;
         var body = JSON.stringify(values);
-        var ajax = this.$.post_data;
+        var ajax = this.model_id ? this.$.put_data : this.$.post_data;
         ajax.body = body;
         ajax.go();
-      },
-
-      update: function(event, response) {
-        var values = this.values;
-        var body = JSON.stringify(values);
-        var ajax = this.$.put_data;
-        ajax.body = body;
-        ajax.go();
+        this.$.submit.setAttribute('disabled', 'disabled');
       },
 
       clear: function () {

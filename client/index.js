@@ -41,6 +41,8 @@ var start = function () {
   page('/admin/collections', open('page-collections'));
   
   page('/admin/collections/:collection', open('page-collection'));
+
+  page('/admin/collections/:collection/create', open('page-model-edit'));
   
   page('/admin/collections/:collection/:model_id/edit', open('page-model-edit'));
 

@@ -5,16 +5,20 @@
       :host {
         display: block;
       }
+
+      .radio-item {
+        margin-right: 20px;
+      }
     </style>
 
     <div id="input" class="form-group">
       <label>{{ label }}</label>
       <div>
         <template repeat="{{ option in schema.options }}">
-          <span>
-            <input type="radio" name="{{ name }}" value="{{ option }}" />
+          <div>
+            <input type="radio" name="{{ label }}" value="{{ option }}" />
             {{ option }}
-          </span>
+          </div>
         </template>
       </div>
     </div>
