@@ -29,7 +29,12 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "images": {
+      "type": "hasMany",
+      "model": "CloudinaryImage"
+    }
+  },
   "acls": [],
   "methods": []
 }

@@ -12,7 +12,11 @@
       "type": "string",
       "required": true,
       "$type": "enum",
-      "options": ["A", "B", "C"]
+      "options": [
+        "A",
+        "B",
+        "C"
+      ]
     },
     "deadline": {
       "type": "date",

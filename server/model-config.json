@@ -24,7 +24,6 @@
     "dataSource": "db",
     "public": false
   },
-
   "Employee": {
     "dataSource": "db",
     "public": true
@@ -43,6 +42,10 @@
   },
   "Project": {
     "dataSource": "db",
+    "public": true
+  },
+  "CloudinaryImage": {
+    "dataSource": "cloudinary",
     "public": true
   }
 }

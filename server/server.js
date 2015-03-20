@@ -1,7 +1,6 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 var path = require('path');
-
 var app = module.exports = loopback();
 
 app.use(loopback.token({ model: app.models.accessToken }));

@@ -5,28 +5,28 @@
   "properties": {
     "name": {
       "type": "string",
-      "$type": "string",
-      "required": true
+      "required": true,
+      "$type": "string"
     },
     "lat": {
       "type": "number",
-      "$type": "number",
-      "required": true
+      "required": true,
+      "$type": "number"
     },
     "lng": {
       "type": "number",
-      "$type": "number",
-      "required": true
+      "required": true,
+      "$type": "number"
     },
     "alt": {
       "type": "number",
-      "$type": "number",
-      "required": true
+      "required": true,
+      "$type": "number"
     },
     "desc": {
       "type": "string",
-      "$type": "textarea",
-      "required": true
+      "required": true,
+      "$type": "textarea"
     }
   },
   "validations": [],
