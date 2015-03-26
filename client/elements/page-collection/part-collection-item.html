@@ -1,5 +1,5 @@
 <link rel="import" href="../../components/core-ajax/core-ajax.html">
-<polymer-element name="part-collection-item" attributes="item index schema">
+<polymer-element name="part-collection-item" attributes="item items index schema">
 	<template>
     <style>
       :host {
@@ -7,7 +7,7 @@
       }
     </style>
 
-    <core-ajax id="ajax" method="DELETE" contentType="application/json" 
+    <core-ajax id="delete_item" method="DELETE" contentType="application/json" 
       url="/api/{{ schema.plural }}/{{ item.id }}"
       on-core-response="{{ on_delete_item }}" on-core-error="{{ on_error_delete_item }}"></core-ajax>
 
@@ -32,25 +32,17 @@
     Polymer('part-collection-item', {
 
       on_click_delete: function (event) {
-        // var test = confirm('Are you sure?');
-        // if (test === false) {
-        //   return
-        // }
-        this.delete_item();
-      },
-
-      delete_item: function() {
-        this.$.ajax.go();
+        this.$.delete_item.go();
       },
 
       on_delete_item: function () {
-        console.log('delete', this.index);
-        this.fire('delete', { index: this.index });
+        // var index = this.items.indexOf(this.item);
+        // this.items.splice(index, 1);
+        this.fire('delete-item', this.item);
       },
 
-      on_error_delete_item: function () {
-        console.log('error deleting item', this.index);
-        alert('error deleting item ' + this.index);
+      on_error_delete_item: function (event) {
+        console.log(event);
       }
 
     });

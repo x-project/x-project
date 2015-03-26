@@ -1,0 +1,20 @@
+<polymer-element name="part-collection-title" attributes="schema">
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div>
+      <a is="x-link" href="/admin/collections">Back to collections</a>
+      <h2>{{ schema.plural }}</h2>          
+    </div>
+
+  </template>
+  <script>
+    Polymer('part-collection-title', {
+
+    });
+  </script>
+</polymer-element>

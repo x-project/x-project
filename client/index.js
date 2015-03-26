@@ -13,7 +13,6 @@ var open = function (page_name) {
       }
     }
     context.element = element;
-    console.log(element);
     while (app.firstChild) app.removeChild(app.firstChild);
     app.appendChild(element);
     scroll(0,0);

@@ -1,0 +1,27 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<polymer-element name="part-container" >
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div id="container" class="container">
+      <content select="[part]"></content>
+    </div>
+
+  </template>
+  <script>
+    Polymer('part-container', {
+
+      ready: function () {
+        this.parts = this.querySelectorAll('[part]');
+        this.parts.array().forEach(function (part) {
+          part.container = this;
+        }, this);
+      }
+
+    });
+  </script>
+</polymer-element>

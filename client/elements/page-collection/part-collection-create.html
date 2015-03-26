@@ -1,0 +1,19 @@
+<polymer-element name="part-collection-create" attributes="schema">
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div class="form-group">
+      <a class="btn btn-success" href="/admin/collections/{{ schema.plural }}/create">insert new</a>
+    </div>
+
+  </template>
+  <script>
+    Polymer('part-collection-create', {
+
+    });
+  </script>
+</polymer-element>
