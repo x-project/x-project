@@ -2,7 +2,11 @@
 <link rel="import" href="../x-header/x-header.html">
 <link rel="import" href="../x-footer/x-footer.html">
 <link rel="import" href="../x-schema/x-schema.html">
+<link rel="import" href="../x-paginator/x-paginator.html">
+<link rel="import" href="part-collection-create.html">
 <link rel="import" href="part-collection-items.html">
+<link rel="import" href="part-collection-pages.html">
+<link rel="import" href="part-collection-title.html">
 <polymer-element name="page-collection" attributes="collection">
   <template>
     <style>      
@@ -12,13 +16,22 @@
     </style>
 
     <x-schema id="get_schema" collection="{{ collection }}"
-      on-x-response="{{ on_response }}" on-x-error="{{ on_error }}"></x-schema>
+      on-x-response="{{ on_get_schema }}" on-x-error="{{ on_error_get_schema }}"></x-schema>
+
+    <core-ajax id="get_list" url="/api/{{ schema.plural }}" handleAs="json" 
+      on-core-response="{{ on_get_list }}" on-core-error="{{ on_error_get_list }}"></core-ajax>
+
+    <core-ajax id="get_count" url="/api/{{ schema.plural }}/count" handleAs="json" 
+      on-core-response="{{ on_get_count }}" on-core-error="{{ on_error_get_count }}"></core-ajax>
 
     <x-header></x-header>
     <div class="page container">
-      <a is="x-link" href="/admin/collections">Back to collections</a>
-      <h2>{{ schema.plural }}</h2>
-      <part-collection-items id="items"></part-collection-items>
+      <part-collection-title schema="{{ schema }}"></part-collection-title>
+      <part-collection-create schema="{{ schema }}"></part-collection-create>
+      <part-collection-items schema="{{ schema }}" items="{{ items }}" count="{{ count }}"
+        on-delete-item="{{ on_delete_item }}"></part-collection-items>
+      <part-collection-pages count="{{ count }}" perpage="{{ filter.limit }}" current="{{ current }}"
+        on-change-page="{{ on_change_page }}"></part-collection-pages>
     </div>
     <x-footer></x-footer>
 
@@ -26,19 +39,70 @@
   <script>
     Polymer('page-collection', {
 
+      current: 0,
+
+      count: 0,
+
+      filter: {
+        limit: 2,
+        skip: 0
+      },
+
+      get params () {
+        return {
+          filter: JSON.stringify(this.filter)
+        };
+      },
+
       collectionChanged: function () {
         this.$.get_schema.go();
       },
 
-      on_response: function (event) {
+      on_get_schema: function (event) {
         var schema = event.detail.schema;
         this.schema = schema;
-        this.$.items.schema = schema;
+        this.$.get_list.params = this.params;
+        this.$.get_count.go();
       },
 
-      on_error: function (event) {
-        var error = event.detail.error;
-        console.log(error);
+      on_error_get_schema: function (event) {
+        console.log(event);
+      },
+
+      on_get_list: function (event) {
+        this.items = event.detail.response;
+      },
+
+      itemsChanged: function () {
+        if (this.items.length === 0) {
+          if (this.current > 0) {
+            this.current--;
+          }
+        }
+      },
+
+      on_error_get_list: function (event) {
+        console.log(event);
+      },
+
+      on_get_count: function (event) {
+        this.count = event.detail.response.count;
+        this.$.get_list.go();
+      },
+
+      on_error_get_count: function (event) {
+        console.log(event);        
+      },
+
+      on_change_page: function (event, detail) {
+        this.filter.limit = detail.limit;
+        this.filter.skip = detail.skip;
+        this.$.get_list.params = this.params;
+        this.$.get_list.go();
+      },
+
+      on_delete_item: function () {
+        this.$.get_count.go();
       }
 
     });

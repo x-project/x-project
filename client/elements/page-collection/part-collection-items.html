@@ -1,7 +1,7 @@
 <link rel="import" href="../../components/core-ajax/core-ajax.html">
 <link rel="import" href="../../components/x-link/x-link.html">
 <link rel="import" href="part-collection-item.html">
-<polymer-element name="part-collection-items">
+<polymer-element name="part-collection-items" attributes="items schema">
   <template>
     <style>
       :host {
@@ -9,46 +9,17 @@
       }
     </style>
 
-    <core-ajax id="ajax" url="/api/{{ schema.plural }}" handleAs="json" 
-      on-core-response="{{ on_response }}" on-core-error="{{ on_error }}"></core-ajax>
-
-    <div class="form-group">
-      <a class="btn btn-success" href="/admin/collections/{{ schema.plural }}/create">insert new</a>
-    </div>
-    <ol>
+    <ul class="list-unstyled">
       <template repeat="{{ item, index in items }}">
-        <template if="{{ item }}">
-          <li>
-            <part-collection-item item="{{ item }}" index="{{ index }}" schema="{{ schema }}"
-              on-delete="{{ on_delete_item }}"></part-collection-item>
-          </li>
-        </template>
+        <li>
+          <part-collection-item item="{{ item }}" items="{{ items }}" schema="{{ schema }}"></part-collection-item>
+        </li>
       </template>
-    </ol>
+    </ul>
 
   </template>
   <script>
     Polymer('part-collection-items', {
-
-      schema: {},
-
-      schemaChanged: function () {
-        this.$.ajax.go();
-      },
-
-      on_response: function(event) {
-        var response = event.detail.response;
-        this.items = response;
-      },
-
-      on_error: function (event) {
-
-      },
-
-      on_delete_item: function (event) {
-        var index = event.detail.index;
-        this.items.splice(index, 1);
-      }
 
     });
   </script>
