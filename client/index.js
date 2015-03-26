@@ -45,9 +45,9 @@ var start = function () {
   
   page('/admin/collections/:collection/:model_id/edit', open('page-model-edit'));
 
-  page('/blog', open('page-posts'));
+  page('/posts', open('page-posts'));
   
-  page('/blog/posts/:post_id', open('page-post'));
+  page('/posts/:post_id', open('page-post'));
   
   page();
   

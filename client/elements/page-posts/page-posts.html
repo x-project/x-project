@@ -12,15 +12,14 @@
       }
     </style>
     
-    <core-ajax id="ajax" url="/api/posts" handleAs="json" 
-      on-core-response="{{ on_response }}" on-core-error="{{ on_error }}"></core-ajax>
+    <core-ajax id="get_posts" url="/api/posts" handleAs="json" 
+      on-core-response="{{ on_get_posts }}" on-core-error="{{ on_error_get_posts }}"></core-ajax>
 
     <x-header></x-header>
     <div class="page container">
       <a is="x-link" href="/">Back</a>
       <h1>Blog</h1>
       <part-posts-items items="{{ items }}"></part-posts-items>
-      <a is="x-link" href="/">Back</a>
     </div>
     <x-footer></x-footer>
 
@@ -29,14 +28,14 @@
     Polymer('page-posts', {
 
       ready: function () {
-        this.$.ajax.go();
+        this.$.get_posts.go();
       },
 
-      on_response: function(event) {
+      on_get_posts: function(event) {
         this.items = event.detail.response;
       },
 
-      on_error: function (event) {
+      on_error_get_posts: function (event) {
 
       }
 

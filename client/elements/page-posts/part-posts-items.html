@@ -1,5 +1,5 @@
 <link rel="import" href="part-posts-item.html">
-<polymer-element name="part-posts-items" attributes="data">
+<polymer-element name="part-posts-items" attributes="items">
   <template>
     <style>
       :host {
@@ -7,9 +7,9 @@
       }
     </style>
 
-    <div id="blog">
-      <template repeat="{{ item in data }}">
-        <x-post-list-item item="{{ item }}"></x-post-list-item>
+    <div>
+      <template repeat="{{ item in items }}">
+        <part-posts-item item="{{ item }}"></part-posts-item>
       </template>
     </div>
 
