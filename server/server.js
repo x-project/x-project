@@ -3,6 +3,8 @@ var boot = require('loopback-boot');
 var path = require('path');
 var app = module.exports = loopback();
 
+var cloudinary = require('cloudinary');
+
 app.use(loopback.token({ model: app.models.accessToken }));
 app.use(loopback.compress());
 
@@ -13,6 +15,13 @@ app.use(loopback.static(path.resolve(__dirname, '../common')));
 
 app.use(loopback.json());
 app.use(loopback.urlencoded({ extended: true }));
+
+app.post('myapi/upload', function (req, res) {
+
+  cloudinary.upload()
+
+})
+
 
 app.index_file_path = path.resolve(__dirname, '../client/index.html');
 app.get('*', function (req, res) { res.sendFile(app.index_file_path); });

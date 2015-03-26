@@ -21,22 +21,31 @@
     <x-schema id="get_schema" collection="{{ collection }}"
       on-x-response="{{ on_get_schema }}" on-x-error="{{ on_error_get_schema }}"></x-schema>
 
-    <core-ajax id="get_model" method="GET" url="/api/{{ collection }}/{{ model_id }}" handleAs="json" 
+    <core-ajax id="get_model" method="GET" url="/api/{{ collection }}/{{ model_id }}" handleAs="json"
       on-core-response="{{ on_get_model }}" on-core-error="{{ on_error_get_model }}"></core-ajax>
 
-    <core-ajax id="post_data" method="POST" url="/api/{{ collection }}" 
-      handleAs="json" contentType="application/json" 
+    <core-ajax id="post_data" method="POST" url="/api/{{ collection }}"
+      handleAs="json" contentType="application/json"
       on-core-response="{{ on_post_data }}" on-core-error="{{ on_error_post_data }}"></core-ajax>
 
-    <core-ajax id="put_data" method="PUT" url="/api/{{ collection }}/{{ model_id }}" 
-      handleAs="json" contentType="application/json" 
+    <core-ajax id="put_data" method="PUT" url="/api/{{ collection }}/{{ model_id }}"
+      handleAs="json" contentType="application/json"
       on-core-response="{{ on_put_data }}" on-core-error="{{ on_error_put_data }}"></core-ajax>
 
     <form role="form" id="form"></form>
 
     <div class="form-group">
-      <input id="submit" type="button" class="btn btn-success" on-click="{{ save }}" 
+      <input id="submit" type="button" class="btn btn-success" on-click="{{ save }}"
         value="{{ model_id ? 'Update' : 'Save' }}">
+    </div>
+
+
+    <core-ajax id="post_image" method="POST" url="/api/cloudinaryimages/upload"
+      on-core-response="{{ on_post_image }}" on-core-error="{{ on_error_post_image }}"></core-ajax>
+
+    <div>
+      <h3>image</h3>
+      <input id="file" type="file" on-change="{{ on_change_file }}">
     </div>
 
   </template>
@@ -63,6 +72,21 @@
 
       ready: function () {
         this.$.get_schema.go();
+      },
+
+      on_change_file: function (event) {
+        var file = event.target.files[0];
+        var ajax = this.$.post_image;
+        ajax.body = file;
+        ajax.go();
+      },
+
+      on_post_image: function (event) {
+        console.log(event);
+      },
+
+      on_error_post_image: function (event) {
+        console.log(event);
       },
 
       on_get_schema: function (event) {

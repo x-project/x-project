@@ -6,7 +6,7 @@
 <link rel="import" href="part-model-edit.html">
 <polymer-element name="page-model-edit" attributes="collection model_id">
   <template>
-    <style>      
+    <style>
       :host {
         display: block;
       }
@@ -15,8 +15,8 @@
     <x-header></x-header>
     <div class="page container">
       <a is="x-link" href="/admin/collections/{{ collection }}">Back</a>
-      <h1>{{ collection }}</h1>
-      <part-model-edit collection="{{ collection }}" model_id="{{ model_id }}"></part-model-edit>    
+      <h1>{{ collection }}:</h1>
+      <part-model-edit collection="{{ collection }}" model_id="{{ model_id }}"></part-model-edit>
     </div>
     <x-footer></x-footer>
 
