@@ -18,18 +18,20 @@
     <x-schema id="get_schema" collection="{{ collection }}"
       on-x-response="{{ on_get_schema }}" on-x-error="{{ on_error_get_schema }}"></x-schema>
 
-    <core-ajax id="get_list" url="/api/{{ schema.plural }}" handleAs="json" 
+    <core-ajax id="get_list" method="GET" url="/api/{{ schema.plural }}/?filter={{ filter | stringify }}" handleAs="json" 
       on-core-response="{{ on_get_list }}" on-core-error="{{ on_error_get_list }}"></core-ajax>
 
-    <core-ajax id="get_count" url="/api/{{ schema.plural }}/count" handleAs="json" 
+    <core-ajax id="get_count" method="GET" url="/api/{{ schema.plural }}/count" handleAs="json" 
       on-core-response="{{ on_get_count }}" on-core-error="{{ on_error_get_count }}"></core-ajax>
 
     <x-header></x-header>
     <div class="page container">
       <part-collection-title schema="{{ schema }}"></part-collection-title>
       <part-collection-create schema="{{ schema }}"></part-collection-create>
-      <part-collection-items schema="{{ schema }}" items="{{ items }}" count="{{ count }}"
+
+      <part-collection-items schema="{{ schema }}" items="{{ items }}"
         on-delete-item="{{ on_delete_item }}"></part-collection-items>
+
       <part-collection-pages count="{{ count }}" perpage="{{ filter.limit }}" current="{{ current }}"
         on-change-page="{{ on_change_page }}"></part-collection-pages>
     </div>
@@ -45,13 +47,15 @@
 
       filter: {
         limit: 2,
-        skip: 0
+        skip: 0,
+        where: {},
+        include: {},
+        fields: {},
+        orderBy: {}
       },
 
-      get params () {
-        return {
-          filter: JSON.stringify(this.filter)
-        };
+      stringify: function (value) {
+        return JSON.stringify(value);
       },
 
       collectionChanged: function () {
@@ -59,9 +63,10 @@
       },
 
       on_get_schema: function (event) {
-        var schema = event.detail.schema;
-        this.schema = schema;
-        this.$.get_list.params = this.params;
+        this.schema = event.detail.schema;
+      },
+
+      schemaChanged: function () {
         this.$.get_count.go();
       },
 
@@ -74,11 +79,7 @@
       },
 
       itemsChanged: function () {
-        if (this.items.length === 0) {
-          if (this.current > 0) {
-            this.current--;
-          }
-        }
+        this.current = (this.items.length === 0 && this.current > 0) ? this.current-1 : this.current;
       },
 
       on_error_get_list: function (event) {
@@ -87,7 +88,10 @@
 
       on_get_count: function (event) {
         this.count = event.detail.response.count;
-        this.$.get_list.go();
+      },
+
+      countChanged: function () {
+        this.$.get_list.go();        
       },
 
       on_error_get_count: function (event) {
@@ -95,9 +99,8 @@
       },
 
       on_change_page: function (event, detail) {
-        this.filter.limit = detail.limit;
+        // this.time = new Date();
         this.filter.skip = detail.skip;
-        this.$.get_list.params = this.params;
         this.$.get_list.go();
       },
 

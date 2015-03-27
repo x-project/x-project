@@ -1,5 +1,5 @@
 <link rel="import" href="../../components/core-ajax/core-ajax.html">
-<polymer-element name="part-collection-item" attributes="item items index schema">
+<polymer-element name="part-collection-item" attributes="item items schema">
 	<template>
     <style>
       :host {
@@ -36,8 +36,6 @@
       },
 
       on_delete_item: function () {
-        // var index = this.items.indexOf(this.item);
-        // this.items.splice(index, 1);
         this.fire('delete-item', this.item);
       },
 

@@ -1,3 +1,3 @@
-module.exports = function(Post) {
+module.exports = function (Post) {
 
 };

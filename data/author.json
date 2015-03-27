@@ -1,0 +1,17 @@
+[
+  {
+    "fullname": "Author A",
+    "email": "a@x.com",
+    "location": "Location A"
+  },
+  {
+    "fullname": "Author B",
+    "email": "b@x.com",
+    "location": "Location B"
+  },
+  {
+    "fullname": "Author C",
+    "email": "c@x.com",
+    "location": "Location C"
+  }
+]
