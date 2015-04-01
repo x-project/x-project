@@ -1,0 +1,63 @@
+<link rel="import" href="../filter-text/filter-text.html">
+
+<polymer-element name="part-collection-filter" attributes="schema where">
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div id="select">
+      <span>filter</span>
+      <select on-change="{{ on_select }}">
+        <option disabled></option>
+        <template repeat="{{ property in schema.properties}}">
+          <option disabled?="{{ selected[property.name] }}" value="{{ property.name }}">
+            &lt;{{ property.type }}&gt; {{ property.name }}
+          </option>
+        </template>
+      </select>
+    </div>
+
+    <div id="filters">
+      <template repeat="{{ property in schema.properties }}">
+        <template if="{{ property.type === 'string' && selected[property.name] }}">
+          <div>
+            <filter-text filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-text>
+            <button class="btn btn-xs btn-danger" data-name="{{ property.name }}" 
+              on-click="{{ on_unselect }}">remove</button>
+          </div>
+        </template>
+      </template>
+    </div>
+
+  </template>
+  <script>
+    Polymer('part-collection-filter', {
+
+      values: {},
+
+      selected: {},
+
+      on_select: function (event, detail, target) {
+        this.selected[target.value] = true;
+        target.value = '';
+      },
+
+      on_unselect: function (event, detail, target) {
+        delete this.selected[target.dataset.name];
+      },
+
+      get query () {
+        var filters = this.$.filters.querySelectorAll('filter-text').array();
+        var array = filters.map(function (filter) {
+          return filter.query;
+        })
+        var and = { and: array };
+        return and;
+      }
+      
+    });
+  </script>
+</polymer-element>

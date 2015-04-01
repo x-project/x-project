@@ -3,10 +3,13 @@
 <link rel="import" href="../x-footer/x-footer.html">
 <link rel="import" href="../x-schema/x-schema.html">
 <link rel="import" href="../x-paginator/x-paginator.html">
+
 <link rel="import" href="part-collection-create.html">
 <link rel="import" href="part-collection-items.html">
 <link rel="import" href="part-collection-pages.html">
 <link rel="import" href="part-collection-title.html">
+<link rel="import" href="part-collection-order.html">
+<link rel="import" href="part-collection-filter.html">
 <polymer-element name="page-collection" attributes="collection">
   <template>
     <style>      
@@ -18,16 +21,24 @@
     <x-schema id="get_schema" collection="{{ collection }}"
       on-x-response="{{ on_get_schema }}" on-x-error="{{ on_error_get_schema }}"></x-schema>
 
-    <core-ajax id="get_list" method="GET" url="/api/{{ schema.plural }}/?filter={{ filter | stringify }}" handleAs="json" 
+    <core-ajax id="get_list" method="GET" 
+      url="/api/{{ schema.plural }}/?filter={{ filter | stringify }}" handleAs="json" 
       on-core-response="{{ on_get_list }}" on-core-error="{{ on_error_get_list }}"></core-ajax>
 
-    <core-ajax id="get_count" method="GET" url="/api/{{ schema.plural }}/count" handleAs="json" 
+    <core-ajax id="get_count" method="GET" 
+      url="/api/{{ schema.plural }}/count/?where={{ filter.where | stringify }}" handleAs="json" 
       on-core-response="{{ on_get_count }}" on-core-error="{{ on_error_get_count }}"></core-ajax>
 
     <x-header></x-header>
     <div class="page container">
       <part-collection-title schema="{{ schema }}"></part-collection-title>
       <part-collection-create schema="{{ schema }}"></part-collection-create>
+
+      <part-collection-filter id="filter" schema="{{ schema }}" where="{{ filter.where }}"></part-collection-filter>
+      <button class="btn btn-sm btn-primary" on-click="{{ on_click_search }}">search</button>
+
+      <part-collection-order schema="{{ schema }}" 
+        on-change-order="{{ on_change_order }}"></part-collection-order>
 
       <part-collection-items schema="{{ schema }}" items="{{ items }}"
         on-delete-item="{{ on_delete_item }}"></part-collection-items>
@@ -50,12 +61,18 @@
         skip: 0,
         where: {},
         include: {},
-        fields: {},
-        orderBy: {}
+        fields: {}
       },
 
       stringify: function (value) {
         return JSON.stringify(value);
+      },
+
+      on_click_search: function () {
+        var query = this.$.filter.query;
+        this.filter.where = query;
+        this.$.get_list.go();
+        this.$.get_count.go();
       },
 
       collectionChanged: function () {
@@ -91,7 +108,7 @@
       },
 
       countChanged: function () {
-        this.$.get_list.go();        
+        this.$.get_list.go();
       },
 
       on_error_get_count: function (event) {
@@ -99,12 +116,16 @@
       },
 
       on_change_page: function (event, detail) {
-        // this.time = new Date();
         this.filter.skip = detail.skip;
         this.$.get_list.go();
       },
 
       on_delete_item: function () {
+        this.$.get_count.go();
+      },
+
+      on_change_order: function (event, detail) {
+        this.filter.order = detail.property;
         this.$.get_count.go();
       }
 

@@ -1,0 +1,33 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<polymer-element name="filter-text" attributes="name, placeholder">
+	<template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+    </style>
+
+    <form class="form-inline">
+      <div class="form-group">      
+        <label>{{ name }}</label>
+        <input type="url" class="form-control" placeholder="{{ placeholder }}" value="{{ value }}">
+      </div>
+    </form>
+
+  </template>
+  <script>
+    Polymer('filter-text', {
+
+      attached: function () {
+        this.fire('attached', this);
+      },
+
+      get query () {
+        var obj = {};
+        obj[this.name] = { like: this.value };
+        return obj;
+      }
+
+    });
+  </script>
+</polymer-element>
