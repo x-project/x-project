@@ -43,9 +43,5 @@
   "Project": {
     "dataSource": "db",
     "public": true
-  },
-  "CloudinaryImage": {
-    "dataSource": "cloudinary",
-    "public": true
   }
 }

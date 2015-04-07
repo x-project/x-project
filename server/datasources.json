@@ -6,10 +6,5 @@
   "mongo": {
     "name": "mongo",
     "connector": "mongodb"
-  },
-  "cloudinary": {
-    "url": "https://api.cloudinary.com/v1_1/x-project",
-    "name": "cloudinary",
-    "connector": "loopback-component-cloudinary"
   }
 }
