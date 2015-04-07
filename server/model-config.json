@@ -24,12 +24,7 @@
     "dataSource": "db",
     "public": false
   },
-<<<<<<< HEAD
-  "Employee": {
-=======
-
   "Author": {
->>>>>>> master
     "dataSource": "db",
     "public": true
   },
