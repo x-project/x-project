@@ -24,23 +24,20 @@
     "dataSource": "db",
     "public": false
   },
+<<<<<<< HEAD
   "Employee": {
+=======
+
+  "Author": {
+>>>>>>> master
     "dataSource": "db",
     "public": true
   },
-  "Person": {
-    "dataSource": "db",
-    "public": true
-  },
-  "Poi": {
+  "Tag": {
     "dataSource": "db",
     "public": true
   },
   "Post": {
-    "dataSource": "db",
-    "public": true
-  },
-  "Project": {
     "dataSource": "db",
     "public": true
   }

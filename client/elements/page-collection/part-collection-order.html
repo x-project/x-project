@@ -1,0 +1,29 @@
+<polymer-element name="part-collection-order" attributes="schema">
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div>
+      <span>order by</span>
+      <select on-change="{{ on_change }}">
+        <option></option>
+        <template repeat="{{ property in schema.properties }}">
+          <option value="{{ property.name }}">{{ property.name }}</option>
+        </template>
+      </select>
+    </div>
+
+  </template>
+  <script>
+    Polymer('part-collection-order', {
+
+      on_change: function (event, detail, sender) {
+        this.fire('change-order', { property: sender.value });
+      }
+
+    });
+  </script>
+</polymer-element>

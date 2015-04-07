@@ -8,16 +8,17 @@
       }
     </style>
 
-    <div id="preview">
-      <h2>{{ item.title }}</h2>
-      <p id="muted">posted by <strong>{{ item.author }}</strong> on <strong>{{ item.posted | datetime }}</strong></p>
+    <div>
+      <h3>{{ item.title }}</h3>
+      <h4 id="muted">posted by <strong>{{ item.author }}</strong> on <strong>{{ item.posted | datetime }}</strong></h4>
       <p>{{ item.description }}</p>
-      <div>
-        <a is="x-link" id="read_more" href="/post/{{ item.id }}">Read More</a>
-      </div>
+      <p>  
+        <a is="x-link" id="read_more" href="/posts/{{ item.id }}">Read More</a>
+      </p>
     </div>
 
   </template>
+  <script src="../../components/moment/moment.js"></script>
   <script>
     Polymer('part-posts-item', {
 

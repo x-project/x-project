@@ -1,27 +1,21 @@
 {
-  "name": "Person",
-  "plural": "People",
+  "name": "Author",
+  "plural": "Authors",
+  "base": "PersistedModel",
   "properties": {
     "fullname": {
       "type": "string",
       "required": true,
       "$type": "string"
     },
-    "age": {
-      "type": "number",
-      "$type": "number"
-    },
     "gender": {
       "type": "string",
       "$type": "enum",
-      "options": [
-        "Male",
-        "Female"
-      ]
+      "options": ["Male", "Female"]
     },
-    "dob": {
-      "type": "date",
-      "$type": "date"
+    "location": {
+      "type": "string",
+      "$type": "location"
     },
     "email": {
       "type": "string",

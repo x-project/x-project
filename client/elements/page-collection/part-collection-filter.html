@@ -1,0 +1,83 @@
+<link rel="import" href="../filter-text/filter-text.html">
+<link rel="import" href="../filter-date/filter-date.html">
+<link rel="import" href="../filter-number/filter-number.html">
+<polymer-element name="part-collection-filter" attributes="schema">
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div>
+      <span>where</sepan>
+    </div>
+
+    <div id="filters">
+      <template repeat="{{ property in schema.properties }}">
+        <template if="{{ selected[property.name] }}">
+          <template if="{{ property.type === 'string' }}">
+            <div>
+              <filter-text filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-text>
+              <button class="btn btn-xs btn-danger" data-name="{{ property.name }}" 
+                on-click="{{ on_unselect }}">remove</button>
+            </div>
+          </template>
+          <template if="{{ property.type === 'date' }}">
+            <div>
+              <filter-date filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-date>
+              <button class="btn btn-xs btn-danger" data-name="{{ property.name }}" 
+                on-click="{{ on_unselect }}">remove</button>
+            </div>
+          </template>          
+          <template if="{{ property.type === 'number' }}">
+            <div>
+              <filter-number filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-number>
+              <button class="btn btn-xs btn-danger" data-name="{{ property.name }}" 
+                on-click="{{ on_unselect }}">remove</button>
+            </div>
+          </template>          
+        </template>
+      </template>
+    </div>
+
+    <div id="select">
+      <select on-change="{{ on_select }}">
+        <option disabled></option>
+        <template repeat="{{ property in schema.properties}}">
+          <option disabled?="{{ selected[property.name] }}" value="{{ property.name }}">
+            ({{ property.type }}) {{ property.name }}
+          </option>
+        </template>
+      </select>
+    </div>
+
+  </template>
+  <script>
+    Polymer('part-collection-filter', {
+
+      ready: function () {
+        this.values = {};
+        this.selected = {};
+      },
+
+      on_select: function (event, detail, target) {
+        var name = target.value;
+        this.selected[name] = true;
+        target.value = '';
+      },
+
+      on_unselect: function (event, detail, target) {
+        delete this.selected[target.dataset.name];
+      },
+
+      get query () {
+        var filters = this.$.filters.querySelectorAll('[filter]').array();
+        var array = filters.map(function (filter) { return filter.query; });
+        var and = { and: array };
+        return and;
+      }
+      
+    });
+  </script>
+</polymer-element>

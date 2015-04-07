@@ -1,0 +1,43 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<polymer-element name="filter-date" attributes="name">
+	<template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+    </style>
+
+    <form class="form-inline">
+      <div class="form-group">
+        <span>{{ name }}</span>
+        <select id="when" value="{{ when }}">
+          <option disabled></option>
+          <option value="eq">on</option>
+          <option value="lt">before</option>
+          <option value="gt">after</option>
+        </select>
+        <input id="input" type="date" class="form-control" value="{{ value }}">
+        <button class="btn btn-sm btn-default" on-click="{{ on_click_now }}">now</button>
+      </div>
+    </form>
+
+  </template>
+  <script>
+    Polymer('filter-date', {
+
+      on_click_now: function (event) {
+        event.preventDefault();
+        var now = new Date();
+        this.value = now.toISOString().split('T')[0];
+      },
+
+      get query () {
+        var obj = {};
+        obj[this.name] = {};
+        obj[this.name][this.when] = this.value;
+        return obj;
+      }
+
+    });
+  </script>
+</polymer-element>

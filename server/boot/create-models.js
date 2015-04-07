@@ -1,11 +1,7 @@
 var db = {};
-db.User = require('../../data/user.json');
-db.Employee = require('../../data/employee.json');
-db.Person = require('../../data/person.json');
-db.Poi = require('../../data/poi.json');
+db.Author = require('../../data/author.json');
 db.Post = require('../../data/post.json');
-db.Person = require('../../data/person.json');
-db.Project = require('../../data/project.json');
+db.Tag = require('../../data/tag.json');
 
 module.exports = function enableAuthentication(server) {
 

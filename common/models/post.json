@@ -14,18 +14,19 @@
     },
     "author": {
       "type": "string",
-      "required": true,
       "$type": "string"
     },
     "description": {
       "type": "string",
-      "required": true,
       "$type": "textarea"
     },
     "content": {
       "type": "string",
-      "required": true,
       "$type": "textarea"
+    },
+    "likes": {
+      "type": "number",
+      "$type": "number"
     }
   },
   "validations": [],
