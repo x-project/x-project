@@ -6,8 +6,7 @@ git commit -a -m 'updated'
 git push origin develop
 ```
 
-add services
+Services
 - Google Maps
 - Google Analytics
-- Cloudinary
 - Amazon S3

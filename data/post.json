@@ -3,18 +3,24 @@
     "title": "title A",
     "author": "author A",
     "description": "description A",
-    "content": "content A"
+    "content": "content A",
+    "posted": "2015-12-30T23:00:00.000Z",
+    "likes": 3
   },
   {
     "title": "title B",
     "author": "author B",
     "description": "description B",
-    "content": "content B"
+    "content": "content B",
+    "posted": "2015-12-30T23:00:00.000Z",
+    "likes": 2
   },
   {
     "title": "title C",
     "author": "author C",
     "description": "description C",
-    "content": "content C"
+    "content": "content C",
+    "posted": "2015-12-30T23:00:00.000Z",
+    "likes": 1
   }
 ]

@@ -1,5 +1,5 @@
 <link rel="import" href="../../components/polymer/polymer.html">
-<polymer-element name="filter-text" attributes="name, placeholder">
+<polymer-element name="filter-text" attributes="name placeholder">
 	<template>
     <style>
       :host {
@@ -8,19 +8,16 @@
     </style>
 
     <form class="form-inline">
-      <div class="form-group">      
-        <label>{{ name }}</label>
-        <input type="url" class="form-control" placeholder="{{ placeholder }}" value="{{ value }}">
+      <div class="form-group">
+        <span>{{ name }}</span>
+        <span> cointains </span>
+        <input type="text" class="form-control" placeholder="{{ placeholder }}" value="{{ value }}">
       </div>
     </form>
 
   </template>
   <script>
     Polymer('filter-text', {
-
-      attached: function () {
-        this.fire('attached', this);
-      },
 
       get query () {
         var obj = {};

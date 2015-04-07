@@ -1,0 +1,36 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<polymer-element name="filter-number" attributes="name">
+	<template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+    </style>
+
+    <form class="form-inline">
+      <div class="form-group">
+        <span>{{ name }}</span>
+        <span> is </span>
+        <select id="select" value="{{ comparison }}">
+          <option disabled></option>
+          <option value="lt">less than</option>
+          <option value="gt">greater than</option>
+        </select>
+        <input id="input" type="number" class="form-control" value="{{ value }}">
+      </div>
+    </form>
+
+  </template>
+  <script>
+    Polymer('filter-number', {
+
+      get query () {
+        var obj = {};
+        obj[this.name] = {};
+        obj[this.name][this.comparison] = this.value;
+        return obj;
+      }
+
+    });
+  </script>
+</polymer-element>
