@@ -34,7 +34,7 @@
       <part-collection-title schema="{{ schema }}"></part-collection-title>
       <part-collection-create schema="{{ schema }}"></part-collection-create>
 
-      <part-collection-filter id="filter" schema="{{ schema }}"></part-collection-filter>
+      <part-collection-filter id="filter" properties="{{ schema.properties }}"></part-collection-filter>
 
       <part-collection-order schema="{{ schema }}" 
         on-change-order="{{ on_change_order }}"></part-collection-order>
@@ -127,6 +127,7 @@
 
       on_delete_item: function () {
         this.$.get_count.go();
+        this.$.get_list.go();
       },
 
       on_change_order: function (event, detail) {

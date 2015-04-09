@@ -1,7 +1,7 @@
 <link rel="import" href="../filter-text/filter-text.html">
 <link rel="import" href="../filter-date/filter-date.html">
 <link rel="import" href="../filter-number/filter-number.html">
-<polymer-element name="part-collection-filter" attributes="schema">
+<polymer-element name="part-collection-filter" attributes="properties">
 	<template>
     <style>
       :host {
@@ -14,38 +14,36 @@
     </div>
 
     <div id="filters">
-      <template repeat="{{ property in schema.properties }}">
-        <template if="{{ selected[property.name] }}">
-          <template if="{{ property.type === 'string' }}">
-            <div>
-              <filter-text filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-text>
-              <button class="btn btn-xs btn-danger" data-name="{{ property.name }}" 
-                on-click="{{ on_unselect }}">remove</button>
-            </div>
-          </template>
-          <template if="{{ property.type === 'date' }}">
-            <div>
-              <filter-date filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-date>
-              <button class="btn btn-xs btn-danger" data-name="{{ property.name }}" 
-                on-click="{{ on_unselect }}">remove</button>
-            </div>
-          </template>          
-          <template if="{{ property.type === 'number' }}">
-            <div>
-              <filter-number filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-number>
-              <button class="btn btn-xs btn-danger" data-name="{{ property.name }}" 
-                on-click="{{ on_unselect }}">remove</button>
-            </div>
-          </template>          
+      <template repeat="{{ property, index in used }}">
+        <template if="{{ property.type === 'string' }}">
+          <div>
+            <filter-text filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-text>
+            <button class="btn btn-xs btn-danger" data-name="{{ property.name }}" data-index="{{ index }}"
+              on-click="{{ on_unselect }}">remove</button>
+          </div>
         </template>
+        <template if="{{ property.type === 'date' }}">
+          <div>
+            <filter-date filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-date>
+            <button class="btn btn-xs btn-danger" data-name="{{ property.name }}" data-index="{{ index }}"
+              on-click="{{ on_unselect }}">remove</button>
+          </div>
+        </template>          
+        <template if="{{ property.type === 'number' }}">
+          <div>
+            <filter-number filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-number>
+            <button class="btn btn-xs btn-danger" data-name="{{ property.name }}" data-index="{{ index }}"
+              on-click="{{ on_unselect }}">remove</button>
+          </div>
+        </template>          
       </template>
     </div>
 
     <div id="select">
       <select on-change="{{ on_select }}">
         <option disabled></option>
-        <template repeat="{{ property in schema.properties}}">
-          <option disabled?="{{ selected[property.name] }}" value="{{ property.name }}">
+        <template repeat="{{ property, index in unused }}">
+          <option value="{{ index }}">
             ({{ property.type }}) {{ property.name }}
           </option>
         </template>
@@ -56,19 +54,29 @@
   <script>
     Polymer('part-collection-filter', {
 
-      ready: function () {
-        this.values = {};
-        this.selected = {};
+      propertiesChanged: function () {
+        this.used = [];
+        this.unused = this.properties.slice();
+      },
+
+      is_in: function (pair) {
+        var item = pair[0];
+        var items = pair[1];
+        var test = items.indexOf(item) >= 0;
+        return test;
       },
 
       on_select: function (event, detail, target) {
-        var name = target.value;
-        this.selected[name] = true;
+        var index = target.value;
+        var property = this.unused.splice(index, 1)[0];
+        this.used.push(property);
         target.value = '';
       },
 
       on_unselect: function (event, detail, target) {
-        delete this.selected[target.dataset.name];
+        var index = target.dataset.index;
+        var item = this.used.splice(index, 1)[0];
+        this.unused.push(item);
       },
 
       get query () {
