@@ -16,6 +16,14 @@ html /deep/ .page {
   padding-top: 20px; 
 }
 
+html /deep/ .navbar-default {
+  border: none;
+}
+
+html /deep/ .jumbotron {
+  background-color: #f8f8f8;
+}
+
 html /deep/ .form-control {
   box-shadow: none;
   -webkit-box-shadow: none;
