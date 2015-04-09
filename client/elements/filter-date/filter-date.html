@@ -9,15 +9,15 @@
 
     <form class="form-inline">
       <div class="form-group">
-        <span>{{ name }}</span>
+        <label>{{ name }}</label>
         <select id="when" value="{{ when }}">
           <option disabled></option>
           <option value="eq">on</option>
           <option value="lt">before</option>
           <option value="gt">after</option>
         </select>
-        <input id="input" type="date" class="form-control" value="{{ value }}">
-        <button class="btn btn-sm btn-default" on-click="{{ on_click_now }}">now</button>
+        <button class="btn btn-xs btn-default" on-click="{{ on_click_now }}">now</button>
+        <input id="input" type="date" class="form-control input-sm" value="{{ value }}">
       </div>
     </form>
 

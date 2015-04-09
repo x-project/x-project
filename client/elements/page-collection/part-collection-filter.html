@@ -6,42 +6,64 @@
     <style>
       :host {
         display: block;
+        margin-bottom: 8px;
+      }
+
+      #select {
+        display: none;
+      }
+      #select[visible] {
+        display: inline-block;
+      }
+
+      .filter {
+        display: inline-block;
+        margin-bottom: 4px;
       }
     </style>
 
-    <div>
-      <span>where</sepan>
-    </div>
-
     <div id="filters">
       <template repeat="{{ property, index in used }}">
+        <template if="{{ index === 0 }}">
+          <span>where </span>
+        </template>
+        <template if="{{ index > 0}}">
+          <span>and </span> 
+        </template>  
         <template if="{{ property.type === 'string' }}">
-          <div>
+          <div class="filter">
             <filter-text filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-text>
-            <button class="btn btn-xs btn-danger" data-name="{{ property.name }}" data-index="{{ index }}"
+            <button class="btn btn-xs btn-default" data-name="{{ property.name }}" data-index="{{ index }}"
               on-click="{{ on_unselect }}">remove</button>
           </div>
         </template>
         <template if="{{ property.type === 'date' }}">
-          <div>
+          <div class="filter">
             <filter-date filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-date>
-            <button class="btn btn-xs btn-danger" data-name="{{ property.name }}" data-index="{{ index }}"
+            <button class="btn btn-xs btn-default" data-name="{{ property.name }}" data-index="{{ index }}"
               on-click="{{ on_unselect }}">remove</button>
           </div>
         </template>          
         <template if="{{ property.type === 'number' }}">
-          <div>
+          <div class="filter">
             <filter-number filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-number>
-            <button class="btn btn-xs btn-danger" data-name="{{ property.name }}" data-index="{{ index }}"
+            <button class="btn btn-xs btn-default" data-name="{{ property.name }}" data-index="{{ index }}"
               on-click="{{ on_unselect }}">remove</button>
           </div>
-        </template>          
+        </template>
+        <br>        
       </template>
     </div>
 
-    <div id="select">
-      <select on-change="{{ on_select }}">
-        <option disabled></option>
+    <div>
+      <template if="{{ !used.length && unused.length }}">
+        <span>where</span>
+      </template>
+      <template if="{{ used.length && unused.length }}">
+        <span>and</span>
+      </template>
+      <select id="select" on-change="{{ on_select }}" visible?="{{ unused.length }}">
+        <option disabled value="-1">property</option>
         <template repeat="{{ property, index in unused }}">
           <option value="{{ index }}">
             ({{ property.type }}) {{ property.name }}
@@ -59,24 +81,18 @@
         this.unused = this.properties.slice();
       },
 
-      is_in: function (pair) {
-        var item = pair[0];
-        var items = pair[1];
-        var test = items.indexOf(item) >= 0;
-        return test;
-      },
-
       on_select: function (event, detail, target) {
         var index = target.value;
         var property = this.unused.splice(index, 1)[0];
         this.used.push(property);
-        target.value = '';
+        this.$.select.value = '-1';
       },
 
       on_unselect: function (event, detail, target) {
         var index = target.dataset.index;
         var item = this.used.splice(index, 1)[0];
         this.unused.push(item);
+        this.$.select.value = '-1';
       },
 
       get query () {

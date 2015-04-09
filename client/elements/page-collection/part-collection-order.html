@@ -3,13 +3,14 @@
     <style>
       :host {
         display: block;
+        margin-bottom: 8px;
       }
     </style>
 
     <div>
-      <span>order by</span>
+      <span>ordered by</span>
       <select on-change="{{ on_change }}">
-        <option></option>
+        <option disabled value="-1">property</option>
         <template repeat="{{ property in schema.properties }}">
           <option value="{{ property.name }}">{{ property.name }}</option>
         </template>

@@ -16,6 +16,13 @@
       :host {
         display: block;
       }
+
+      #advanced {
+        border-left: #efefef solid 2px;
+        background-color: #efefef;
+        padding: 10px;
+        margin-bottom: 12px;
+      }
     </style>
 
     <x-schema id="get_schema" collection="{{ collection }}"
@@ -34,12 +41,15 @@
       <part-collection-title schema="{{ schema }}"></part-collection-title>
       <part-collection-create schema="{{ schema }}"></part-collection-create>
 
-      <part-collection-filter id="filter" properties="{{ schema.properties }}"></part-collection-filter>
+      <div id="advanced">
+        <h4>Search {{ schema.plural }}</h4>
+        <part-collection-filter id="filter" properties="{{ schema.properties }}"></part-collection-filter>
 
-      <part-collection-order schema="{{ schema }}" 
-        on-change-order="{{ on_change_order }}"></part-collection-order>
+        <part-collection-order schema="{{ schema }}" 
+          on-change-order="{{ on_change_order }}"></part-collection-order>
 
-      <button class="btn btn-sm btn-primary" on-click="{{ on_click_search }}">search</button>
+        <button class="btn btn-sm btn-default" on-click="{{ on_click_search }}">search</button>
+      </div>
 
       <part-collection-items schema="{{ schema }}" items="{{ items }}"
         on-delete-item="{{ on_delete_item }}"></part-collection-items>
