@@ -31,7 +31,7 @@
         <template if="{{ index > 0}}">
           <span>and </span> 
         </template>  
-        <template if="{{ property.type === 'string' && property.$type !=== 'enum' }}">
+        <template if="{{ property.type === 'string' && property.$type !== 'enum' }}">
           <div class="filter">
             <filter-text filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-text>
             <button class="btn btn-xs btn-default" data-name="{{ property.name }}" data-index="{{ index }}"
