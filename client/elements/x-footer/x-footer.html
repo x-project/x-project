@@ -8,9 +8,9 @@
       }
     </style>
 
-    <div id="footer" class="container">
-      <div class="text-right">
-        Made by <span>{{ maker }}</span> in <span>{{ country }}</span>
+    <div id="footer">
+      <div class="container text-right">
+        Made with <span>&hearts;<span> by <span><a target="_blank" href="{{ url }}">{{ maker }}</a></span> in <span>{{ city }}</span>, <span>{{ country }}</span>
       </div>
     </div>
 
@@ -19,6 +19,10 @@
     Polymer ('x-footer', {
 
       maker: 'CVDLAB',
+
+      url: 'http://cvdlab.org',
+
+      city: 'Rome',
 
       country: 'Italy',
 

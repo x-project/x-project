@@ -1,12 +1,19 @@
 <link rel="import" href="../../components/polymer/polymer.html">
 <link rel="import" href="../x-header/x-header.html">
+<link rel="import" href="../x-jumbotron/x-jumbotron.html">
 <link rel="import" href="../x-footer/x-footer.html">
+<link rel="import" href="part-post-author.html">
 <link rel="import" href="part-post-content.html">
+<link rel="import" href="part-post-date.html">
 <polymer-element name="page-post" attributes="post_id">
   <template>
     <style>
       :host {
         display: block;
+      }
+
+      .page.container {
+        margin-top: 0px;
       }
     </style>
 
@@ -14,9 +21,16 @@
       on-core-response="{{ on_get_post }}" on-core-error="{{ on_error_get_post }}"></core-ajax>
 
     <x-header></x-header>
+    <x-jumbotron>
+      <div class="container">
+        <h1>{{ post.title }}</h1>
+        <part-post-author post="{{ post }}"></part-post-author>
+      </div>
+    </x-jumbotron>
     <div class="page container">
-      <a href="/posts">Back</a>
+      <part-post-date post="{{ post }}"></part-post-date>
       <part-post-content post="{{ post }}"></part-post-content>
+      <a href="/posts">Back</a>
     </div>
     <x-footer></x-footer>
 

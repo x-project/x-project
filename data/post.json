@@ -2,32 +2,28 @@
   {
     "title": "title A",
     "author": "author A",
-    "description": "description A",
-    "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "summary": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "posted": "2015-12-30T23:00:00.000Z",
     "likes": 3
   },
   {
     "title": "title B",
     "author": "author B",
-    "description": "description B",
-    "content": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "summary": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "posted": "2015-12-30T23:00:00.000Z",
     "likes": 2
   },
   {
     "title": "title 0",
     "author": "author C",
-    "description": "description C",
-    "content": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "summary": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     "posted": "2015-12-30T23:00:00.000Z",
     "likes": 1
   },
   {
     "title": "title 1",
     "author": "author C",
-    "description": "description C",
-    "content": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "summary": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "posted": "2015-12-30T23:00:00.000Z",
     "likes": 1
   }

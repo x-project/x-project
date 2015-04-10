@@ -16,13 +16,13 @@
       "type": "string",
       "$type": "string"
     },
-    "description": {
+    "summary": {
       "type": "string",
-      "$type": "textarea"
+      "$type": "text"
     },
     "content": {
       "type": "string",
-      "$type": "textarea"
+      "$type": "text"
     },
     "likes": {
       "type": "number",

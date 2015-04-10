@@ -3,6 +3,7 @@
 <link rel="import" href="../../components/x-link/x-link.html">
 <link rel="import" href="../x-header/x-header.html">
 <link rel="import" href="../x-footer/x-footer.html">
+<link rel="import" href="../x-pages/x-pages.html">
 <link rel="import" href="part-posts-items.html">
 <link rel="import" href="part-posts-pages.html">
 <polymer-element name="page-posts">
@@ -24,8 +25,8 @@
       <h1>Blog</h1>
       <part-posts-items items="{{ items }}"></part-posts-items>
 
-      <part-posts-pages count="{{ count }}" perpage="{{ filter.limit }}" current="{{ current }}"
-        on-change-page="{{ on_change_page }}"></part-posts-pages>
+      <x-pages count="{{ count }}" perpage="{{ filter.limit }}" current="{{ current }}"
+        on-change-page="{{ on_change_page }}"></x-pages>
     </div>
     <x-footer></x-footer>
 
@@ -38,7 +39,7 @@
       count: 0,
 
       filter: {
-        limit: 2,
+        limit: 3,
         skip: 0,
         where: {},
         include: {},

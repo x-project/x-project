@@ -1,0 +1,40 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<polymer-element name="x-jumbotron" attributes="background">
+  <template>
+    <style>
+      :host { 
+        display: block; 
+      }
+
+      #jumbotron {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+
+      #overlay {
+        width: 100%;
+        height: 100%;
+        background-color: #f8f8f8;
+        padding-top: 150px;
+        padding-bottom: 15px;
+      }
+    </style>
+
+    <div id="jumbotron">
+      <div id="overlay">
+        <content select="*"></content>
+      </div>
+    </div>
+
+  </template>
+  <script>
+    Polymer('x-jumbotron', {
+
+      backgroundChanged: function (oldValue, newValue) {
+        var url = 'url("' + newValue + '")';
+        this.$.jumbotron.style.backgroundImage = url;
+      }
+    });
+  </script>
+</polymer-element>
