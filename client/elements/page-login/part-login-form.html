@@ -8,12 +8,18 @@
       :host {
         display: block;
       }
+
+      #form {
+        width: 300px;
+        margin: 0 auto;
+      }
     </style>
 
     <core-ajax id="ajax" method="POST" handleAs="json" contentType="application/json" url="/api/Users/login"
       on-core-response="{{ on_success }}" on-core-error="{{ on_error }}"></core-ajax>
 
     <form id="form" on-submit="{{ on_submit }}">
+      <h3 class="text-center">Login</h3>
       <x-input id="email" label="email" placeholder="insert email"></x-input>        
       <x-password id="password" label="password" placeholder="insert password"></x-password>        
       <input type="submit" class="btn btn-success" on-click="{{ on_submit }}" value="login" />

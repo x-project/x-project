@@ -1,6 +1,7 @@
 <link rel="import" href="../filter-text/filter-text.html">
 <link rel="import" href="../filter-date/filter-date.html">
 <link rel="import" href="../filter-number/filter-number.html">
+<link rel="import" href="../filter-select/filter-select.html">
 <polymer-element name="part-collection-filter" attributes="properties">
 	<template>
     <style>
@@ -30,7 +31,7 @@
         <template if="{{ index > 0}}">
           <span>and </span> 
         </template>  
-        <template if="{{ property.type === 'string' }}">
+        <template if="{{ property.type === 'string' && property.$type !=== 'enum' }}">
           <div class="filter">
             <filter-text filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-text>
             <button class="btn btn-xs btn-default" data-name="{{ property.name }}" data-index="{{ index }}"
@@ -48,6 +49,13 @@
           <div class="filter">
             <filter-number filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-number>
             <button class="btn btn-xs btn-default" data-name="{{ property.name }}" data-index="{{ index }}"
+              on-click="{{ on_unselect }}">remove</button>
+          </div>
+        </template>
+        <template if="{{ property.$type === 'enum' }}">
+          <div class="filter">
+            <filter-select filter name="{{ property.name }}" options="{{ property.options }}"></filter-select>
+            <button class="btn btn-xs btn-default" data-name="{{ property.name }}" data-index="{{ index }}" 
               on-click="{{ on_unselect }}">remove</button>
           </div>
         </template>

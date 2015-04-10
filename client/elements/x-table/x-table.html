@@ -24,7 +24,7 @@
             <template repeat="{{ property in schema.properties }}">
               <td>{{ item[property.name] }}</td>
             </template>
-            <td><a is="x-link" href="/admin/collections/{{ schema.name }}/{{ item.id }}/edit">edit</a></td>
+            <td><a is="x-link" href="/admin/collections/{{ schema.plural }}/{{ item.id }}/edit">edit</a></td>
             <td><a on-click="{{ on_click_delete }}" data-id="{{ item.id }}">delete</a></td>
           </tr>
         </template>
