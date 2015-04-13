@@ -1,11 +1,20 @@
 [
   {
+    "name": "tag_X"
+  },
+  {
     "name": "tag_A"
   },
   {
-    "name": "tag_B"
+    "name": "tag_Z"
   },
   {
-    "name": "tag_C"
+    "name": "stuff"
+  },
+  {
+    "name": "category_1"
+  },
+  {
+    "name": "category_2"
   }
 ]

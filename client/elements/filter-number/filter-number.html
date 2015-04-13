@@ -9,14 +9,14 @@
 
     <form class="form-inline">
       <div class="form-group">
-        <span>{{ name }}</span>
+        <label>{{ name }}</label>
         <span> is </span>
         <select id="select" value="{{ comparison }}">
           <option disabled></option>
           <option value="lt">less than</option>
           <option value="gt">greater than</option>
         </select>
-        <input id="input" type="number" class="form-control" value="{{ value }}">
+        <input id="input" type="number" class="form-control input-sm" value="{{ value }}">
       </div>
     </form>
 

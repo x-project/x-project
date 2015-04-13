@@ -1,28 +1,25 @@
 <link rel="import" href="../../components/polymer/polymer.html">
-<polymer-element name="part-posts-pages" attributes="current perpage count">
+<polymer-element name="x-pages" attributes="current perpage count">
   <template>
     <style>
       :host {
         display: block;
+        margin: 4px;
       }
     </style>
 
     <div id="paginator">
-      <ul class="list-unstyled list-inline">
-        <template repeat="{{ page, index in pages }}">
-          <li>
-            <button class="btn btn-xs btn-default" on-click="{{ on_click }}" page="{{ index }}" 
-                disabled?="{{ index === current }}">
-              {{ index+1 }}
-            </button>
-          </li>
-        </template>
-      </ul>
+      <template repeat="{{ page, index in pages }}">
+        <button class="btn btn-xs btn-default" on-click="{{ on_click }}" page="{{ index }}" 
+            disabled?="{{ index === current }}">
+          {{ index+1 }}
+        </button>
+      </template>
     </div>
 
   </template>
   <script>
-    Polymer('part-posts-pages', {
+    Polymer('x-pages', {
 
       current: 0,
 

@@ -2,6 +2,7 @@
 <link rel="import" href="../x-header/x-header.html">
 <link rel="import" href="../x-footer/x-footer.html">
 <link rel="import" href="../x-schema/x-schema.html">
+<link rel="import" href="../x-pages/x-pages.html">
 <link rel="import" href="../x-paginator/x-paginator.html">
 
 <link rel="import" href="part-collection-create.html">
@@ -15,6 +16,12 @@
     <style>      
       :host {
         display: block;
+      }
+
+      #advanced {
+        background-color: #f8f8f8;
+        padding: 10px;
+        margin-bottom: 12px;
       }
     </style>
 
@@ -34,18 +41,21 @@
       <part-collection-title schema="{{ schema }}"></part-collection-title>
       <part-collection-create schema="{{ schema }}"></part-collection-create>
 
-      <part-collection-filter id="filter" schema="{{ schema }}"></part-collection-filter>
+      <div id="advanced">
+        <h4>Search {{ schema.plural }}</h4>
+        <part-collection-filter id="filter" properties="{{ schema.properties }}"></part-collection-filter>
 
-      <part-collection-order schema="{{ schema }}" 
-        on-change-order="{{ on_change_order }}"></part-collection-order>
+        <part-collection-order schema="{{ schema }}" 
+          on-change-order="{{ on_change_order }}"></part-collection-order>
 
-      <button class="btn btn-sm btn-primary" on-click="{{ on_click_search }}">search</button>
+        <button class="btn btn-sm btn-default" on-click="{{ on_click_search }}">search</button>
+      </div>
 
       <part-collection-items schema="{{ schema }}" items="{{ items }}"
         on-delete-item="{{ on_delete_item }}"></part-collection-items>
 
-      <part-collection-pages count="{{ count }}" perpage="{{ filter.limit }}" current="{{ current }}"
-        on-change-page="{{ on_change_page }}"></part-collection-pages>
+      <x-pages count="{{ count }}" perpage="{{ filter.limit }}" current="{{ current }}"
+        on-change-page="{{ on_change_page }}"></x-pages>
     </div>
     <x-footer></x-footer>
 
@@ -58,7 +68,7 @@
       count: 0,
 
       filter: {
-        limit: 2,
+        limit: 3,
         skip: 0,
         where: {},
         include: {},
@@ -127,6 +137,7 @@
 
       on_delete_item: function () {
         this.$.get_count.go();
+        this.$.get_list.go();
       },
 
       on_change_order: function (event, detail) {

@@ -10,13 +10,13 @@
 
     <core-ajax id="ajax" url="/explorer/resources" handleAs="json" on-core-response="{{ on_response }}"></core-ajax>
     
-    <ul>
+    <div>
       <template repeat="{{ endpoint in endpoints }}">
-        <li>
-          <a is="x-link" href="/admin/collections{{ endpoint.path }}">{{ endpoint.path }}</a>
-        </li>
+        <h4>
+          <a is="x-link" href="/admin/collections{{ endpoint.path }}">{{ endpoint.path | clear }}</a>
+        </h4>
       </template>
-    </ul>
+    </div>
 
   </template>
   <script>
@@ -24,6 +24,10 @@
 
       ready: function () {
         this.$.ajax.go();
+      },
+
+      clear: function (path) {
+        return path.substr(1);
       },
 
       on_response: function (event) {
