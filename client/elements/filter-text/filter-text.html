@@ -1,5 +1,5 @@
 <link rel="import" href="../../components/polymer/polymer.html">
-<polymer-element name="filter-text" attributes="name placeholder">
+<polymer-element name="filter-text" attributes="property">
 	<template>
     <style>
       :host {
@@ -9,9 +9,9 @@
 
     <form class="form-inline">
       <div class="form-group">
-        <label>{{ name }}</label>
+        <label>{{ property.name }}</label>
         <span> cointains </span>
-        <input type="text" class="form-control input-sm" placeholder="{{ placeholder }}" value="{{ value }}">
+        <input type="text" class="form-control input-sm" placeholder="{{ property.name }}" value="{{ value }}">
       </div>
     </form>
 
@@ -21,7 +21,7 @@
 
       get query () {
         var obj = {};
-        obj[this.name] = { like: this.value };
+        obj[this.property.name] = { like: this.value };
         return obj;
       }
 

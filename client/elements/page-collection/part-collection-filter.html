@@ -2,6 +2,7 @@
 <link rel="import" href="../filter-date/filter-date.html">
 <link rel="import" href="../filter-number/filter-number.html">
 <link rel="import" href="../filter-select/filter-select.html">
+<link rel="import" href="../filter-x/filter-x.html">
 <polymer-element name="part-collection-filter" attributes="properties">
 	<template>
     <style>
@@ -25,44 +26,14 @@
 
     <div id="filters">
       <template repeat="{{ property, index in used }}">
-        <template if="{{ index === 0 }}">
-          <span>where </span>
-        </template>
-        <template if="{{ index > 0}}">
-          <span>and </span> 
-        </template>  
-        <template if="{{ property.type === 'string' && property.$type !== 'enum' }}">
-          <div class="filter">
-            <filter-text filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-text>
-            <button class="btn btn-xs btn-default" data-name="{{ property.name }}" data-index="{{ index }}"
-              on-click="{{ on_unselect }}">remove</button>
-          </div>
-        </template>
-        <template if="{{ property.type === 'date' }}">
-          <div class="filter">
-            <filter-date filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-date>
-            <button class="btn btn-xs btn-default" data-name="{{ property.name }}" data-index="{{ index }}"
-              on-click="{{ on_unselect }}">remove</button>
-          </div>
-        </template>          
-        <template if="{{ property.type === 'number' }}">
-          <div class="filter">
-            <filter-number filter name="{{ property.name }}" placeholder="{{ property.name }}"></filter-number>
-            <button class="btn btn-xs btn-default" data-name="{{ property.name }}" data-index="{{ index }}"
-              on-click="{{ on_unselect }}">remove</button>
-          </div>
-        </template>
-        <template if="{{ property.$type === 'enum' }}">
-          <div class="filter">
-            <filter-select filter name="{{ property.name }}" options="{{ property.options }}"></filter-select>
-            <button class="btn btn-xs btn-default" data-name="{{ property.name }}" data-index="{{ index }}" 
-              on-click="{{ on_unselect }}">remove</button>
-          </div>
-        </template>
-        <br>        
+        <div>
+          <span>{{ index === 0 ? 'where' : 'and'}}</span>
+          <filter-x filter data-index="{{ index }}" property="{{ property }}" 
+              on-remove-filter="{{ on_unselect }}"></filter-x>
+        </div>
       </template>
     </div>
-
+    
     <div>
       <template if="{{ !used.length && unused.length }}">
         <span>where</span>

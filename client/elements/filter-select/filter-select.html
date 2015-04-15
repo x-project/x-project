@@ -1,5 +1,5 @@
 <link rel="import" href="../../components/polymer/polymer.html">
-<polymer-element name="filter-select" attributes="name placeholder options">
+<polymer-element name="filter-select" attributes="property">
 	<template>
     <style>
       :host {
@@ -9,11 +9,11 @@
 
     <form class="form-inline">
       <div class="form-group">
-        <label>{{ name }}</label>
+        <label>{{ property.name }}</label>
         <span> is </span>
         <select id="select">
           <option disabled value="-1"></option>
-          <template repeat="{{ option in options }}">
+          <template repeat="{{ option in property.options }}">
             <option value="{{ option }}">{{ option }}</option>
           </template>
         </select>
@@ -34,7 +34,7 @@
 
       get query () {
         var obj = {};
-        obj[this.name] = { like: this.value };
+        obj[this.property.name] = { like: this.value };
         return obj;
       }
 
