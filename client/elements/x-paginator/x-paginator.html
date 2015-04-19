@@ -1,57 +1,60 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<polymer-element name="x-paginator" attributes="current perpage count">
-	<template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-
+<dom-module id="x-paginator">
+  <style>
+    :host {
+      display: block;
+      margin: 4px;
+    }
+  </style>
+  <template>
     <div id="paginator">
-      <ul class="list-unstyled list-inline">
-        <template repeat="{{ page, index in pages }}">
-          <li>
-            <button class="btn btn-xs btn-default" on-click="{{ on_click }}" page="{{ index }}" 
-                disabled?="{{ index === current }}">
-              {{ index+1 }}
-            </button>
-          </li>
-        </template>
-      </ul>
+      <template is="x-repeat" items="{{ pages }}">
+        <button class="btn btn-xs btn-default" page="{{ index }}" 
+            on-click="{{ on_click }}" disabled?="{{ index === current }}">
+          {{ index+1 }}
+        </button>
+      </template>
     </div>
-
   </template>
-  <script>
-    Polymer('x-paginator', {
+</dom-module>
+<script>
+  Polymer({
 
-      current: 0,
+    is: 'x-paginator',
 
-      count: 0,
-
-      get limit () {
-        return +this.perpage;
+    properties: {
+      current: {
+        type: Number,
+        value: 0,
+        observer: 'currentChanged'
       },
-
-      get skip () {
-        return this.current * this.perpage;
+      count: {
+        type: Number,
+        value: 0,
+        observer: 'countChanged'
       },
-
-      countChanged: function () {
-        this.total = Math.ceil(this.count / this.limit);
-        this.pages = Array.apply(null, Array(this.total));
-      },
-
-      on_click: function (event, detail, sender) {
-        this.current = +sender.getAttribute('page');;
-        this.fire('change-page', { 
-          page: this.current,
-          total: this.total,
-          count: this.count,
-          skip: this.skip,
-          limit: this.limit
-        });
+      perpage: {
+        type: Number
       }
+    },
 
-    });
-  </script>
-</polymer-element>
+    currentChanged: function () {
+      this.fire('change-page', { 
+        page: this.current,
+        total: this.total,
+        count: this.count,
+        skip: this.current * this.perpage,
+        limit: this.perpage
+      });
+    },
+
+    countChanged: function () {
+      this.total = Math.ceil(this.count / this.perpage);
+      this.pages = Array.apply(null, Array(this.total));
+    },
+
+    on_click: function (event, detail, sender) {
+      this.current = +sender.getAttribute('page');;
+    }
+
+  });
+</script>

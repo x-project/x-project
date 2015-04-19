@@ -1,6 +1,5 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../../components/x-link/x-link.html">
-<polymer-element name="x-table" attributes="schema items">
+<link rel="import" href="../x-link/x-link.html">
+<dom-module id="x-table">
 	<template>
     <style>
       :host {
@@ -11,19 +10,17 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <template repeat="{{ property in schema.properties }}">
-            <th>{{ property.name }}</th>
+          <template is="x-repeat" items="{{ schema.properties }}">
+            <th>{{ item.name }}</th>
           </template>
           <th></th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <template repeat="{{ item in items }}">
+        <template is="x-repeat" items="{{ items }}">
           <tr>
-            <template repeat="{{ property in schema.properties }}">
-              <td>{{ item[property.name] }}</td>
-            </template>
+            <td>{{ item.id }}</td>            
             <td><a is="x-link" href="/admin/collections/{{ schema.plural }}/{{ item.id }}/edit">edit</a></td>
             <td><a on-click="{{ on_click_delete }}" data-id="{{ item.id }}">delete</a></td>
           </tr>
@@ -34,6 +31,11 @@
   </template>
   <script>
     Polymer('x-table', {
+
+      properties: {
+        schema: Object,
+        items: Array
+      },
 
       on_click_delete: function (event, detail, target) {
         this.fire('click-delete', {

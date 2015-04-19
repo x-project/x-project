@@ -1,0 +1,64 @@
+<link rel="import" href="../../components/core-ajax/core-ajax.html">
+<dom-module id="x-api-schema">
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <core-ajax id="get_api" method="GET" url="/explorer/resources/{{ collection }}" handleAs="json" 
+      on-core-response="{{ on_get_api }}" on-core-error="{{ on_error_get_api }}"></core-ajax>
+
+    <core-ajax id="get_schema" method="GET" url="/models/{{ model }}.json" handleAs="json" 
+      on-core-response="{{ on_get_schema }}" on-core-error="{{ on_error_get_schema }}"></core-ajax>
+
+  </template>
+  <script>
+    Polymer({
+
+      is: 'x-api-schema',
+
+      properties: {
+        collection: String
+      },
+
+      go: function () {
+        this.$.get_api.go();
+      },
+
+      on_get_api: function (event) {
+        var api = event.detail.response;
+        var model = Object.keys(api.models)[0];
+        this.model = model;
+        this.$.get_schema.go();
+      },
+
+      on_error_get_api: function (event) {
+        var error = event.detail.response;
+        this.fire('x-error', { error: error });
+      },
+
+      on_get_schema: function (event) {
+        var schema = event.detail.response;
+        var list = [];
+        var name;
+        var property;
+        var properties = schema.properties;
+        for (name in properties) {
+          property = properties[name];
+          property.name = name;
+          list.push(property);
+        }
+        schema.properties = list;
+        this.fire('x-response', {schema: schema });
+      },
+
+      on_error_get_schema: function (event) {
+        var error = event.detail.response;
+        this.fire('x-error', { error: error });
+      }
+
+    });
+  </script>
+</polymer-element>

@@ -1,34 +1,32 @@
-<link rel="import" href="../../components/polymer/polymer.html">
 <link rel="import" href="../x-header/x-header.html">
 <link rel="import" href="../x-footer/x-footer.html">
-<polymer-element name="page-home">
+<dom-module id="page-home">
+  <style>
+    :host {
+      display: block;
+    }
+
+    [page="home"].page {
+      padding-top: 0px;
+    }
+
+    .brand {
+      text-align: center;
+    }
+    .brand h1, 
+    .brand h2 {
+      font-weight: 100;
+    }
+    .brand h1 {
+      letter-spacing: 3px;
+    }
+    .brand h2 {
+      letter-spacing: 2px;
+    }
+  </style>
   <template>
-    <style>      
-      :host {
-        display: block;
-      }
-
-      [page="home"].page {
-        padding-top: 0px;
-      }
-
-      .brand {
-        text-align: center;
-      }
-      .brand h1, 
-      .brand h2 {
-        font-weight: 100;
-      }
-      .brand h1 {
-        letter-spacing: 3px;
-      }
-      .brand h2 {
-        letter-spacing: 2px;
-      }
-    </style>
-
     <x-header></x-header>
-    <div page="home" class="page">    
+    <div page="home" class="page">
       <div class="jumbotron">
         <div class="container brand">
           <h1>x-project</h1>
@@ -37,11 +35,12 @@
       </div>
     </div>
     <x-footer></x-footer>
-
   </template>
-  <script>
-    Polymer('page-home', {
+</dom-module>
+<script>
+  Polymer({
 
-    });
-  </script>
-</polymer-element>
+    is: 'page-home'
+
+  });
+</script>

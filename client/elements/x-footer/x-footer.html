@@ -1,31 +1,54 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../../components/x-link/x-link.html">
-<polymer-element name="x-footer">
+<dom-module id="x-footer">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-
     <div id="footer">
       <div class="container text-right">
-        Made with <span>&hearts;<span> by <span><a target="_blank" href="{{ url }}">{{ maker }}</a></span> in <span>{{ city }}</span>, <span>{{ country }}</span>
+          <span>Made with</span> 
+          <span>&hearts;<span>
+          <span>by</span>
+          <span><a target="_blank" href="{{ url }}">{{ maker }}</a></span>
+          <span> in </span>
+          <span>{{ city }}</span>
+          <span>, </span>
+          <span>{{ country }}</span>
       </div>
     </div>
-
   </template>
-  <script>
-    Polymer ('x-footer', {
+</dom-module>
+<script>
+  Polymer ({
 
-      maker: 'CVDLAB',
+    is: 'x-footer',
 
-      url: 'http://cvdlab.org',
+    maker: 'CVDLAB',
 
-      city: 'Rome',
+    ready: function () {
+      console.log(this);
+      window.x = this;
+    },
 
-      country: 'Italy',
+    properties: {
+      // maker: {
+      //   type: String,
+      //   value: 'CVDLAB'
+      // },
+      url: {
+        type: String,
+        value: 'http://cvdlab.org'
+      },
+      city: {
+        type: String,
+        value: 'Rome'
+      },
+      country: {
+        type: String,
+        value: 'Italy'
+      }
+    }
 
-    });
-  </script>
-</polymer-element>
+  });
+</script>

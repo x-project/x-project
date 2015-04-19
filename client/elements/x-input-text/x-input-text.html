@@ -1,0 +1,24 @@
+<dom-module id="x-input-text">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <div class="form-group">
+      <label>{{ property.name }}</label>
+      <textarea class="form-control" value="{{ property.value }}"></textarea>
+    </div>
+  </template>
+</polymer-element>
+<script>
+  Polymer({
+
+    is: 'x-input-text',
+
+    properties: {
+      property: Object
+    }
+
+  });
+</script>

@@ -2,36 +2,51 @@
 <html>
 <head>
   <title>x-project</title>
+  <!-- // <script src="/components/webcomponentsjs/webcomponents.js"></script> -->
+  
   <link rel="import" href="/components/polymer/polymer.html">
-  <link rel="import" href="/elements/page-collection/page-collection.html">
-  <link rel="import" href="/elements/page-collections/page-collections.html">
+   
+  <!-- <link rel="import" href="/elements/page-collection/page-collection.html"> -->
+  <!-- <link rel="import" href="/elements/page-collections/page-collections.html"> -->
   <link rel="import" href="/elements/page-home/page-home.html">
-  <link rel="import" href="/elements/page-login/page-login.html">
-  <link rel="import" href="/elements/page-model-edit/page-model-edit.html">
-  <link rel="import" href="/elements/page-post/page-post.html">
-  <link rel="import" href="/elements/page-posts/page-posts.html">
-  <link rel="import" href="/elements/page-user-edit/page-user-edit.html">
-  <link rel="import" href="/elements/page-users/page-users.html">
+  <!-- <link rel="import" href="/elements/page-login/page-login.html"> -->
+  <!-- <link rel="import" href="/elements/page-model-edit/page-model-edit.html"> -->
+  <!-- <link rel="import" href="/elements/page-post/page-post.html"> -->
+  <!-- <link rel="import" href="/elements/page-posts/page-posts.html"> -->
+  <!-- <link rel="import" href="/elements/page-user-edit/page-user-edit.html"> -->
+  <!-- <link rel="import" href="/elements/page-users/page-users.html"> -->
   <link rel="import" href="/elements/x-router/x-router.html">
   <link rel="import" href="/elements/x-route/x-route.html">
   <link rel="import" href="/elements/x-style/x-style.html">
 </head>
 <body unresolved>
 
+  <h1>x-project</h1>
   <div id="app"></div>
 
-  <x-router id="router" for="app">
+  <template id="test" is="x-autobind">
+    <h2>{{ title }}</h2>
+    <nav>
+      <ul>
+        <template is="x-repeat" items="{{ items }}">
+          <li>{{ item }}</li>    
+        </template>
+      </ul>      
+    </nav>
+  </template>
+
+  <x-router id="router" appId="app">
     <x-route path="/" page="page-home"></x-route>
     <x-route path="/admin/login" page="page-login"></x-route>
-    <x-route path="/admin/users" page="page-users"></x-route>
-    <x-route path="/admin/users/create" page="page-user-edit"></x-route>
-    <x-route path="/admin/users/:user_id" page="page-user"></x-route>
-    <x-route path="/admin/collections" page="page-collections"></x-route>
-    <x-route path="/admin/collections/:collection" page="page-collection"></x-route>
-    <x-route path="/admin/collections/:collection/create" page="page-model-edit"></x-route>
-    <x-route path="/admin/collections/:collection/:model_id/edit" page="page-model-edit"></x-route>
-    <x-route path="/posts" page="page-posts"></x-route>
-    <x-route path="/posts/:post_id" page="page-post"></x-route>
+    <!-- <x-route path="/admin/users" page="page-users"></x-route> -->
+    <!-- <x-route path="/admin/users/create" page="page-user-edit"></x-route> -->
+    <!-- <x-route path="/admin/users/:user_id" page="page-user"></x-route> -->
+    <!-- <x-route path="/admin/collections" page="page-collections"></x-route> -->
+    <!-- <x-route path="/admin/collections/:collection" page="page-collection"></x-route> -->
+    <!-- <x-route path="/admin/collections/:collection/create" page="page-model-edit"></x-route> -->
+    <!-- <x-route path="/admin/collections/:collection/:model_id/edit" page="page-model-edit"></x-route> -->
+    <!-- <x-route path="/posts" page="page-posts"></x-route> -->
+    <!-- <x-route path="/posts/:post_id" page="page-post"></x-route> -->
   </x-router>
 </body>
 </html>

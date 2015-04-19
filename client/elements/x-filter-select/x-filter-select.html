@@ -1,0 +1,42 @@
+<dom-module id="x-filter-select">
+  <style>
+    :host {
+      display: inline-block;
+    }
+  </style>
+  <template>
+    <form class="form-inline">
+      <div class="form-group">
+        <label>{{ property.name }}</label>
+        <span> is </span>
+        <select id="select">
+          <option disabled value="-1"></option>
+          <template is="x-repeat" items="{{ property.options }}">
+            <option value="{{ item }}">{{ item }}</option>
+          </template>
+        </select>
+      </div>
+    </form>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'x-filter-select',
+
+    ready: function () {
+      this.$.select.value = '-1';
+    },
+
+    get value () {
+      return this.$.select.value;
+    },
+
+    get query () {
+      var obj = {};
+      obj[this.property.name] = { like: this.value };
+      return obj;
+    }
+
+  });
+</script>
