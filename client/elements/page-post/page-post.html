@@ -5,6 +5,7 @@
 <link rel="import" href="part-post-author.html">
 <link rel="import" href="part-post-content.html">
 <link rel="import" href="part-post-date.html">
+<link rel="import" href="../api-get/api-get.html">
 <polymer-element name="page-post" attributes="post_id">
   <template>
     <style>
@@ -17,8 +18,7 @@
       }
     </style>
 
-    <core-ajax auto id="get_post" url="/api/posts/{{ post_id }}" handleAs="json" 
-      on-core-response="{{ on_get_post }}" on-core-error="{{ on_error_get_post }}"></core-ajax>
+    <api-get url="/api/posts/{{ post_id }}" response="{{ post }}"></api-get>
 
     <x-header></x-header>
     <x-jumbotron>
@@ -37,14 +37,6 @@
   </template>
   <script>
     Polymer('page-post', {
-
-      on_get_post: function (event) {
-        this.post = event.detail.response;
-      },
-
-      on_error_get_post: function (event) {
-        console.log(event);
-      }
 
     });
   </script>

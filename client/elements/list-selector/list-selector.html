@@ -7,7 +7,6 @@
       }
     </style>
 
-
   </template>
   <script>
     Polymer('list-selector', {
@@ -45,8 +44,10 @@
         if (is_selected) {
           this.selected.splice(index, 1);
         }
-        var is_unselected;
-        
+        var is_unselected = this.unselected.indexOf(item) >= 0;
+        if (!is_unselected) {
+          this.unselected.push(item);
+        }
       }
 
     });
