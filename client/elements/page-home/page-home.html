@@ -29,8 +29,8 @@
     <div page="home" class="page">
       <div class="jumbotron">
         <div class="container brand">
-          <h1>x-project</h1>
-          <h2>the next gen Web Blog platform</h2>
+          <h1>{{ title }}</h1>
+          <h2>{{ tagline }}</h2>
         </div>
       </div>
     </div>
@@ -40,7 +40,20 @@
 <script>
   Polymer({
 
-    is: 'page-home'
+    is: 'page-home',
+
+    properties: {
+      title: {
+        type: String,
+        value: 'x-project',
+        notify: true
+      },
+      tagline: {
+        type: String,
+        value: 'the next gen web blog platform',
+        notify: true
+      } 
+    }
 
   });
 </script>

@@ -10,7 +10,7 @@
           <span>Made with</span> 
           <span>&hearts;<span>
           <span>by</span>
-          <span><a target="_blank" href="{{ url }}">{{ maker }}</a></span>
+          <span><a target="_blank" href="{{ url }}">{{ 'a' }}</a></span>
           <span> in </span>
           <span>{{ city }}</span>
           <span>, </span>
@@ -38,15 +38,18 @@
       // },
       url: {
         type: String,
-        value: 'http://cvdlab.org'
+        value: 'http://cvdlab.org',
+        notify: true
       },
       city: {
         type: String,
-        value: 'Rome'
+        value: 'Rome',
+        notify: true
       },
       country: {
         type: String,
-        value: 'Italy'
+        value: 'Italy',
+        notify: true
       }
     }
 

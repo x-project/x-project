@@ -17,7 +17,7 @@
   <!-- <link rel="import" href="/elements/page-users/page-users.html"> -->
   <link rel="import" href="/elements/x-router/x-router.html">
   <link rel="import" href="/elements/x-route/x-route.html">
-  <link rel="import" href="/elements/x-style/x-style.html">
+  <!-- <link rel="import" href="/elements/x-style/x-style.html"> -->
 </head>
 <body unresolved>
 
@@ -25,6 +25,7 @@
   <div id="app"></div>
 
   <template id="test" is="x-autobind">
+    <h2>welcome</h2>
     <h2>{{ title }}</h2>
     <nav>
       <ul>
@@ -35,9 +36,16 @@
     </nav>
   </template>
 
+  <script>
+    var tmpl = document.getElementById('test');
+    tmpl.title = 'title';
+    tmpl.items = ['a', 'b', 'c'];
+    console.log(tmpl)
+  </script>
+
   <x-router id="router" appId="app">
     <x-route path="/" page="page-home"></x-route>
-    <x-route path="/admin/login" page="page-login"></x-route>
+    <!-- <x-route path="/admin/login" page="page-login"></x-route> -->
     <!-- <x-route path="/admin/users" page="page-users"></x-route> -->
     <!-- <x-route path="/admin/users/create" page="page-user-edit"></x-route> -->
     <!-- <x-route path="/admin/users/:user_id" page="page-user"></x-route> -->
