@@ -6,6 +6,7 @@
     "page": "visionmedia/page.js"
   },
   "resolutions": {
-    "polymer": "0.8-preview"
+    "polymer": "0.8-preview",
+    "webcomponentsjs": "^0.6.0"
   }
 }

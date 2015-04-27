@@ -1,18 +1,13 @@
 <dom-module id="x-footer">
-  <style>
-    :host {
-      display: block;
-    }
-  </style>
   <template>
     <div id="footer">
       <div class="container text-right">
           <span>Made with</span> 
-          <span>&hearts;<span>
+          <span>&hearts;</span>
           <span>by</span>
-          <span><a target="_blank" href="{{ url }}">{{ 'a' }}</a></span>
+          <span><a target="_blank" href="{{ url }}"></a></span>
           <span> in </span>
-          <span>{{ city }}</span>
+          <span>[[ city ]]</span>
           <span>, </span>
           <span>{{ country }}</span>
       </div>
@@ -37,7 +32,7 @@
       //   value: 'CVDLAB'
       // },
       url: {
-        type: String,
+        type: 'string',
         value: 'http://cvdlab.org',
         notify: true
       },
