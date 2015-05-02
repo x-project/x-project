@@ -2,11 +2,12 @@
   "name": "x-project",
   "dependencies": {
     "core-ajax": "Polymer/core-ajax",
-    "polymer": "Polymer/polymer#^0.4.0",
+    "polymer": "Polymer/polymer#^0.5",
     "moment": "~2.8.3",
     "page": "~1.6.1",
     "x-link": "*",
-    "x-bootstrap": "*"
+    "x-bootstrap": "*",
+    "markdown-it": "*"
   },
   "resolutions": {
     "polymer": "^0.5",
