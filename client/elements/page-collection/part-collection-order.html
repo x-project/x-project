@@ -1,30 +1,32 @@
-<polymer-element name="part-collection-order" attributes="schema">
-	<template>
-    <style>
-      :host {
-        display: block;
-        margin-bottom: 8px;
-      }
-    </style>
+<dom-module id="part-collection-order">
+  <style>
+    :host {
+      display: block;
+      margin-bottom: 8px;
+    }
+  </style>
+  <template>
 
     <div>
       <span>ordered by</span>
       <select on-change="{{ on_change }}">
         <option disabled value="-1">property</option>
-        <template repeat="{{ property in schema.properties }}">
-          <option value="{{ property.name }}">{{ property.name }}</option>
+        <template is="x-repeat" items="{{ schema.properties }}">
+          <option value="{{ item.name }}">{{ item.name }}</option>
         </template>
       </select>
     </div>
 
   </template>
-  <script>
-    Polymer('part-collection-order', {
+</dom-module>
+<script>
+  Polymer({
 
-      on_change: function (event, detail, sender) {
-        this.fire('change-order', { property: sender.value });
-      }
+    is: 'part-collection-order',
 
-    });
-  </script>
-</polymer-element>
+    on_change: function (event, detail, sender) {
+      this.fire('change-order', { property: sender.value });
+    }
+
+  });
+</script>

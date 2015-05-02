@@ -1,0 +1,24 @@
+<dom-module id="input-email">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+	<template>
+    <div class="form-group">
+      <label>{{ property.name }}</label>
+      <input type="email" class="form-control" value="{{ property.value }}">
+    </div>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'input-email',
+
+    properties: {
+      property: Object
+    }
+
+  });
+</script>

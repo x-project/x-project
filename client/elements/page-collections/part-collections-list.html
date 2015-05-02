@@ -1,41 +1,43 @@
 <link rel="import" href="../../components/core-ajax/core-ajax.html">
-<link rel="import" href="../../components/x-link/x-link.html">
-<polymer-element name="part-collections-list">
+<link rel="import" href="../link-x/link-x.html">
+<dom-module id="part-collections-list">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
 
     <core-ajax id="ajax" url="/explorer/resources" handleAs="json" on-core-response="{{ on_response }}"></core-ajax>
     
     <div>
-      <template repeat="{{ endpoint in endpoints }}">
+      <template is="x-repeat" items="{{ endpoints }}">
         <h4>
-          <a is="x-link" href="/admin/collections{{ endpoint.path }}">{{ endpoint.path | clear }}</a>
+          <a is="link-x" href="/admin/collections{{ item.path }}">{{ item.path | clear }}</a>
         </h4>
       </template>
     </div>
 
   </template>
-  <script>
-    Polymer('part-collections-list', {
+</dom-module>
+<script>
+  Polymer({
 
-      ready: function () {
-        this.$.ajax.go();
-      },
+    is: 'part-collections-list',
 
-      clear: function (path) {
-        return path.substr(1);
-      },
+    ready: function () {
+      this.$.ajax.go();
+    },
 
-      on_response: function (event) {
-        var endpoints = event.detail.response.apis;
-        endpoints.shift();
-        this.endpoints = endpoints;
-      }
+    clear: function (path) {
+      return path.substr(1);
+    },
 
-    });
-  </script>
-</polymer-element>
+    on_response: function (event) {
+      var endpoints = event.detail.response.apis;
+      endpoints.shift();
+      this.endpoints = endpoints;
+    }
+
+  });
+</script>

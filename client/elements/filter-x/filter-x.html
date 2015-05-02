@@ -1,0 +1,54 @@
+<link rel="import" href="../filter-date/filter-date.html">
+<link rel="import" href="../filter-number/filter-number.html">
+<link rel="import" href="../filter-select/filter-select.html">
+<link rel="import" href="../filter-text/filter-text.html">
+<dom-module id="filter-x">
+  <style>
+    :host {
+      display: inline-block;
+    }
+
+    #container {
+      display: inline-block;
+    }
+  </style>
+  <template>
+    <div id="container"></div>
+    <button class="btn btn-xs btn-default" on-click="on_click_remove">remove</button>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'filter-x',
+
+    types: {
+      "string": "filter-text",
+      "text": "filter-text",
+      "location": "filter-text",
+      "email": "filter-text",
+      "date": "filter-date",
+      "number": "filter-number",
+      "enum": "filter-select"      
+    },
+
+    ready: function () {
+      var $type = this.property.$type;
+      var type = this.types[$type];
+      var element = document.createElement(type);
+      var container = this.$.container;
+      container.appendChild(element);
+      element.property = this.property;
+      this.filter = element;
+    },
+
+    on_click_remove: function () {
+      this.fire('remove-filter', this.property);
+    },
+
+    get query () {
+      return this.filter.query;
+    }
+
+  });
+</script>

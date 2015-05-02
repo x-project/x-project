@@ -3,26 +3,26 @@
 <link rel="import" href="../filter-number/filter-number.html">
 <link rel="import" href="../filter-select/filter-select.html">
 <link rel="import" href="../filter-x/filter-x.html">
-<polymer-element name="part-collection-filter" attributes="properties">
-	<template>
-    <style>
-      :host {
-        display: block;
-        margin-bottom: 8px;
-      }
+<dom-module id="part-collection-filter">
+  <style>
+    :host {
+      display: block;
+      margin-bottom: 8px;
+    }
 
-      #select {
-        display: none;
-      }
-      #select[visible] {
-        display: inline-block;
-      }
+    #select {
+      display: none;
+    }
+    #select[visible] {
+      display: inline-block;
+    }
 
-      .filter {
-        display: inline-block;
-        margin-bottom: 4px;
-      }
-    </style>
+    .filter {
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+  </style>
+  <template>
 
     <div id="filters">
       <template repeat="{{ property, index in used }}">
@@ -52,35 +52,37 @@
     </div>
 
   </template>
-  <script>
-    Polymer('part-collection-filter', {
+</dom-module>
+<script>
+  Polymer({
 
-      propertiesChanged: function () {
-        this.used = [];
-        this.unused = this.properties.slice();
-      },
+    is: 'part-collection-filter',
 
-      on_select: function (event, detail, target) {
-        var index = target.value;
-        var property = this.unused.splice(index, 1)[0];
-        this.used.push(property);
-        this.$.select.value = '-1';
-      },
+    propertiesChanged: function () {
+      this.used = [];
+      this.unused = this.properties.slice();
+    },
 
-      on_unselect: function (event, detail, target) {
-        var index = target.dataset.index;
-        var item = this.used.splice(index, 1)[0];
-        this.unused.push(item);
-        this.$.select.value = '-1';
-      },
+    on_select: function (event, detail, target) {
+      var index = target.value;
+      var property = this.unused.splice(index, 1)[0];
+      this.used.push(property);
+      this.$.select.value = '-1';
+    },
 
-      get query () {
-        var filters = this.$.filters.querySelectorAll('[filter]').array();
-        var array = filters.map(function (filter) { return filter.query; });
-        var and = { and: array };
-        return and;
-      }
-      
-    });
-  </script>
-</polymer-element>
+    on_unselect: function (event, detail, target) {
+      var index = target.dataset.index;
+      var item = this.used.splice(index, 1)[0];
+      this.unused.push(item);
+      this.$.select.value = '-1';
+    },
+
+    get query () {
+      var filters = this.$.filters.querySelectorAll('[filter]').array();
+      var array = filters.map(function (filter) { return filter.query; });
+      var and = { and: array };
+      return and;
+    }
+    
+  });
+</script>

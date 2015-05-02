@@ -1,17 +1,19 @@
-<polymer-element name="part-post-content" attributes="post">
+<dom-module id="part-post-content">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
 
     <div>{{ post.content }}</div>
 
   </template>
-  <script>
-    Polymer('part-post-content', {
+</dom-module>
+<script>
+  Polymer({
 
-    });
-  </script>
-</polymer-element>
+    is: 'part-post-content'
+
+  });
+</script>

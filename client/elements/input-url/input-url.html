@@ -1,0 +1,24 @@
+<dom-module id="input-url">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <div class="form-group">      
+      <label>{{ property.name }}</label>
+      <input type="url" class="form-control" value="{{ property.value }}">
+    </div>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'input-url',
+
+    properties: {
+      property: Object
+    }
+
+  });
+</script>

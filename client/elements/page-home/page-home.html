@@ -1,5 +1,6 @@
-<link rel="import" href="../x-header/x-header.html">
-<link rel="import" href="../x-footer/x-footer.html">
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="../part-header/part-header.html">
+<link rel="import" href="../part-footer/part-footer.html">
 <dom-module id="page-home">
   <style>
     :host {
@@ -25,7 +26,7 @@
     }
   </style>
   <template>
-    <x-header></x-header>
+    <part-header></part-header>
     <div page="home" class="page">
       <div class="jumbotron">
         <div class="container brand">
@@ -34,7 +35,7 @@
         </div>
       </div>
     </div>
-    <x-footer></x-footer>
+    <part-footer></part-footer>
   </template>
 </dom-module>
 <script>
@@ -45,13 +46,11 @@
     properties: {
       title: {
         type: String,
-        value: 'x-project',
-        notify: true
+        value: 'x-project'
       },
       tagline: {
         type: String,
-        value: 'the next gen web blog platform',
-        notify: true
+        value: 'the next gen web blog platform'
       } 
     }
 

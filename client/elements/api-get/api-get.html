@@ -1,0 +1,35 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<dom-module id="api-get">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+  <template>
+
+    <core-ajax id="ajax" url="{{ url }}" handleAs="json" 
+      on-core-response="{{ on_response }}" on-core-error="{{ on_error }}"></core-ajax>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'api-get',
+
+    urlChanged: function () {
+      this.$.ajax.go();
+    },
+
+    on_response: function (event) {
+      var response = event.detail.response;
+      this.response = response;
+    },
+
+    on_error: function (event) {
+      var error = event.detail.error;
+      this.error = error;
+    }
+
+  });
+</script>

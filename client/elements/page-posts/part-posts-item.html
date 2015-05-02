@@ -1,32 +1,34 @@
 <link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../../components/x-link/x-link.html">
-<polymer-element name="part-posts-item" attributes="item properties">
+<link rel="import" href="../link-x/link-x.html">
+<dom-module name="part-posts-item">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
 
     <div>
       <h3>{{ item.title }}</h3>
       <h4 id="muted">posted by <strong>{{ item.author }}</strong> on <strong>{{ item.posted | datetime }}</strong></h4>
       <p>{{ item.description }}</p>
       <p>  
-        <a is="x-link" id="read_more" href="/posts/{{ item.id }}">Read More</a>
+        <a is="link-x" id="read_more" href="/posts/{{ item.id }}">Read More</a>
       </p>
     </div>
 
   </template>
-  <script src="../../components/moment/moment.js"></script>
-  <script>
-    Polymer('part-posts-item', {
+</dom-module>
+<script src="../../components/moment/moment.js"></script>
+<script>
+  Polymer({
 
-      datetime: function (value) {
-        var date = (moment(value).format('LL'));
-        return date;
-      }
+    is: 'part-posts-item',
 
-    });
-  </script>
-</polymer-element>
+    datetime: function (value) {
+      var date = (moment(value).format('LL'));
+      return date;
+    }
+
+  });
+</script>

@@ -1,10 +1,10 @@
-<polymer-element name="part-collection-create" attributes="schema">
-	<template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
+<dom-module id="part-collection-create">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
 
     <div class="form-group">
       <a class="btn btn-default btn-sm" href="/admin/collections/{{ schema.plural }}/create">
@@ -13,9 +13,11 @@
     </div>
 
   </template>
-  <script>
-    Polymer('part-collection-create', {
+</dom-module>
+<script>
+  Polymer({
 
-    });
-  </script>
-</polymer-element>
+    is: 'part-collection-create'
+
+  });
+</script>

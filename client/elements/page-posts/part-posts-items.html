@@ -1,11 +1,11 @@
 <link rel="import" href="part-posts-item.html">
-<polymer-element name="part-posts-items" attributes="items">
+<dom-module id="part-posts-items">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
 
     <div>
       <template repeat="{{ item in items }}">
@@ -14,9 +14,11 @@
     </div>
 
   </template>
-  <script>
-    Polymer('part-posts-items', {
+</dom-module>
+<script>
+  Polymer({
 
-    });
-  </script>
-</polymer-element>
+    is: 'part-posts-items'
+
+  });
+</script>

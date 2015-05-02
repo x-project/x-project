@@ -1,29 +1,31 @@
 <link rel="import" href="../../components/polymer/polymer.html">
 <link rel="import" href="../../components/core-ajax/core-ajax.html">
-<link rel="import" href="../../components/x-link/x-link.html">
-<link rel="import" href="../x-header/x-header.html">
-<link rel="import" href="../x-footer/x-footer.html">
+<link rel="import" href="../link-x/link-x.html">
+<link rel="import" href="../part-header/part-header.html">
+<link rel="import" href="../part-footer/part-footer.html">
 <link rel="import" href="part-model-edit.html">
-<polymer-element name="page-model-edit" attributes="collection model_id">
+<dom-module id="page-model-edit">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>      
-      :host {
-        display: block;
-      }
-    </style>
 
-    <x-header></x-header>
+    <part-header></part-header>
     <div class="page container">
-      <a is="x-link" href="/admin/collections/{{ collection }}">Back</a>
+      <a is="link-x" href="/admin/collections/{{ collection }}">Back</a>
       <h1>{{ collection }}</h1>
       <part-model-edit collection="{{ collection }}" model_id="{{ model_id }}"></part-model-edit>    
     </div>
-    <x-footer></x-footer>
+    <part-footer></part-footer>
 
   </template>
-  <script>
-    Polymer('page-model-edit', {
+</dom-module>
+<script>
+  Polymer({
 
-    });
-  </script>
-</polymer-element>
+    is: 'page-model-edit'
+
+  });
+</script>

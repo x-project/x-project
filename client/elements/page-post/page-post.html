@@ -1,26 +1,26 @@
 <link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../x-header/x-header.html">
-<link rel="import" href="../x-jumbotron/x-jumbotron.html">
-<link rel="import" href="../x-footer/x-footer.html">
+<link rel="import" href="../part-header/part-header.html">
+<link rel="import" href="../part-jumbotron/part-jumbotron.html">
+<link rel="import" href="../part-footer/part-footer.html">
 <link rel="import" href="part-post-author.html">
 <link rel="import" href="part-post-content.html">
 <link rel="import" href="part-post-date.html">
-<polymer-element name="page-post" attributes="post_id">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
+<dom-module id="page-post">
+  <style>
+    :host {
+      display: block;
+    }
 
-      .page.container {
-        margin-top: 0px;
-      }
-    </style>
+    .page.container {
+      margin-top: 0px;
+    }
+  </style>
+  <template>
 
     <core-ajax auto id="get_post" url="/api/posts/{{ post_id }}" handleAs="json" 
       on-core-response="{{ on_get_post }}" on-core-error="{{ on_error_get_post }}"></core-ajax>
 
-    <x-header></x-header>
+    <part-header></part-header>
     <x-jumbotron>
       <div class="container">
         <h1>{{ post.title }}</h1>
@@ -32,20 +32,22 @@
       <part-post-content post="{{ post }}"></part-post-content>
       <a href="/posts">Back</a>
     </div>
-    <x-footer></x-footer>
+    <part-footer></part-footer>
 
   </template>
-  <script>
-    Polymer('page-post', {
+</dom-module>
+<script>
+  Polymer({
 
-      on_get_post: function (event) {
-        this.post = event.detail.response;
-      },
+    is: 'page-post',
 
-      on_error_get_post: function (event) {
-        console.log(event);
-      }
+    on_get_post: function (event) {
+      this.post = event.detail.response;
+    },
 
-    });
-  </script>
-</polymer-element>
+    on_error_get_post: function (event) {
+      console.log(event);
+    }
+
+  });
+</script>

@@ -1,25 +1,26 @@
 <link rel="import" href="../../components/core-ajax/core-ajax.html">
-<link rel="import" href="../x-input/x-input.html">
-<link rel="import" href="../x-select/x-select.html">
-<link rel="import" href="../x-textarea/x-textarea.html">
-<link rel="import" href="../x-date/x-date.html">
-<link rel="import" href="../x-radio/x-radio.html">
-<link rel="import" href="../x-number/x-number.html">
-<link rel="import" href="../x-checkbox/x-checkbox.html">
-<link rel="import" href="../x-email/x-email.html">
-<link rel="import" href="../x-url/x-url.html">
-<link rel="import" href="../x-money/x-money.html">
-<link rel="import" href="../x-password/x-password.html">
-<polymer-element name="part-model-edit" attributes="collection model_id">
+<link rel="import" href="../api-schema/api-schema.html">
+<link rel="import" href="../input-string/input-string.html">
+<link rel="import" href="../input-select/input-select.html">
+<link rel="import" href="../input-text/input-text.html">
+<link rel="import" href="../input-date/input-date.html">
+<link rel="import" href="../input-radio/input-radio.html">
+<link rel="import" href="../input-number/input-number.html">
+<link rel="import" href="../input-checkbox/input-checkbox.html">
+<link rel="import" href="../input-email/input-email.html">
+<link rel="import" href="../input-url/input-url.html">
+<link rel="import" href="../input-money/input-money.html">
+<link rel="import" href="../input-password/input-password.html">
+<dom-module id="part-model-edit">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
 
-    <x-schema id="get_schema" collection="{{ collection }}"
-      on-x-response="{{ on_get_schema }}" on-x-error="{{ on_error_get_schema }}"></x-schema>
+    <api-schema id="get_schema" collection="{{ collection }}"
+      on-x-response="{{ on_get_schema }}" on-x-error="{{ on_error_get_schema }}"></api-schema>
 
     <core-ajax id="get_model" method="GET" url="/api/{{ collection }}/{{ model_id }}" handleAs="json" 
       on-core-response="{{ on_get_model }}" on-core-error="{{ on_error_get_model }}"></core-ajax>
@@ -40,137 +41,139 @@
     </div>
 
   </template>
-  <script>
-    Polymer('part-model-edit', {
+</dom-module>
+<script>
+  Polymer({
 
-      edit: true,
+    is: 'part-model-edit',
 
-      form: {},
+    edit: true,
 
-      types: {
-        "string": "x-input",
-        "select": "x-select",
-        "date": "x-date",
-        "enum": "x-radio",
-        "number": "x-number",
-        "email": "x-email",
-        "textarea": "x-textarea",
-        "url": "x-url",
-        "boolean": "x-checkbox",
-        "money": "x-money",
-        "password": "x-password"
-      },
+    form: {},
 
-      collectionChanged: function () {
-        this.$.get_schema.go();
-      },
+    types: {
+      "string": "input-string",
+      "select": "input-select",
+      "date": "input-date",
+      "enum": "input-radio",
+      "number": "input-number",
+      "email": "input-email",
+      "textarea": "input-textarea",
+      "url": "input-url",
+      "boolean": "input-checkbox",
+      "money": "input-money",
+      "password": "input-password"
+    },
 
-      on_get_schema: function (event) {
-        var schema = event.detail.schema;
-        this.schema = schema;
-        this.create_form(schema);
-        if (this.model_id) {
-          this.$.get_model.go();
-          this.edit = true;
-        }
-      },
+    collectionChanged: function () {
+      this.$.get_schema.go();
+    },
 
-      on_error_get_schema: function (event) {
-
-      },
-
-      on_get_model: function (event) {
-        var instance = event.detail.response;
-        this.values = instance;
-      },
-
-      on_error_get_model: function (event) {
-
-      },
-
-      on_post_data: function (event) {
-        var response = event.detail.response;
-        this.$.submit.removeAttribute('disabled');
-        this.model_id = response.id;
-      },
-
-      on_error_post_data: function (event) {
-        this.$.submit.removeAttribute('disabled');
-      },
-
-      on_put_data: function (event) {
-        var response = event.detail.response;
-        console.log(response);
-        this.$.submit.removeAttribute('disabled');
-      },
-
-      on_error_put_data: function (event) {
-        this.$.submit.removeAttribute('disabled');
-      },
-
-      create_form: function (schema) {
-        schema.properties.forEach(this.create_form_element, this);
-      },
-
-      create_form_element: function (property) {
-        var type = property.$type;
-        var element_type = this.types[type] || 'x-input';
-        var element = document.createElement(element_type);
-        element.label = property.name;
-        element.schema = property;
-        this.$.form.appendChild(element);
-        this.form[property.name] = element;
-      },
-
-      save: function (event, response){
-        var values = this.values;
-        var body = JSON.stringify(values);
-        var ajax = this.model_id ? this.$.put_data : this.$.post_data;
-        ajax.body = body;
-        ajax.go();
-        this.$.submit.setAttribute('disabled', 'disabled');
-      },
-
-      clear: function () {
-        var form = this.form;
-        var name;
-        var element;
-        for (name in form) {
-          element = form[name];
-          element.value = '';
-        }
-        return this;
-      },
-
-      set values (values) {
-        var form = this.form;
-        var name;
-        var value;
-        var element;
-        for (name in form) {
-          value = values[name];
-          if (value) {
-            element = form[name];
-            element.value = value;
-          }
-        }
-        return this;
-      },
-
-      get values () {
-        var values = {};
-        var name;
-        var value;
-        var element;
-        var form = this.form;
-        for (name in form) {
-          element = form[name];
-          value = element.value;
-          values[name] = value;
-        }
-        return values;
+    on_get_schema: function (event) {
+      var schema = event.detail.schema;
+      this.schema = schema;
+      this.create_form(schema);
+      if (this.model_id) {
+        this.$.get_model.go();
+        this.edit = true;
       }
+    },
 
-    });
-  </script>
-</polymer-element>
+    on_error_get_schema: function (event) {
+
+    },
+
+    on_get_model: function (event) {
+      var instance = event.detail.response;
+      this.values = instance;
+    },
+
+    on_error_get_model: function (event) {
+
+    },
+
+    on_post_data: function (event) {
+      var response = event.detail.response;
+      this.$.submit.removeAttribute('disabled');
+      this.model_id = response.id;
+    },
+
+    on_error_post_data: function (event) {
+      this.$.submit.removeAttribute('disabled');
+    },
+
+    on_put_data: function (event) {
+      var response = event.detail.response;
+      console.log(response);
+      this.$.submit.removeAttribute('disabled');
+    },
+
+    on_error_put_data: function (event) {
+      this.$.submit.removeAttribute('disabled');
+    },
+
+    create_form: function (schema) {
+      schema.properties.forEach(this.create_form_element, this);
+    },
+
+    create_form_element: function (property) {
+      var type = property.$type;
+      var element_type = this.types[type] || 'input-string';
+      var element = document.createElement(element_type);
+      element.label = property.name;
+      element.schema = property;
+      this.$.form.appendChild(element);
+      this.form[property.name] = element;
+    },
+
+    save: function (event, response){
+      var values = this.values;
+      var body = JSON.stringify(values);
+      var ajax = this.model_id ? this.$.put_data : this.$.post_data;
+      ajax.body = body;
+      ajax.go();
+      this.$.submit.setAttribute('disabled', 'disabled');
+    },
+
+    clear: function () {
+      var form = this.form;
+      var name;
+      var element;
+      for (name in form) {
+        element = form[name];
+        element.value = '';
+      }
+      return this;
+    },
+
+    set values (values) {
+      var form = this.form;
+      var name;
+      var value;
+      var element;
+      for (name in form) {
+        value = values[name];
+        if (value) {
+          element = form[name];
+          element.value = value;
+        }
+      }
+      return this;
+    },
+
+    get values () {
+      var values = {};
+      var name;
+      var value;
+      var element;
+      var form = this.form;
+      for (name in form) {
+        element = form[name];
+        value = element.value;
+        values[name] = value;
+      }
+      return values;
+    }
+
+  });
+</script>

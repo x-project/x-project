@@ -1,23 +1,25 @@
 <script src="../../components/moment/moment.js"></script>
-<polymer-element name="part-post-date" attributes="post">
+<dom-module id="part-post-date">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
 
     <h4>{{ post.posted | datetime }}</h4>
 
   </template>
-  <script>
-    Polymer('part-post-date', {
+</dom-module>
+<script>
+  Polymer({
 
-      datetime: function (value) {
-        var dateFormat = (moment(value).format('LL'));
-        return dateFormat;
-      }
+    is: 'part-post-date',
 
-    });
-  </script>
-</polymer-element>
+    datetime: function (value) {
+      var dateFormat = (moment(value).format('LL'));
+      return dateFormat;
+    }
+
+  });
+</script>

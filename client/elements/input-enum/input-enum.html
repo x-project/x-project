@@ -1,0 +1,63 @@
+<dom-module id="input-enum">
+  <style>
+    :host {
+      display: block;
+    }
+
+    .radio-item {
+      margin-right: 20px;
+    }
+  </style>
+  <template>
+    <div id="input" class="form-group">
+      <label>{{ property.name }}</label>
+      <div>
+        <template is="x-repeat" items="{{ property.options }}">
+          <div>
+            <input type="radio" name="{{ property.name }}" value="{{ item }}" />
+            <span>{{ item }}</span>
+          </div>
+        </template>
+      </div>
+    </div>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'input-enum',
+
+    properties: {
+      property: Object 
+    },
+
+    get value() {
+      var input = this.$.input;
+      var selected = input.querySelector('input:checked');
+      if (!selected) {
+        return;
+      }
+      var value = selected.getAttribute('value');
+      return value;
+    },
+
+    set value (value) {
+      var input = this.$.input;
+      if (!value) {
+        var selected = input.querySelector('input:checked');
+        if (selected) {
+          selected.removeAttribute('checked');
+          selected.checked = false;
+        }
+        return;
+      }
+
+      var selected = input.querySelector('input[value="' + value + '"]');
+      if (!selected) {
+        return;
+      }
+      selected.setAttribute('checked', 'checked');
+    }
+
+  });
+</script>
