@@ -19,9 +19,7 @@
   </style>
   <template>
 
-    <div id="app"></div>
-
-    <app-router id="router" appId="app">
+    <app-router id="router">
       <app-route path="/" page="page-home"></app-route>
       <app-route path="/home" page="page-home"></app-route>
       <app-route path="/admin/login" page="page-login"></app-route>
@@ -35,6 +33,7 @@
       <app-route path="/posts" page="page-posts"></app-route>
       <app-route path="/posts/:post_id" page="page-post"></app-route>
     </app-router>
+
   </template>
 </dom-module>
 <script>
