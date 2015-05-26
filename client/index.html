@@ -5,12 +5,36 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
   <title>x-project</title>
   <script src="/components/webcomponentsjs/webcomponents.js"></script>
-  <link rel="import" href="/components/polymer/polymer.html"> 
-  <link rel="import" href="/elements/x-project/x-project.html">
+  <link rel="import" href="/components/polymer/polymer.html">  
+  <link rel="import" href="/elements/page-collection/page-collection.html">
+  <link rel="import" href="/elements/page-collections/page-collections.html">
+  <link rel="import" href="/elements/page-home/page-home.html">
+  <link rel="import" href="/elements/page-login/page-login.html">
+  <link rel="import" href="/elements/page-model-edit/page-model-edit.html">
+  <link rel="import" href="/elements/page-post/page-post.html">
+  <link rel="import" href="/elements/page-posts/page-posts.html">
+  <link rel="import" href="/elements/page-user-edit/page-user-edit.html">
+  <link rel="import" href="/elements/page-users/page-users.html">
+  <link rel="import" href="/elements/app-router/app-router.html">
+  <link rel="import" href="/elements/app-route/app-route.html">
+  <link rel="import" href="/elements/app-style/app-style.html">
+
 </head>
 <body>
 
-  <x-project></x-project>
-  
+  <app-router id="router">
+    <app-route path="/" page="page-home"></app-route>
+    <app-route path="/home" page="page-home"></app-route>
+    <app-route path="/admin/login" page="page-login"></app-route>
+    <app-route path="/admin/users" page="page-users"></app-route>
+    <app-route path="/admin/users/create" page="page-user-edit"></app-route>
+    <app-route path="/admin/users/:user_id" page="page-user"></app-route>
+    <app-route path="/admin/collections" page="page-collections"></app-route>
+    <app-route path="/admin/collections/:collection_name" page="page-collection"></app-route>
+    <app-route path="/admin/collections/:collection_name/create" page="page-model-edit"></app-route>
+    <app-route path="/admin/collections/:collection_name/:model_id/edit" page="page-model-edit"></app-route>
+    <app-route path="/posts" page="page-posts"></app-route>
+    <app-route path="/posts/:post_id" page="page-post"></app-route>
+  </app-router>
 </body>
 </html>
