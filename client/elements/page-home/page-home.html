@@ -1,47 +1,65 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../x-header/x-header.html">
-<link rel="import" href="../x-footer/x-footer.html">
-<polymer-element name="page-home">
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="../part-header/part-header.html">
+<link rel="import" href="../part-footer/part-footer.html">
+
+<dom-module id="page-home">
+  <style>
+    :host {
+      display: block;
+    }
+
+    [page="home"].page {
+      padding-top: 0px;
+    }
+
+    .brand {
+      text-align: center;
+    }
+    .brand h1, 
+    .brand h2 {
+      font-weight: 100;
+    }
+    .brand h1 {
+      letter-spacing: 3px;
+    }
+    .brand h2 {
+      letter-spacing: 2px;
+    }
+  </style>
   <template>
-    <style>      
-      :host {
-        display: block;
-      }
-
-      [page="home"].page {
-        padding-top: 0px;
-      }
-
-      .brand {
-        text-align: center;
-      }
-      .brand h1, 
-      .brand h2 {
-        font-weight: 100;
-      }
-      .brand h1 {
-        letter-spacing: 3px;
-      }
-      .brand h2 {
-        letter-spacing: 2px;
-      }
-    </style>
-
-    <x-header></x-header>
-    <div page="home" class="page">    
+    <part-header></part-header>
+    <div page="home" class="page">
       <div class="jumbotron">
         <div class="container brand">
-          <h1>x-project</h1>
-          <h2>the next gen Web Blog platform</h2>
+          <h1>{{brand}}</h1>
+          <h2>{{tagline}}</h2>
         </div>
       </div>
     </div>
-    <x-footer></x-footer>
-
+    <part-footer></part-footer>
   </template>
-  <script>
-    Polymer('page-home', {
+</dom-module>
 
-    });
-  </script>
-</polymer-element>
+<script>
+  Polymer({
+
+    is: 'page-home',
+
+    properties: {
+      brand: {
+        type: String,
+        notify: true
+      },
+      tagline: {
+        type: String,
+        notify: true
+      } 
+    },
+
+    ready: function () {
+      this.brand = 'x-project';
+      this.tagline = 'the next gen web blog platform';
+    }
+  
+  });
+</script>

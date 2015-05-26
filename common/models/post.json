@@ -16,17 +16,9 @@
       "type": "string",
       "$type": "string"
     },
-    "summary": {
-      "type": "string",
-      "$type": "text"
-    },
     "content": {
       "type": "string",
       "$type": "text"
-    },
-    "likes": {
-      "type": "number",
-      "$type": "number"
     }
   },
   "validations": [],

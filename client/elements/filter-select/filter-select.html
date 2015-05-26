@@ -1,43 +1,43 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<polymer-element name="filter-select" attributes="property">
-	<template>
-    <style>
-      :host {
-        display: inline-block;
-      }
-    </style>
-
+<link rel="import" href="/components/polymer/polymer.html">   
+<dom-module id="filter-select">
+  <style>
+    :host {
+      display: inline-block;
+    }
+  </style>
+  <template>
     <form class="form-inline">
       <div class="form-group">
-        <label>{{ property.name }}</label>
+        <label>{{property.name}}</label>
         <span> is </span>
         <select id="select">
           <option disabled value="-1"></option>
-          <template repeat="{{ option in property.options }}">
-            <option value="{{ option }}">{{ option }}</option>
+          <template is="dom-repeat" items="{{property.options}}">
+            <option value="{{item}}">{{item}}</option>
           </template>
         </select>
       </div>
     </form>
-
   </template>
-  <script>
-    Polymer('filter-select', {
+</dom-module>
+<script>
+  Polymer({
 
-      ready: function () {
-        this.$.select.value = '-1';
-      },
+    is: 'filter-select',
 
-      get value () {
-        return this.$.select.value;
-      },
+    ready: function () {
+      this.$.select.value = '-1';
+    },
 
-      get query () {
-        var obj = {};
-        obj[this.property.name] = { like: this.value };
-        return obj;
-      }
+    get value () {
+      return this.$.select.value;
+    },
 
-    });
-  </script>
-</polymer-element>
+    get query () {
+      var obj = {};
+      obj[this.property.name] = { like: this.value };
+      return obj;
+    }
+
+  });
+</script>

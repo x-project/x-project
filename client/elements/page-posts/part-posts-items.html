@@ -1,22 +1,29 @@
+<link rel="import" href="/components/polymer/polymer.html">   
 <link rel="import" href="part-posts-item.html">
-<polymer-element name="part-posts-items" attributes="items">
+<dom-module id="part-posts-items">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
 
-    <div>
-      <template repeat="{{ item in items }}">
-        <part-posts-item item="{{ item }}"></part-posts-item>
-      </template>
-    </div>
+    <template is="dom-repeat" items="{{items}}">
+      <part-posts-item item="{{item}}"></part-posts-item>
+    </template>
 
   </template>
-  <script>
-    Polymer('part-posts-items', {
+</dom-module>
+<script>
+  Polymer({
 
-    });
-  </script>
-</polymer-element>
+    is: 'part-posts-items',
+
+    properties: {
+      items: {
+        type: Array
+      }
+    }
+
+  });
+</script>

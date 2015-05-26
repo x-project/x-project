@@ -1,0 +1,46 @@
+<link rel="import" href="/components/polymer/polymer.html"> 
+<link rel="import" href="../page-collection/page-collection.html">
+<link rel="import" href="../page-collections/page-collections.html">
+<link rel="import" href="../page-home/page-home.html">
+<link rel="import" href="../page-login/page-login.html">
+<link rel="import" href="../page-model-edit/page-model-edit.html">
+<link rel="import" href="../page-post/page-post.html">
+<link rel="import" href="../page-posts/page-posts.html">
+<link rel="import" href="../page-user-edit/page-user-edit.html">
+<link rel="import" href="../page-users/page-users.html">
+<link rel="import" href="../app-router/app-router.html">
+<link rel="import" href="../app-route/app-route.html">
+<link rel="import" href="../app-style/app-style.html">
+<dom-module id="x-project">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <div id="app"></div>
+
+    <app-router id="router" appId="app">
+      <app-route path="/" page="page-home"></app-route>
+      <app-route path="/home" page="page-home"></app-route>
+      <app-route path="/admin/login" page="page-login"></app-route>
+      <app-route path="/admin/users" page="page-users"></app-route>
+      <app-route path="/admin/users/create" page="page-user-edit"></app-route>
+      <app-route path="/admin/users/:user_id" page="page-user"></app-route>
+      <app-route path="/admin/collections" page="page-collections"></app-route>
+      <app-route path="/admin/collections/:collection" page="page-collection"></app-route>
+      <app-route path="/admin/collections/:collection/create" page="page-model-edit"></app-route>
+      <app-route path="/admin/collections/:collection/:model_id/edit" page="page-model-edit"></app-route>
+      <app-route path="/posts" page="page-posts"></app-route>
+      <app-route path="/posts/:post_id" page="page-post"></app-route>
+    </app-router>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'x-project'
+
+  });
+</script>

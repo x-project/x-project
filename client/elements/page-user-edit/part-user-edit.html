@@ -1,8 +1,8 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../../components/x-link/x-link.html">
-<link rel="import" href="../x-email/x-email.html">
-<link rel="import" href="../x-password/x-password.html">
-<polymer-element name="part-user-edit" >
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../input-email/input-email.html">
+<link rel="import" href="../input-password/input-password.html">
+<dom-module id="part-user-edit" >
 	<template>
     <style>
       :host {
@@ -10,43 +10,45 @@
       }
     </style>
 
-    <core-ajax id="ajax" method="POST" contentType="application/json" url="/api/Users" 
-      on-core-response="{{ on_response }}" on-core-error="{{ on_error }}"></core-ajax>
+    <iron-ajax id="ajax" method="POST" contentType="application/json" url="/api/Users" 
+      on-core-response="{{on_response}}" on-core-error="{{on_error}}"></iron-ajax>
 
-    <form id="form" role="form" on-submit="{{ on_submit }}">
-      <x-email id="input" label="email"></x-email>
-      <x-password id="password" label="password"></x-password>
+    <form id="form" role="form" on-submit="{{on_submit}}">
+      <input-email id="input" label="email"></input-email>
+      <input-password id="password" label="password"></input-password>
       <input type="submit" class="btn btn-success" value="Create" />
     </form>
 
   </template>
-  <script>
-    Polymer('part-user-edit', {
+</dom-module>
+<script>
+  Polymer({
 
-      on_submit: function (event) {
-        event.preventDefault();
-        var credentials = {};
-        var input = this.$.input.value;
-        var pw = this.$.password.value;
-        credentials.email =  input;
-        credentials.password = pw;
-        var body = JSON.stringify(credentials);
-        var ajax = this.$.ajax;
-        console.log(body);
-        ajax.body = body;
-        ajax.go();
-      },
+    is: 'part-user-edit',
 
-      on_response: function (event) {
-        var response = event.details.response;
-        console.log(response);
-      },
+    on_submit: function (event) {
+      event.preventDefault();
+      var credentials = {};
+      var input = this.$.input.value;
+      var pw = this.$.password.value;
+      credentials.email =  input;
+      credentials.password = pw;
+      var body = JSON.stringify(credentials);
+      var ajax = this.$.ajax;
+      console.log(body);
+      ajax.body = body;
+      ajax.go();
+    },
 
-      on_error: function (event) {
-        var response = event.details.response;
-        console.error(response);
-      }
+    on_response: function (event) {
+      var response = event.details.response;
+      console.log(response);
+    },
 
-    });
-  </script>
-</polymer-element>
+    on_error: function (event) {
+      var response = event.details.response;
+      console.error(response);
+    }
+
+  });
+</script>

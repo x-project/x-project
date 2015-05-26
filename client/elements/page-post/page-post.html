@@ -1,43 +1,58 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../x-header/x-header.html">
-<link rel="import" href="../x-jumbotron/x-jumbotron.html">
-<link rel="import" href="../x-footer/x-footer.html">
-<link rel="import" href="part-post-author.html">
-<link rel="import" href="part-post-content.html">
-<link rel="import" href="part-post-date.html">
-<link rel="import" href="../api-get/api-get.html">
-<polymer-element name="page-post" attributes="post_id">
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../part-header/part-header.html">
+<link rel="import" href="../part-jumbotron/part-jumbotron.html">
+<link rel="import" href="../part-footer/part-footer.html">
+<dom-module id="page-post">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
 
-      .page.container {
-        margin-top: 0px;
-      }
-    </style>
+    <iron-ajax auto id="get_post" url="{{permalink}}" handle-as="json" 
+      last-response="{{post}}"></iron-ajax>
 
-    <api-get url="/api/posts/{{ post_id }}" response="{{ post }}"></api-get>
-
-    <x-header></x-header>
-    <x-jumbotron>
+    <part-header></part-header>
+    <part-jumbotron>
       <div class="container">
-        <h1>{{ post.title }}</h1>
-        <part-post-author post="{{ post }}"></part-post-author>
+        <h1>{{post.title}}</h1>
+        <h4><span>by </span><span>{{post.author}}</span></h4>
+        <h4><span>on </span><span>{{post.posted}}</span></h4>
       </div>
-    </x-jumbotron>
+    </part-jumbotron>
     <div class="page container">
-      <part-post-date post="{{ post }}"></part-post-date>
-      <part-post-content post="{{ post }}"></part-post-content>
+      <part-post-date post="{{post}}"></part-post-date>
+      <div>{{post.content}}</div>
       <a href="/posts">Back</a>
     </div>
-    <x-footer></x-footer>
+    <part-footer></part-footer>
 
   </template>
-  <script>
-    Polymer('page-post', {
+</dom-module>
+<script>
+  Polymer({
 
-    });
-  </script>
-</polymer-element>
+    is: 'page-post',
+
+    properties: {
+      post_id: {
+        type: String,
+        observer: 'on_changed_post_id'
+      },
+      post: {
+        type: Object,
+        observer: 'on_changed_post'
+      }
+    },
+
+    on_changed_post_id: function () {
+      this.permalink = '/api/posts/' + this.post_id;
+    },
+
+    on_changed_post: function () {
+      // this.post.posted;
+    }
+
+  });
+</script>

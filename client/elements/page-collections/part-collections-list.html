@@ -1,41 +1,44 @@
-<link rel="import" href="../../components/core-ajax/core-ajax.html">
-<link rel="import" href="../../components/x-link/x-link.html">
-<polymer-element name="part-collections-list">
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="/components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../app-link/app-link.html">
+<dom-module id="part-collections-list">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
 
-    <core-ajax id="ajax" url="/explorer/resources" handleAs="json" on-core-response="{{ on_response }}"></core-ajax>
+    <iron-ajax auto method="GET" handle-as="json" url="/explorer/resources"  
+      last-response="{{response}}"></iron-ajax>
     
-    <div>
-      <template repeat="{{ endpoint in endpoints }}">
-        <h4>
-          <a is="x-link" href="/admin/collections{{ endpoint.path }}">{{ endpoint.path | clear }}</a>
-        </h4>
-      </template>
-    </div>
+    <template is="dom-repeat" items="{{response.apis}}" filter="inject_url">
+      <h4><a is="app-link" href="{{item.url}}">{{item.path}}</a></h4>
+    </template>
 
   </template>
-  <script>
-    Polymer('part-collections-list', {
+</dom-module>
+<script>
+  Polymer({
 
-      ready: function () {
-        this.$.ajax.go();
-      },
+    is: 'part-collections-list',
 
-      clear: function (path) {
-        return path.substr(1);
-      },
-
-      on_response: function (event) {
-        var endpoints = event.detail.response.apis;
-        endpoints.shift();
-        this.endpoints = endpoints;
+    properties: {
+      response: {
+        type: Object,
+        value: function () { return { apis: [] }; },
+        observer: 'on_response'
       }
+    },
 
-    });
-  </script>
-</polymer-element>
+    on_response: function () {
+      this.response.apis.shift();
+    },
+
+    inject_url: function (item) {
+      item.url = '/admin/collections' + item.path;
+      return item;
+    }
+
+  });
+</script>

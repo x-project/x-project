@@ -1,149 +1,107 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../x-header/x-header.html">
-<link rel="import" href="../x-footer/x-footer.html">
-<link rel="import" href="../x-schema/x-schema.html">
-<link rel="import" href="../x-pages/x-pages.html">
-<link rel="import" href="../x-paginator/x-paginator.html">
-
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../part-header/part-header.html">
+<link rel="import" href="../part-footer/part-footer.html">
+<link rel="import" href="../api-get-schema/api-get-schema.html">
+<link rel="import" href="../api-get-collection/api-get-collection.html">
+<link rel="import" href="../part-pages/part-pages.html">
 <link rel="import" href="part-collection-create.html">
 <link rel="import" href="part-collection-items.html">
-<link rel="import" href="part-collection-pages.html">
-<link rel="import" href="part-collection-title.html">
 <link rel="import" href="part-collection-order.html">
 <link rel="import" href="part-collection-filter.html">
-<polymer-element name="page-collection" attributes="collection">
+<dom-module id="page-collection">
+  <style>
+    :host {
+      display: block;
+    }
+
+    #advanced {
+      background-color: #f8f8f8;
+      padding: 10px;
+      margin-bottom: 12px;
+    }
+  </style>
   <template>
-    <style>      
-      :host {
-        display: block;
-      }
 
-      #advanced {
-        background-color: #f8f8f8;
-        padding: 10px;
-        margin-bottom: 12px;
-      }
-    </style>
+    <api-get-schema id="get_schema" name="{{collection_name}}" 
+      schema="{{schema}}"></api-get-schema>
 
-    <x-schema id="get_schema" collection="{{ collection }}"
-      on-x-response="{{ on_get_schema }}" on-x-error="{{ on_error_get_schema }}"></x-schema>
+    <api-get-collection id="get_collection" name="{{schema.plural}}" 
+      where="{{where}}" order="{{order}}" page="{{page}}" perpage="{{perpage}}"
+      collection="{{collection}}" count="{{count}}"></api-get-collection>
 
-    <core-ajax id="get_list" method="GET" 
-      url="/api/{{ schema.plural }}/?filter={{ filter | stringify }}" handleAs="json" 
-      on-core-response="{{ on_get_list }}" on-core-error="{{ on_error_get_list }}"></core-ajax>
-
-    <core-ajax id="get_count" method="GET" 
-      url="/api/{{ schema.plural }}/count/?where={{ filter.where | stringify }}" handleAs="json" 
-      on-core-response="{{ on_get_count }}" on-core-error="{{ on_error_get_count }}"></core-ajax>
-
-    <x-header></x-header>
+    <part-header></part-header>    
     <div class="page container">
-      <part-collection-title schema="{{ schema }}"></part-collection-title>
-      <part-collection-create schema="{{ schema }}"></part-collection-create>
+
+      <a is="app-link" href="/admin/collections">Back</a>
+      <h1>{{collection_name}}</h1>
+      
+      <part-collection-create 
+        schema="{{schema}}"></part-collection-create>
 
       <div id="advanced">
-        <h4>Search {{ schema.plural }}</h4>
-        <part-collection-filter id="filter" properties="{{ schema.properties }}"></part-collection-filter>
+        <h4>filter</h4>
+        <part-collection-filter id="filter"
+          items="{{schema.properties}}" 
+          where="{{where}}"></part-collection-filter>
 
-        <part-collection-order schema="{{ schema }}" 
-          on-change-order="{{ on_change_order }}"></part-collection-order>
+        <h4>order</h4>
+        <part-collection-order 
+          schema="{{schema}}" 
+          order="{{order}}"></part-collection-order>
 
-        <button class="btn btn-sm btn-default" on-click="{{ on_click_search }}">search</button>
+        <button class="btn btn-sm btn-default" on-click="search">search</button>
       </div>
 
-      <part-collection-items schema="{{ schema }}" items="{{ items }}"
-        on-delete-item="{{ on_delete_item }}"></part-collection-items>
+      <part-collection-items 
+        schema="{{schema}}" collection="{{collection}}"></part-collection-items>
 
-      <x-pages count="{{ count }}" perpage="{{ filter.limit }}" current="{{ current }}"
-        on-change-page="{{ on_change_page }}"></x-pages>
+      <part-pages 
+        count="{{count}}" perpage="{{perpage}}" 
+        current="{{page}}"></part-pages>
+   
     </div>
-    <x-footer></x-footer>
+    <part-footer></part-footer>
 
   </template>
-  <script>
-    Polymer('page-collection', {
+</dom-module>
+<script>
+  Polymer({
 
-      current: 0,
+    is: 'page-collection',
 
-      count: 0,
-
-      filter: {
-        limit: 3,
-        skip: 0,
-        where: {},
-        include: {},
-        fields: {}
+    properties: {
+      collection_name: {
+        type: String
       },
-
-      stringify: function (value) {
-        return JSON.stringify(value);
+      collection: {
+        type: Array
       },
-
-      search: function () {
-        var query = this.$.filter.query;
-        this.filter.where = query;
-        this.$.get_list.go();
-        this.$.get_count.go();        
+      count: {
+        type: Number
       },
-
-      on_click_search: function () {
-        this.search();
+      schema: {
+        type: Object
       },
-
-      collectionChanged: function () {
-        this.$.get_schema.go();
+      where: {
+        type: Object
       },
-
-      on_get_schema: function (event) {
-        this.schema = event.detail.schema;
+      order: {
+        type: String
       },
-
-      schemaChanged: function () {
-        this.search();
+      page: {
+        type: Number,
+        value: 0
       },
-
-      on_error_get_schema: function (event) {
-        console.log(event);
-      },
-
-      on_get_list: function (event) {
-        this.items = event.detail.response;
-      },
-
-      itemsChanged: function () {
-        this.current = (this.items.length === 0 && this.current > 0) ? this.current-1 : this.current;
-      },
-
-      on_error_get_list: function (event) {
-        console.log(event);
-      },
-
-      on_get_count: function (event) {
-        this.count = event.detail.response.count;
-      },
-
-      countChanged: function () {
-        // this.$.get_list.go();
-      },
-
-      on_error_get_count: function (event) {
-        console.log(event);        
-      },
-
-      on_change_page: function (event, detail) {
-        this.filter.skip = detail.skip;
-        this.search();
-      },
-
-      on_delete_item: function () {
-        this.$.get_count.go();
-        this.$.get_list.go();
-      },
-
-      on_change_order: function (event, detail) {
-        this.filter.order = detail.property;
+      perpage: {
+        type: Number
       }
+    },
 
-    });
-  </script>
-</polymer-element>
+    search: function () {
+      this.where = this.$.filter.query;
+      console.log(this.where, this.order, this.page, this.perpage);
+      this.$.get_collection.update();
+    }
+
+  });
+</script>

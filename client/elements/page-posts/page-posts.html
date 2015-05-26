@@ -1,86 +1,57 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../../components/core-ajax/core-ajax.html">
-<link rel="import" href="../../components/x-link/x-link.html">
-<link rel="import" href="../x-header/x-header.html">
-<link rel="import" href="../x-footer/x-footer.html">
-<link rel="import" href="../x-pages/x-pages.html">
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="../part-header/part-header.html">
+<link rel="import" href="../part-footer/part-footer.html">
+<link rel="import" href="../part-pages/part-pages.html">
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../api-get-collection/api-get-collection.html">
 <link rel="import" href="part-posts-items.html">
-<link rel="import" href="part-posts-pages.html">
-<polymer-element name="page-posts">
+<dom-module id="page-posts">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
     
-    <core-ajax id="get_posts" method="GET" url="/api/posts/?filter={{ filter | stringify }}&{{ time }}" handleAs="json" 
-      on-core-response="{{ on_get_posts }}" on-core-error="{{ on_error_get_posts }}"></core-ajax>
+    <api-get-collection name="posts" 
+      perpage="{{perpage}}" page="{{current}}" order="posted"
+      collection="{{posts}}" count="{{count}}"></api-get-collection>
 
-    <core-ajax id="get_count" method="GET" url="/api/posts/count" handleAs="json" 
-      on-core-response="{{ on_get_count }}" on-core-error="{{ on_error_get_count }}"></core-ajax>
-
-    <x-header></x-header>
+    <part-header></part-header>
     <div class="page container">
-      <h1>Blog</h1>
-      <part-posts-items items="{{ items }}"></part-posts-items>
-
-      <x-pages count="{{ count }}" perpage="{{ filter.limit }}" current="{{ current }}"
-        on-change-page="{{ on_change_page }}"></x-pages>
+      <h1>Posts</h1>
+      <part-posts-items items="{{posts}}"></part-posts-items>
+      <part-pages count="{{count}}" perpage="{{perpage}}" current="{{current}}"></part-pages>
     </div>
-    <x-footer></x-footer>
+    <part-footer></part-footer>
 
   </template>
-  <script>
-    Polymer('page-posts', {
+</dom-module>
+<script>
+  Polymer({
 
-      current: 0,
+    is: 'page-posts',
 
-      count: 0,
-
+    properties: {
+      posts: {
+        type: Array
+      },
+      current: {
+        type: Number,
+        value: 0
+      },
+      perpage: {
+        type: Number,
+        value: 3
+      },
+      count: {
+        type: Number
+      },
       filter: {
-        limit: 3,
-        skip: 0,
-        where: {},
-        include: {},
-        fields: {},
-        orderBy: {}
-      },
- 
-      stringify: function (value) {
-        return JSON.stringify(value);
-      },
-
-      ready: function () {
-        this.$.get_count.go();
-      },
-
-      on_get_count: function (event) {
-        this.count = event.detail.response.count;
-      },
-
-      on_error_get_count: function (event) {
-        console.log(event);
-      },
-
-      countChanged: function () {
-        this.$.get_posts.go();
-      },
-
-      on_get_posts: function (event) {
-        this.items = event.detail.response;
-      },
-
-      on_error_get_posts: function (event) {
-        console.log(event);
-      },
-
-      on_change_page: function (event, detail) {
-        this.time = new Date();
-        this.filter.skip = detail.skip;
-        this.$.get_posts.go();
+        type: Object,
+        value: function () { return {}; }
       }
+    }
 
-    });
-  </script>
-</polymer-element>
+  });
+</script>

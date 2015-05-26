@@ -1,0 +1,25 @@
+<link rel="import" href="/components/polymer/polymer.html">   
+<dom-module id="input-money">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <div class="form-group">
+      <label>{{property.name}}</label>
+      <input type="number" class="form-control" min="0" max="9999" size="4" value="{{property.value}}" />
+    </div>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'input-money',
+
+    properties: {
+      property: Object
+    }
+
+  });
+</script>

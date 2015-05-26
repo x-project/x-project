@@ -1,21 +1,35 @@
-<polymer-element name="part-collection-create" attributes="schema">
-	<template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
+<link rel="import" href="/components/polymer/polymer.html">   
+<dom-module id="part-collection-create">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
 
     <div class="form-group">
-      <a class="btn btn-default btn-sm" href="/admin/collections/{{ schema.plural }}/create">
-        Create new {{ schema.name}}
+      <a class="btn btn-default btn-sm" href="{{create_url}}">
+        Create new <span>{{schema.name}}</span>
       </a>
     </div>
 
   </template>
-  <script>
-    Polymer('part-collection-create', {
+</dom-module>
+<script>
+  Polymer({
 
-    });
-  </script>
-</polymer-element>
+    is: 'part-collection-create',
+
+    properties: {
+      schema: {
+        type: Object,
+        observer: 'on_change_schema'
+      }
+    },
+
+    on_change_schema: function () {
+      this.create_url = '/admin/collections/' + this.schema.plural + '/create';
+    }
+
+  });
+</script>

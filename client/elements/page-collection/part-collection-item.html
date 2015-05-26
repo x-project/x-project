@@ -1,0 +1,46 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../app-link/app-link.html">   
+<dom-module id="part-collection-item">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <div>
+      <template is="dom-repeat" items="{{schema.properties}}" filter="filter">
+        <div><strong>{{item.name}}</strong> <span>{{item.value}}</span></div>
+      </template>
+      <td><a is="app-link" href="{{edit_url}}">edit</a></td>
+    </div>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-collection-item',
+
+    properties: {
+      model: {
+        type: Object
+      }
+    },
+
+    observers: [
+      'update(model,schema)'
+    ],
+
+    update: function (item) {
+      this.edit_url = this.schema.plural + '/' + this.model.id + '/edit';
+      return item;
+    },
+
+    filter: function (property) {
+      property.value = this.model[property.name];
+      return property;
+    }
+
+  });
+</script>

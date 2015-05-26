@@ -1,32 +1,43 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../../components/x-link/x-link.html">
-<polymer-element name="part-posts-item" attributes="item properties">
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="../app-link/app-link.html">
+<dom-module id="part-posts-item">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
 
     <div>
-      <h3>{{ item.title }}</h3>
-      <h4 id="muted">posted by <strong>{{ item.author }}</strong> on <strong>{{ item.posted | datetime }}</strong></h4>
-      <p>{{ item.description }}</p>
+      <h3>{{item.title}}</h3>
+      <h4 id="muted">posted by <strong>{{item.author}}</strong> on <strong>{{date}}</strong></h4>
+      <p>{{item.description}}</p>
       <p>  
-        <a is="x-link" id="read_more" href="/posts/{{ item.id }}">Read More</a>
+        <a is="app-link" id="read_more" href="{{permalink}}">Read More</a>
       </p>
     </div>
 
   </template>
-  <script src="../../components/moment/moment.js"></script>
-  <script>
-    Polymer('part-posts-item', {
+</dom-module>
+<script src="../../components/moment/moment.js"></script>
+<script>
+  Polymer({
 
-      datetime: function (value) {
-        var date = (moment(value).format('LL'));
-        return date;
-      }
+    is: 'part-posts-item',
 
-    });
-  </script>
-</polymer-element>
+    properties: {
+      item: Object
+    },
+
+    observers: [
+      'update(item.posted)'
+    ],
+
+    update: function (item) {
+      this.date = (moment(this.item.posted).format('LL'));
+      this.permalink = '/posts/' + this.item.id;
+    }
+
+
+  });
+</script>

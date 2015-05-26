@@ -1,43 +1,52 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<polymer-element name="filter-date" attributes="property">
+<link rel="import" href="/components/polymer/polymer.html">   
+<dom-module id="filter-date">
+  <style>
+    :host {
+      display: inline-block;
+    }
+  </style>
 	<template>
-    <style>
-      :host {
-        display: inline-block;
-      }
-    </style>
-
     <form class="form-inline">
       <div class="form-group">
-        <label>{{ property.name }}</label>
-        <select id="when" value="{{ when }}">
+        <label>{{property.name}}</label>
+        <select id="select">
           <option disabled></option>
           <option value="eq">on</option>
           <option value="lt">before</option>
           <option value="gt">after</option>
         </select>
-        <button class="btn btn-xs btn-default" on-click="{{ on_click_now }}">now</button>
-        <input id="input" type="date" class="form-control input-sm" value="{{ value }}">
+        <button class="btn btn-xs btn-default" on-click="on_click_now">now</button>
+        <input id="input" type="date" class="form-control input-sm" value="{{value}}">
       </div>
     </form>
-
   </template>
-  <script>
-    Polymer('filter-date', {
+</dom-module>
+<script>
+  Polymer({
 
-      on_click_now: function (event) {
-        event.preventDefault();
-        var now = new Date();
-        this.value = now.toISOString().split('T')[0];
+    is: 'filter-date',
+
+    properties: {
+      property: {
+        type: Object
       },
-
-      get query () {
-        var obj = {};
-        obj[this.property.name] = {};
-        obj[this.property.name][this.when] = this.value;
-        return obj;
+      when: {
+        type: String
       }
+    },
 
-    });
-  </script>
-</polymer-element>
+    on_click_now: function (event) {
+      event.preventDefault();
+      var now = new Date();
+      this.value = now.toISOString().split('T')[0];
+    },
+
+    get query () {
+      var obj = {};
+      obj[this.property.name] = {};
+      obj[this.property.name][this.$.select.value] = this.value;
+      return obj;
+    }
+
+  });
+</script>

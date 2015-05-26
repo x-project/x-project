@@ -1,0 +1,45 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<dom-module id="part-footer">
+  <template>
+    <div id="footer">
+      <div class="container text-right">
+          <span>Made with</span> 
+          <span>&hearts;</span>
+          <span>by</span>
+          <span><a target="_blank" href="{{url}}">{{author}}</a></span>
+          <span> in </span>
+          <span>{{city}}</span>
+          <span>, </span>
+          <span>{{country}}</span>
+      </div>
+    </div>
+  </template>
+</dom-module>
+<script>
+  document.addEventListener('WebComponentsReady', function() {
+    Polymer ({
+
+      is: 'part-footer',
+
+      properties: {
+        author: {
+          type: String,
+          value: 'CVDLAB'
+        },
+        url: {
+          type: String,
+          value: 'http://cvdlab.org'
+        },
+        city: {
+          type: String,
+          value: 'Rome'
+        },
+        country: {
+          type: String,
+          value: 'Italy'
+        }
+      }
+
+    });
+  });
+</script>

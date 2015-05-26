@@ -1,27 +1,30 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../../components/x-link/x-link.html">
-<link rel="import" href="../x-header/x-header.html">
-<link rel="import" href="../x-footer/x-footer.html">
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../part-header/part-header.html">
+<link rel="import" href="../part-footer/part-footer.html">
 <link rel="import" href="part-collections-list.html">
-<polymer-element name="page-collections">
+<dom-module id="page-collections">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
     
-    <x-header></x-header>
+    <part-header></part-header>
     <div class="page container">
+      <a is="app-link" href="/">Back</a>
       <h1>Collections</h1>
       <part-collections-list></part-collections-list>
     </div>
-    <x-footer></x-footer>
+    <part-footer></part-footer>
 
   </template>
-  <script>
-    Polymer('page-collections', {
-  
-    });
-  </script>
-</polymer-element>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'page-collections'
+
+  });
+</script>

@@ -1,66 +1,69 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../../components/x-link/x-link.html">
-<link rel="import" href="../x-input/x-input.html">
-<link rel="import" href="../x-password/x-password.html">
-<polymer-element name="part-login-form" >
-	<template>
-    <style>
-      :host {
-        display: block;
-      }
+<link rel="import" href="/components/polymer/polymer.html">   
+<dom-module id="part-login-form">
+  <style>
+    :host {
+      display: block;
+    }
 
-      #form {
-        width: 300px;
-        margin: 0 auto;
-      }
-    </style>
+    #form {
+      width: 300px;
+      margin: 0 auto;
+    }
+  </style>
+  <template>
+    <iron-ajax id="ajax" method="POST" handleAs="json" contentType="application/json" url="/api/Users/login"
+      on-core-response="{{on_success}}" on-core-error="{{on_error}}"></iron-ajax>
 
-    <core-ajax id="ajax" method="POST" handleAs="json" contentType="application/json" url="/api/Users/login"
-      on-core-response="{{ on_success }}" on-core-error="{{ on_error }}"></core-ajax>
-
-    <form id="form" on-submit="{{ on_submit }}">
+    <form id="form" on-submit="{{on_submit}}">
       <h3 class="text-center">Login</h3>
-      <x-input id="email" label="email" placeholder="insert email"></x-input>        
-      <x-password id="password" label="password" placeholder="insert password"></x-password>        
-      <input type="submit" class="btn btn-success" on-click="{{ on_submit }}" value="login" />
+      <div class="form-group">
+        <label>email</label>
+        <input id="email" type="text" class="form-control" placeholder="email" value="">
+      </div>
+      <div class="form-group">
+        <label>password</label>
+        <input id="password" type="password" class="form-control" placeholder="password" value="">
+      </div>
+      <input type="submit" class="btn btn-success" on-click="on_submit" value="login" />
     </form>
-
   </template>
-  <script>
-    Polymer('part-login-form', {
+</dom-module>
+<script>
+  Polymer({
 
-      ready: function () {
-        this.$.email.value = 'a@b.com';
-        this.$.password.value = '123';
-      },
+    is: 'part-login-form',
 
-      on_submit: function (event) {
-        event.preventDefault();
-        var credentials = {};
-        var input = this.$.email.value;
-        var pw = this.$.password.value;
-        var ttl = "120960000";
-        credentials.email =  input;
-        credentials.password = pw;
-        credentials.ttl = ttl;
-        var body = JSON.stringify(credentials);
-        var login = this.$.login;
-        login.body = body;
-        login.go();
-      },
+    ready: function () {
+      this.$.email.value = 'a@b.com';
+      this.$.password.value = '123';
+    },
 
-      on_success: function(event) {
-        var response = event.detail.response;
-        var body = JSON.parse(response);
-        this.fire('logged', body.id);
-        page("/collections");
-      },
+    on_submit: function (event) {
+      event.preventDefault();
+      var credentials = {};
+      var input = this.$.email.value;
+      var pw = this.$.password.value;
+      var ttl = "120960000";
+      credentials.email =  input;
+      credentials.password = pw;
+      credentials.ttl = ttl;
+      var body = JSON.stringify(credentials);
+      var login = this.$.login;
+      login.body = body;
+      login.go();
+    },
 
-      on_error: function (event) {
-        this.fire('logged', false);
-        alert("username or password not valid");
-      }
+    on_success: function(event) {
+      var response = event.detail.response;
+      var body = JSON.parse(response);
+      this.fire('logged', body.id);
+      page("/collections");
+    },
 
-    });
-  </script>
-</polymer-element>
+    on_error: function (event) {
+      this.fire('logged', false);
+      alert("username or password not valid");
+    }
+
+  });
+</script>
