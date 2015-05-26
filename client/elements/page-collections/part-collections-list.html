@@ -1,5 +1,6 @@
-<link rel="import" href="../../components/core-ajax/core-ajax.html">
-<link rel="import" href="../link-x/link-x.html">
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="/components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../app-link/app-link.html">
 <dom-module id="part-collections-list">
   <style>
     :host {
@@ -8,15 +9,12 @@
   </style>
   <template>
 
-    <core-ajax id="ajax" url="/explorer/resources" handleAs="json" on-core-response="{{ on_response }}"></core-ajax>
+    <iron-ajax auto method="GET" handle-as="json" url="/explorer/resources"  
+      last-response="{{response}}"></iron-ajax>
     
-    <div>
-      <template is="x-repeat" items="{{ endpoints }}">
-        <h4>
-          <a is="link-x" href="/admin/collections{{ item.path }}">{{ item.path | clear }}</a>
-        </h4>
-      </template>
-    </div>
+    <template is="dom-repeat" items="{{response.apis}}" filter="inject_url">
+      <h4><a is="app-link" href="{{item.url}}">{{item.path}}</a></h4>
+    </template>
 
   </template>
 </dom-module>
@@ -25,18 +23,21 @@
 
     is: 'part-collections-list',
 
-    ready: function () {
-      this.$.ajax.go();
+    properties: {
+      response: {
+        type: Object,
+        value: function () { return { apis: [] }; },
+        observer: 'on_response'
+      }
     },
 
-    clear: function (path) {
-      return path.substr(1);
+    on_response: function () {
+      this.response.apis.shift();
     },
 
-    on_response: function (event) {
-      var endpoints = event.detail.response.apis;
-      endpoints.shift();
-      this.endpoints = endpoints;
+    inject_url: function (item) {
+      item.url = '/admin/collections' + item.path;
+      return item;
     }
 
   });

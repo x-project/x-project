@@ -1,3 +1,4 @@
+<link rel="import" href="/components/polymer/polymer.html">   
 <dom-module id="part-login-form">
   <style>
     :host {
@@ -10,10 +11,10 @@
     }
   </style>
   <template>
-    <core-ajax id="ajax" method="POST" handleAs="json" contentType="application/json" url="/api/Users/login"
-      on-core-response="{{ on_success }}" on-core-error="{{ on_error }}"></core-ajax>
+    <iron-ajax id="ajax" method="POST" handleAs="json" contentType="application/json" url="/api/Users/login"
+      on-core-response="{{on_success}}" on-core-error="{{on_error}}"></iron-ajax>
 
-    <form id="form" on-submit="{{ on_submit }}">
+    <form id="form" on-submit="{{on_submit}}">
       <h3 class="text-center">Login</h3>
       <div class="form-group">
         <label>email</label>

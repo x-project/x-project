@@ -1,6 +1,6 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../link-x/link-x.html">
-<dom-module name="part-posts-item">
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="../app-link/app-link.html">
+<dom-module id="part-posts-item">
   <style>
     :host {
       display: block;
@@ -9,11 +9,11 @@
   <template>
 
     <div>
-      <h3>{{ item.title }}</h3>
-      <h4 id="muted">posted by <strong>{{ item.author }}</strong> on <strong>{{ item.posted | datetime }}</strong></h4>
-      <p>{{ item.description }}</p>
+      <h3>{{item.title}}</h3>
+      <h4 id="muted">posted by <strong>{{item.author}}</strong> on <strong>{{date}}</strong></h4>
+      <p>{{item.description}}</p>
       <p>  
-        <a is="link-x" id="read_more" href="/posts/{{ item.id }}">Read More</a>
+        <a is="app-link" id="read_more" href="{{permalink}}">Read More</a>
       </p>
     </div>
 
@@ -25,10 +25,19 @@
 
     is: 'part-posts-item',
 
-    datetime: function (value) {
-      var date = (moment(value).format('LL'));
-      return date;
+    properties: {
+      item: Object
+    },
+
+    observers: [
+      'update(item.posted)'
+    ],
+
+    update: function (item) {
+      this.date = (moment(this.item.posted).format('LL'));
+      this.permalink = '/posts/' + this.item.id;
     }
+
 
   });
 </script>

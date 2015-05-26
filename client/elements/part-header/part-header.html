@@ -1,5 +1,5 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="../link-x/link-x.html">
+<link rel="import" href="../app-link/app-link.html">
 <dom-module id="part-header">
   <style>
     :host {
@@ -16,13 +16,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a is="link-x" class="navbar-brand" href="/">{{ brand }}</a>
+          <a is="app-link" class="navbar-brand" href="/">{{brand}}</a>
         </div>
         <div id="collapse" class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <template is="x-repeat" items="{{ links }}">
+            <template is="dom-repeat" items="{{links}}">
               <li>
-                <a is="link-x" href="{{ item.url }}">{{ item.label }}</a>
+                <a is="app-link" href="{{item.url}}">{{item.label}}</a>
               </li>
             </template>
           </ul>
@@ -40,6 +40,12 @@
       this.$.collapse.classList.toggle('in');
     },
     
+    properties: {
+      links: {
+        type: Array
+      }
+    },
+
     ready: function () {
       this.brand = 'x-project';
       this.links = [

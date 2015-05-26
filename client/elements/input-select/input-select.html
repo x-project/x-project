@@ -1,3 +1,4 @@
+<link rel="import" href="/components/polymer/polymer.html">   
 <dom-module id="input-select">
   <style>
     :host {
@@ -7,11 +8,11 @@
   <template>
 
     <div id="input" class="form-group">
-      <label>{{ label }}</label>
+      <label>{{label}}</label>
       <div>
         <select>
-          <template repeat="{{ option in schema.options }}">
-            <option value="{{ option }}" checked="true">{{ option }} </option>
+          <template is="dom-repeat" items="{{schema.options}}">
+            <option value="{{item}}" checked="true">{{item}} </option>
           </template>
         </select>
       </div>

@@ -1,3 +1,4 @@
+<link rel="import" href="/components/polymer/polymer.html">   
 <dom-module id="part-collection-create">
   <style>
     :host {
@@ -7,8 +8,8 @@
   <template>
 
     <div class="form-group">
-      <a class="btn btn-default btn-sm" href="/admin/collections/{{ schema.plural }}/create">
-        Create new {{ schema.name }}
+      <a class="btn btn-default btn-sm" href="{{create_url}}">
+        Create new <span>{{schema.name}}</span>
       </a>
     </div>
 
@@ -17,7 +18,18 @@
 <script>
   Polymer({
 
-    is: 'part-collection-create'
+    is: 'part-collection-create',
+
+    properties: {
+      schema: {
+        type: Object,
+        observer: 'on_change_schema'
+      }
+    },
+
+    on_change_schema: function () {
+      this.create_url = '/admin/collections/' + this.schema.plural + '/create';
+    }
 
   });
 </script>

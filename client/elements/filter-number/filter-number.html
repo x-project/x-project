@@ -1,4 +1,5 @@
-<dom-module id="filter-number" attributes="property">
+<link rel="import" href="/components/polymer/polymer.html">   
+<dom-module id="filter-number">
   <style>
     :host {
       display: inline-block;
@@ -7,14 +8,14 @@
 	<template>
     <form class="form-inline">
       <div class="form-group">
-        <label>{{ property.name }}</label>
+        <label>{{property.name}}</label>
         <span> is </span>
-        <select id="select" value="{{ comparison }}">
+        <select id="select" value="{{comparison}}">
           <option disabled></option>
           <option value="lt">less than</option>
           <option value="gt">greater than</option>
         </select>
-        <input id="input" type="number" class="form-control input-sm" value="{{ value }}">
+        <input id="input" type="number" class="form-control input-sm" value="{{value}}">
       </div>
     </form>
   </template>

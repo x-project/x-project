@@ -1,3 +1,4 @@
+<link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="../filter-text/filter-text.html">
 <link rel="import" href="../filter-date/filter-date.html">
 <link rel="import" href="../filter-number/filter-number.html">
@@ -10,46 +11,34 @@
       margin-bottom: 8px;
     }
 
-    #select {
-      display: none;
-    }
-    #select[visible] {
-      display: inline-block;
-    }
-
     .filter {
-      display: inline-block;
+      display: block;
       margin-bottom: 4px;
+    }
+    .filter filter-x {
+      display: inline-block;
     }
   </style>
   <template>
 
     <div id="filters">
-      <template repeat="{{ property, index in used }}">
-        <div>
-          <span>{{ index === 0 ? 'where' : 'and'}}</span>
-          <filter-x filter data-index="{{ index }}" property="{{ property }}" 
-              on-remove-filter="{{ on_unselect }}"></filter-x>
+      <template is="dom-repeat" items="{{selected}}">
+        <div class="filter">
+          <filter-x filter property="{{item}}"></filter-x>
+          <button class="btn btn-xs btn-default" item="{{item}}" on-click="deselect">delete</button>
         </div>
       </template>
     </div>
     
-    <div>
-      <template if="{{ !used.length && unused.length }}">
-        <span>where</span>
+    <array-selector id="selector" items="{{items}}" selected="{{selected}}" multi toggle></array-selector>
+    
+    <select id="select" on-change="select">
+      <option value="0">-</option>
+      <template is="dom-repeat" items="{{items}}">
+        <option value="{{item.name}}" item="{{item}}" 
+          hidden?="{{item.selected}}" on-click="select">{{item.name}}</option>
       </template>
-      <template if="{{ used.length && unused.length }}">
-        <span>and</span>
-      </template>
-      <select id="select" on-change="{{ on_select }}" visible?="{{ unused.length }}">
-        <option disabled value="-1">property</option>
-        <template repeat="{{ property, index in unused }}">
-          <option value="{{ index }}">
-            ({{ property.type }}) {{ property.name }}
-          </option>
-        </template>
-      </select>
-    </div>
+    </select>
 
   </template>
 </dom-module>
@@ -58,30 +47,37 @@
 
     is: 'part-collection-filter',
 
-    propertiesChanged: function () {
-      this.used = [];
-      this.unused = this.properties.slice();
+    properties: {
+      items: {
+        type: Array
+      },
+      where: {
+        type: Object,
+        notify: true
+      }
     },
 
-    on_select: function (event, detail, target) {
-      var index = target.value;
-      var property = this.unused.splice(index, 1)[0];
-      this.used.push(property);
-      this.$.select.value = '-1';
+    select: function (event) {
+      var item = event.target.querySelector(':checked').item;
+      this.$.select.value = 0;
+      this.$.selector.select(item);
+      this.set('item.selected', true);
     },
 
-    on_unselect: function (event, detail, target) {
-      var index = target.dataset.index;
-      var item = this.used.splice(index, 1)[0];
-      this.unused.push(item);
-      this.$.select.value = '-1';
+    deselect: function (event) {
+      var item = event.target.item;
+      this.$.select.value = 0;
+      this.$.selector.deselect(item);
+      this.set('item.selected', false);
     },
 
     get query () {
-      var filters = this.$.filters.querySelectorAll('[filter]').array();
-      var array = filters.map(function (filter) { return filter.query; });
-      var and = { and: array };
-      return and;
+      var filters = this.$.filters.querySelectorAll('[filter]');
+      var nodelist = Array.prototype.slice.call(filters);
+      var array = nodelist.map(function (filter) { return filter.query; });
+      var where = { and: array };
+      this.where = where;
+      return where;
     }
     
   });

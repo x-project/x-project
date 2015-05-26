@@ -1,3 +1,4 @@
+<link rel="import" href="/components/polymer/polymer.html">   
 <link rel="import" href="part-posts-item.html">
 <dom-module id="part-posts-items">
   <style>
@@ -7,18 +8,22 @@
   </style>
   <template>
 
-    <div>
-      <template repeat="{{ item in items }}">
-        <part-posts-item item="{{ item }}"></part-posts-item>
-      </template>
-    </div>
+    <template is="dom-repeat" items="{{items}}">
+      <part-posts-item item="{{item}}"></part-posts-item>
+    </template>
 
   </template>
 </dom-module>
 <script>
   Polymer({
 
-    is: 'part-posts-items'
+    is: 'part-posts-items',
+
+    properties: {
+      items: {
+        type: Array
+      }
+    }
 
   });
 </script>

@@ -1,3 +1,4 @@
+<link rel="import" href="/components/polymer/polymer.html">   
 <link rel="import" href="../filter-date/filter-date.html">
 <link rel="import" href="../filter-number/filter-number.html">
 <link rel="import" href="../filter-select/filter-select.html">
@@ -14,13 +15,19 @@
   </style>
   <template>
     <div id="container"></div>
-    <button class="btn btn-xs btn-default" on-click="on_click_remove">remove</button>
   </template>
 </dom-module>
 <script>
   Polymer({
 
     is: 'filter-x',
+
+    properties: {
+      property: {
+        type: Object,
+        observer: 'on_property'
+      }
+    },
 
     types: {
       "string": "filter-text",
@@ -32,7 +39,7 @@
       "enum": "filter-select"      
     },
 
-    ready: function () {
+    on_property: function () {
       var $type = this.property.$type;
       var type = this.types[$type];
       var element = document.createElement(type);
@@ -40,10 +47,6 @@
       container.appendChild(element);
       element.property = this.property;
       this.filter = element;
-    },
-
-    on_click_remove: function () {
-      this.fire('remove-filter', this.property);
     },
 
     get query () {

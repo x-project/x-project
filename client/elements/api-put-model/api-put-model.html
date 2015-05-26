@@ -1,0 +1,38 @@
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="/components/iron-ajax/iron-ajax.html">
+<dom-module id="api-put-model">
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <iron-ajax id="put_model" method="PUT" url="{{url}}" 
+      handle-as="json" last-response="{{model}}" on-error="on_error"></iron-ajax>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'api-put-model',
+
+    properties: {
+      model: {
+        type: Object,
+        notify: true
+      }
+    },
+
+    on_error: function (event) {
+      var error = event.detail.response;
+      this.fire('error', { error: error });
+    },
+
+    update: function () {
+      this.$.put_model.generateRequest();
+    }
+
+  });
+</script>

@@ -1,20 +1,21 @@
-<link rel="import" href="../../components/core-ajax/core-ajax.html">
-<link rel="import" href="../link-x/link-x.html">
-<link rel="import" href="../part-table/part-table.html">
-<link rel="import" href="part-collection-item.html">
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="part-collection-item.html">   
 <dom-module id="part-collection-items">
   <style>
     :host {
       display: block;
     }
+
+    part-collection-item {
+      margin-bottom: 20px;
+      padding: 10px;
+    }
   </style>
   <template>
 
-    <core-ajax id="delete_item" method="DELETE" contentType="application/json" 
-      url="/api/{{ schema.plural }}/{{ to_delete }}"
-      on-core-response="{{ on_delete_item }}" on-core-error="{{ on_error_delete_item }}"></core-ajax>
-
-    <part-table schema="{{ schema }}" items="{{ items }}" on-click-delete="{{ on_click_delete }}"></part-table>
+    <template is="dom-repeat" items="{{items}}">
+      <part-collection-item model="{{item}}" schema="{{schema}}"></part-collection-item>
+    </template>
 
   </template>
 </dom-module>
@@ -23,18 +24,25 @@
 
     is: 'part-collection-items',
 
-    on_click_delete: function (event, detail) {
-      this.to_delete = detail.id;
-      console.log(this.to_delete)
-      this.$.delete_item.go();
+    properties: {
+      schema: {
+        type: Object
+      },
+      collection: {
+        type: Array,
+        observer: 'on_collection'
+      },
+      items: {
+        type: Array
+      }
     },
 
-    on_delete_item: function () {
-      this.fire('delete-item', this.to_delete);
-    },
+    on_collection: function () {
+      this.items = [];
 
-    on_error_delete_item: function (event) {
-      console.log(event);
+      this.async(function () {
+        this.items = this.collection;       
+      });
     }
 
   });

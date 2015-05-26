@@ -1,5 +1,5 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../link-x/link-x.html">
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../input-email/input-email.html">
 <link rel="import" href="../input-password/input-password.html">
 <dom-module id="part-user-edit" >
@@ -10,10 +10,10 @@
       }
     </style>
 
-    <core-ajax id="ajax" method="POST" contentType="application/json" url="/api/Users" 
-      on-core-response="{{ on_response }}" on-core-error="{{ on_error }}"></core-ajax>
+    <iron-ajax id="ajax" method="POST" contentType="application/json" url="/api/Users" 
+      on-core-response="{{on_response}}" on-core-error="{{on_error}}"></iron-ajax>
 
-    <form id="form" role="form" on-submit="{{ on_submit }}">
+    <form id="form" role="form" on-submit="{{on_submit}}">
       <input-email id="input" label="email"></input-email>
       <input-password id="password" label="password"></input-password>
       <input type="submit" class="btn btn-success" value="Create" />

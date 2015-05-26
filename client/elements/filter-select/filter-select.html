@@ -1,3 +1,4 @@
+<link rel="import" href="/components/polymer/polymer.html">   
 <dom-module id="filter-select">
   <style>
     :host {
@@ -7,12 +8,12 @@
   <template>
     <form class="form-inline">
       <div class="form-group">
-        <label>{{ property.name }}</label>
+        <label>{{property.name}}</label>
         <span> is </span>
         <select id="select">
           <option disabled value="-1"></option>
-          <template is="x-repeat" items="{{ property.options }}">
-            <option value="{{ item }}">{{ item }}</option>
+          <template is="dom-repeat" items="{{property.options}}">
+            <option value="{{item}}">{{item}}</option>
           </template>
         </select>
       </div>

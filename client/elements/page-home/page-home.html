@@ -1,6 +1,7 @@
 <link rel="import" href="/components/polymer/polymer.html">   
 <link rel="import" href="../part-header/part-header.html">
 <link rel="import" href="../part-footer/part-footer.html">
+
 <dom-module id="page-home">
   <style>
     :host {
@@ -30,29 +31,35 @@
     <div page="home" class="page">
       <div class="jumbotron">
         <div class="container brand">
-          <h1>{{ title }}</h1>
-          <h2>{{ tagline }}</h2>
+          <h1>{{brand}}</h1>
+          <h2>{{tagline}}</h2>
         </div>
       </div>
     </div>
     <part-footer></part-footer>
   </template>
 </dom-module>
+
 <script>
   Polymer({
 
     is: 'page-home',
 
     properties: {
-      title: {
+      brand: {
         type: String,
-        value: 'x-project'
+        notify: true
       },
       tagline: {
         type: String,
-        value: 'the next gen web blog platform'
+        notify: true
       } 
-    }
+    },
 
+    ready: function () {
+      this.brand = 'x-project';
+      this.tagline = 'the next gen web blog platform';
+    }
+  
   });
 </script>

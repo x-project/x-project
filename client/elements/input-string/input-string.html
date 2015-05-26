@@ -1,3 +1,4 @@
+<link rel="import" href="/components/polymer/polymer.html">   
 <dom-module id="input-string">
   <style>
     :host {
@@ -6,8 +7,8 @@
   </style>
   <template>
     <div class="form-group">
-      <label>{{ property.name }}</label>
-      <input type="text" class="form-control" value="{{ property.value }}">    
+      <label>{{property.name}}</label>
+      <input type="text" class="form-control" value="{{property.value}}">    
     </div>
   </template>
 </dom-module>

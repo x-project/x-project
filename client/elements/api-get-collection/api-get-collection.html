@@ -1,0 +1,98 @@
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="/components/iron-ajax/iron-ajax.html">
+<dom-module id="api-get-collection">
+	<template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <iron-ajax id="get_collection" method="GET" url="{{get_collection_url}}" 
+      handle-as="json" on-response="on_get_collection" on-error="on_error"></iron-ajax>
+
+    <iron-ajax id="get_count" method="GET" url="{{get_count_url}}" 
+      handle-as="json" on-response="on_get_count" on-error="on_error"></iron-ajax>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'api-get-collection',
+
+    properties: {
+      name: {
+        type: String
+      },
+      where: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      order: {
+        type: String,
+        value: ''
+      },
+      page: {
+        type: Number,
+        value: 0
+      },
+      perpage: {
+        type: Number,
+        value: 3
+      },
+      collection: {
+        type: Array,
+        notify: true
+      },
+      count: {
+        type: Number,
+        notify: true
+      }
+    },
+
+    observers: [
+      'update(name, where, order, page, perpage)'
+    ],
+
+    update: function () {
+      var name = this.name;
+      var where = this.where;
+      var order = this.order;
+      var page = this.page;
+      var perpage = this.perpage;
+
+      this.get_count_url = '/api/' + name + '/count';
+      this.$.get_count.generateRequest();
+      
+      var skip = page * perpage;
+      var limit = perpage;
+      var filter = {
+        where: where,
+        skip: skip,
+        limit: limit,
+        order: order
+      };
+      var query = JSON.stringify(filter);
+
+      this.get_collection_url = '/api/' + name + '?filter=' + query;
+      this.$.get_collection.generateRequest();
+    },
+
+    on_get_collection: function (event) {
+      var collection = event.detail.response;
+      this.collection = collection;
+    },
+
+    on_get_count: function (event) {
+      var count = event.detail.response.count;
+      this.count = count;
+    },
+
+    on_error: function (event) {
+      var error = event.detail.response;
+      this.fire('error', { error: error });
+    }
+
+  });
+</script>

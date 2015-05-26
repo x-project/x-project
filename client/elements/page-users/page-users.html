@@ -1,5 +1,5 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../link-x/link-x.html">
+<link rel="import" href="/components/polymer/polymer.html">   
+<link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../part-header/part-header.html">
 <link rel="import" href="../part-footer/part-footer.html">
 <dom-module id="page-users">
@@ -10,17 +10,17 @@
       }
     </style>
 
-    <core-ajax id="ajax" url="/api/Users?access_token={{ access_token }}" handleAs="json" 
-      on-core-response="{{ on_response }}"></core-ajax>
+    <iron-ajax id="ajax" url="/api/Users?access_token={{access_token}}" handleAs="json" 
+      on-core-response="{{ on_response}}"></iron-ajax>
 
     <part-header></part-header>
     <div class="page container">
-      <a is="link-x" href="/collections">back</a>
+      <a is="app-link" href="/collections">back</a>
       <h2>Users</h2>      
       <ul>
-        <template is="x-repeat" items="{{ users }}">
+        <template is="dom-repeat" items="{{users}}">
           <li>
-            <span>{{ item.email }}</span>
+            <span>{{item.email}}</span>
           </li>
         </template>
       </ul>

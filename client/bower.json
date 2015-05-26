@@ -1,12 +1,10 @@
 {
   "name": "x-project",
   "dependencies": {
-    "polymer": "Polymer/polymer#0.8-preview",
-    "core-ajax": "Polymer/core-ajax#0.8-preview",
-    "page": "visionmedia/page.js"
-  },
-  "resolutions": {
-    "polymer": "0.8-preview",
-    "webcomponentsjs": "^0.6.0"
+    "polymer": "Polymer/polymer#^0.9.0",
+    "iron-ajax": "PolymerElements/iron-ajax#^0.9",
+    "page": "visionmedia/page.js",
+    "moment": "moment/moment",
+    "x-bootstrap": "x-element/x-bootstrap"
   }
 }

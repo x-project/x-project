@@ -2,11 +2,16 @@
 <dom-module id="app-router">
   <style>
     :host {
-      display: none;
+      display: block;
     }
   </style>
   <template>
-    <content select="app-route"></content>
+
+    <div id="container"></div>
+
+    <div id="routes">
+      <content select="app-route"></content>
+    </div>
   </template>
 </dom-module>
 <script src="../../components/page/page.js"></script>
@@ -20,7 +25,7 @@
     },
 
     ready: function () {
-      this.container = document.getElementById('app');
+      this.container = this.$.container;
       var routes = this.querySelectorAll('app-route')
       this.routes = Array.prototype.slice.call(routes);
       this.routes.forEach(function (route) {

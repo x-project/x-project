@@ -2,21 +2,25 @@
   {
     "fullname": "Unknown Author",
     "email": "x@xxx.com",
-    "location": "Location X"
+    "location": "Location X",
+    "gender": "Male"
   },
   {
     "fullname": "Author A",
     "email": "a@mail.com",
-    "location": "Location A"
+    "location": "Location A",
+    "gender": "Female"
   },
   {
     "fullname": "Author B",
     "email": "b@email.co",
-    "location": "Location B"
+    "location": "Location B",
+    "gender": "Male"
   },
   {
     "fullname": "Author C",
     "email": "c@x.com",
-    "location": "Location C"
+    "location": "Location C",
+    "gender": "Female"
   }
 ]
