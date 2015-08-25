@@ -23,18 +23,5 @@
   "Role": {
     "dataSource": "db",
     "public": false
-  },
-
-  "Author": {
-    "dataSource": "db",
-    "public": true
-  },
-  "Tag": {
-    "dataSource": "db",
-    "public": true
-  },
-  "Post": {
-    "dataSource": "db",
-    "public": true
   }
 }

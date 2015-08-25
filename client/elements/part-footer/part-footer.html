@@ -1,45 +1,69 @@
 <link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/components/select-lang/select-lang.html">
 <dom-module id="part-footer">
+  <style>
+    :host {
+      display: block;
+    }
+
+    .footer {
+      margin-top: 40px;
+      background: white;
+    }
+    .footer .container {
+      @apply(--layout);
+      @apply(--layout-justified);
+      @apply(--layout-center);
+    }
+    .footer .links {
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+      -webkit-padding-start: 0px;
+      list-style: none;
+      margin: 0;
+    }
+    .footer a {
+      text-decoration: none;
+      display: block;
+    }
+    .footer .links a {
+      padding: 1em 1em 1em 0;
+      color: #3d3d3d;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+    .lang {
+      color: #3d3d3d;
+      letter-spacing: 1px;
+      font-size: 14px;
+    }
+
+  </style>
   <template>
-    <div id="footer">
-      <div class="container text-right">
-          <span>Made with</span> 
-          <span>&hearts;</span>
-          <span>by</span>
-          <span><a target="_blank" href="{{url}}">{{author}}</a></span>
-          <span> in </span>
-          <span>{{city}}</span>
-          <span>, </span>
-          <span>{{country}}</span>
+
+    <footer class="footer">
+      <div class="container">
+        <nav class="nav">
+          <ul class="links">
+            <li><a is="app-link" href="/about">about</a></li>
+            <li><a is="app-link" href="/contact">contact</a></li>
+            <li><a is="app-link" href="/privacy">privacy</a></li>
+            <li><a is="app-link" href="/test">test</a></li>
+          </ul>
+        </nav>
+        <div class="lang">
+          <select-lang></select-lang>
+        </div>
       </div>
-    </div>
+    </footer>
+
   </template>
 </dom-module>
 <script>
-  document.addEventListener('WebComponentsReady', function() {
-    Polymer ({
+  Polymer({
 
-      is: 'part-footer',
+    is: 'part-footer'
 
-      properties: {
-        author: {
-          type: String,
-          value: 'CVDLAB'
-        },
-        url: {
-          type: String,
-          value: 'http://cvdlab.org'
-        },
-        city: {
-          type: String,
-          value: 'Rome'
-        },
-        country: {
-          type: String,
-          value: 'Italy'
-        }
-      }
-
-    });
   });
 </script>

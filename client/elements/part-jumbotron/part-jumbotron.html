@@ -1,30 +1,50 @@
 <link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-flex-layout/iron-flex-layout.html">
 <dom-module id="part-jumbotron">
   <style>
-    :host { 
-      display: block; 
+    :host {
+      display: block;
+      width: 100%;
+      height: 200px;
+      position: relative;
     }
 
-    #jumbotron {
+    #background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
+      @apply(--jumbotron-background);
     }
 
     #overlay {
+      position: absolute;
       width: 100%;
       height: 100%;
-      background-color: #f8f8f8;
-      padding-top: 150px;
-      padding-bottom: 15px;
+      background-color: rgba(0,0,0,0.25);
+      @apply(--jumbotron-overlay);
     }
+
+    #content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      @apply(--jumbotron-content);
+    }
+
   </style>
   <template>
-    <div id="jumbotron">
+
+    <div id="background">
       <div id="overlay">
-        <content select="*"></content>
+        <div id="content">
+          <content></content>
+        </div>
       </div>
     </div>
+
   </template>
 </dom-module>
 <script>
@@ -32,17 +52,7 @@
 
     is: 'part-jumbotron',
 
-    properties: {
-      background: {
-        type: String,
-        observer: 'backgroundChanged'
-      }
-    },
-
-    backgroundChanged: function (newValue, oldValue) {
-      var url = 'url("' + newValue + '")';
-      this.$.jumbotron.style.backgroundImage = url;
-    }
+    properties: {}
 
   });
 </script>

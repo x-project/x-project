@@ -1,0 +1,41 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/elements/x-link/x-link.html">
+<link rel="import" href="/components/app-routes/app-routes.html">
+<link rel="import" href="/components/app-route/app-route.html">
+<link rel="import" href="/components/app-container/app-container.html">
+<link rel="import" href="/elements/app-theme/app-theme.html">
+<link rel="import" href="/elements/page-about/page-about.html">
+<link rel="import" href="/elements/page-contact/page-contact.html">
+<link rel="import" href="/elements/page-home/page-home.html">
+<link rel="import" href="/elements/page-privacy/page-privacy.html">
+<link rel="import" href="/elements/page-test/page-test.html">
+<dom-module id="app-boot">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <app-container id="container"></app-container>
+
+    <app-routes id="routes">
+      <app-route path="/" page="page-home"></app-route>
+      <app-route path="/about" page="page-about"></app-route>
+      <app-route path="/contact" page="page-contact"></app-route>
+      <app-route path="/home" page="page-home"></app-route>
+      <app-route path="/privacy" page="page-privacy"></app-route>
+      <app-route path="/test" page="page-test"></app-route>
+    </app-routes>
+
+  </template>
+</dom-module>
+<script>
+  Polymer.Class({
+
+    is: 'app-boot',
+
+    ready: function () {}
+
+  });
+</script>
