@@ -8,13 +8,18 @@
       z-index: 100;
     }
 
-    .header {
-      @apply(--layout);
+    #header {
+      @apply(--layout-horizontal);
+      @apply(--layout-justified);
       width: 100%;
       z-index: 100;
     }
 
-    .navbar .links {
+    #brand {
+      @apply(--layout-start-justified);
+    }
+
+    ul.links {
       @apply(--layout-horizontal);
       @apply(--layout-end-justified);
       list-style: none;
@@ -22,7 +27,7 @@
       padding: 0;
     }
 
-    .navbar .links a {
+    a.link {
       text-decoration: none;
       display: block;
       padding: 2em 1em;
@@ -35,8 +40,11 @@
   </style>
   <template>
 
-    <div class="container">
-      <nav class="navbar">
+    <div id="header" class="container">
+      <div id="brand">
+        <a is="app-link" class="link" href="/">{{brand}}</a>
+      </div>
+      <nav id="navbar">
         <ul class="links">
           <li><a is="app-link" class="link" href="/about">about</a></li>
           <li><a is="app-link" class="link" href="/contact">contact</a></li>
@@ -53,7 +61,8 @@
 
     properties: {
       brand: {
-        type: String
+        type: String,
+        value: 'x-project'
       }
     }
 
