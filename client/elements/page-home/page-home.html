@@ -1,6 +1,8 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/layout-grid/layout-grid.html">
 <link rel="import" href="../app-page/app-page.html">
+<link rel="import" href="../app-texts/app-texts.html">
+<link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../part-jumbotron/part-jumbotron.html">
 <dom-module id="page-home">
   <style>
@@ -39,7 +41,7 @@
     <app-page>
       <part-jumbotron id="jumbotron">
         <header id="header">
-          <h1 id="title">x-project</h1>
+          <h1 id="title">{{brand}}</h1>
         </header>
       </part-jumbotron>
 
@@ -56,7 +58,10 @@
     is: 'page-home',
 
     properties: {
-      texts: Object
+      brand: {
+        type: String,
+        value: 'x-project'
+      }
     }
 
   });

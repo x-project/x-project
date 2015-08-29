@@ -1,18 +1,8 @@
-var path = require('path');
 var loopback = require('loopback');
 var boot = require('loopback-boot');
+var path = require('path');
 
 var app = module.exports = loopback();
-
-app.use(loopback.favicon());
-app.use(loopback.compress());
-
-boot(app, __dirname);
-
-app.use(loopback.static(path.resolve(__dirname, '../client')));
-
-var index_path = path.resolve(__dirname, '../client/index.html');
-app.get('*', function (req, res) { res.sendFile(index_path); });
 
 app.start = function() {
   return app.listen(function() {
@@ -21,6 +11,14 @@ app.start = function() {
   });
 };
 
-if (require.main === module) {
-  app.start();
-}
+boot(app, __dirname, function(err) {
+  if (err) throw err;
+
+  app.use(loopback.static(path.resolve(__dirname, '../client')));
+
+  var index_path = path.resolve(__dirname, '../client/index.html');
+  app.get('*', function (req, res) { res.sendFile(index_path); });
+
+  if (require.main === module)
+    app.start();
+});

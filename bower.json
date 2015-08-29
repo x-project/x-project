@@ -1,7 +1,8 @@
 {
   "name": "x-project",
+  "version": "0.0.1",
+  "description": "x-project",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.0",
     "x-element": "x-element/x-element"
   }
 }

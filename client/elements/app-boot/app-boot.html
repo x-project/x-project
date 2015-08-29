@@ -1,4 +1,5 @@
 <link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/elements/x-link/x-link.html">
 <link rel="import" href="/components/app-routes/app-routes.html">
 <link rel="import" href="/components/app-route/app-route.html">
 <link rel="import" href="/components/app-container/app-container.html">
@@ -34,7 +35,9 @@
 
     is: 'app-boot',
 
-    ready: function () {}
+    attached: function () {
+      console.log('x-project');
+    }
 
   });
 </script>
